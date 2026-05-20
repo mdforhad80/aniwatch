@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading... | AnimeHub</title>
+  <meta name="description" content="Watch anime online on AnimeHub">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="loader-logo">ANIMEHUB</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<div id="particles"></div>
+
+<!-- Navbar -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">ANIMEHUB</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="search.html" class="nav-link">Browse</a>
+    <a href="schedule.html" class="nav-link">Schedule</a>
+  </div>
+  <div class="nav-search">
+    <input type="text" id="nav-search-input" placeholder="Search anime..." autocomplete="off">
+    <svg class="nav-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <div id="search-dropdown"></div>
+  </div>
+  <div class="nav-actions">
+    <div id="nav-auth-btns" style="display:flex;gap:8px">
+      <a href="login.html" class="nav-btn nav-btn-ghost">Login</a>
+      <a href="signup.html" class="nav-btn nav-btn-primary">Sign Up</a>
+    </div>
+    <div id="nav-user-menu" class="nav-avatar-wrap" style="display:none">
+      <div class="nav-avatar" id="nav-avatar-letter">U</div>
+      <div class="nav-dropdown">
+        <a href="profile.html">👤 My Profile</a>
+        <a href="profile.html#history">📺 Watch History</a>
+        <button id="nav-logout-btn">🚪 Logout</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="main-content">
+  <div id="anime-page">
+    <!-- Populated dynamically -->
+    <div style="display:flex;align-items:center;justify-content:center;min-height:60vh">
+      <div class="player-loading-spinner"></div>
+    </div>
+  </div>
+</main>
+
+<!-- Mobile Nav -->
+<nav id="mobile-nav">
+  <div class="mobile-nav-items">
+    <a href="index.html" class="mobile-nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="mobile-nav-label">Home</span></a>
+    <a href="search.html" class="mobile-nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><span class="mobile-nav-label">Browse</span></a>
+    <a href="profile.html" class="mobile-nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="mobile-nav-label">Profile</span></a>
+  </div>
+</nav>
+
+<div id="toast-container"></div>
+
+<script type="module">
+import { initApp } from './assets/js/app.js';
+import { initAuth, updateNavbarAuth, handleLogout } from './assets/js/auth.js';
+import Jikan from './api/jikan.js';
+import { animeCard } from './assets/js/ui.js';
+import { getParam, showToast, debounce, formatScore } from './assets/js/utils.js';
+import { getStreamUrl, generateEpisodes } from './api/anime.js';
+
+initApp();
+initAuth();
+
+const { onUserChange } = await import('./assets/js/auth.js');
+let currentUser = null;
+onUserChange(user => {
+  currentUser = user;
+  updateNavbarAuth(user);
+  if (user && window._animeData) updateActionButtons(window._animeData, user);
+});
+document.getElementById('nav-logout-btn')?.addEventListener('click', handleLogout);
+
+const malId = getParam('id');
+if (!malId) { window.location.href = 'index.html'; }
+
+async function loadAnimePage(id) {
+  try {
+    const [animeRes, charsRes, recsRes, videosRes] = await Promise.allSettled([
+      Jikan.getAnime(id),
+      Jikan.getAnimeCharacters(id),
+      Jikan.getAnimeRecommendations(id),
+      Jikan.getAnimeVideos(id),
+    ]);
+
+    const anime = animeRes.value?.data;
+    if (!anime) { document.getElementById('anime-page').innerHTML = '<div style="text-align:center;padding:80px;color:var(--muted)">Anime not found</div>'; return; }
+
+    window._animeData = anime;
+    const chars = charsRes.value?.data || [];
+    const recs = recsRes.value?.data || [];
+    const videos = videosRes.value?.data;
+
+    document.title = `${anime.title_english || anime.title} | AnimeHub`;
+
+    const banner = anime.images?.webp?.large_image_url || anime.images?.jpg?.large_image_url;
+    const poster = anime.images?.webp?.image_url || anime.images?.jpg?.image_url;
+    const title = anime.title_english || anime.title;
+    const titleJP = anime.title_japanese || '';
+    const synopsis = anime.synopsis || 'No synopsis available.';
+    const genres = anime.genres?.map(g => g.name) || [];
+    const studios = anime.studios?.map(s => s.name).join(', ') || 'N/A';
+    const producers = anime.producers?.map(p => p.name).join(', ') || 'N/A';
+    const epCount = anime.episodes || 0;
+    const trailer = videos?.promo?.[0]?.trailer?.embed_url || '';
+
+    const page = document.getElementById('anime-page');
+    page.innerHTML = `
+      <!-- Detail Hero -->
+      <div class="detail-hero">
+        <div class="detail-banner" style="background-image:url('${banner}')"></div>
+        <div class="detail-banner-overlay"></div>
+        <div class="detail-content">
+          <div class="detail-poster">
+            <img src="${poster}" alt="${title}" onerror="this.src='assets/images/no-image.svg'">
+          </div>
+          <div class="detail-info">
+            <h1 class="detail-title">${title}</h1>
+            ${titleJP ? `<div class="detail-title-jp">${titleJP}</div>` : ''}
+            <div class="detail-tags">
+              ${anime.rating ? `<span class="detail-tag">${anime.rating.split(' ')[0]}</span>` : ''}
+              ${anime.type ? `<span class="detail-tag">${anime.type}</span>` : ''}
+              ${anime.status ? `<span class="detail-tag">${anime.status}</span>` : ''}
+              ${anime.score ? `<span class="detail-tag text-score">⭐ ${formatScore(anime.score)}</span>` : ''}
+            </div>
+            <div class="detail-actions">
+              <a href="watch.html?id=${id}&ep=1&type=sub" class="btn btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                Watch Now
+              </a>
+              <button class="detail-action-btn bookmark" id="bookmark-btn" data-id="${id}">
+                🔖 <span>Bookmark</span>
+              </button>
+              <button class="detail-action-btn favorite" id="favorite-btn" data-id="${id}">
+                ❤️ <span>Favorite</span>
+              </button>
+              <a href="https://myanimelist.net/anime/${id}/" target="_blank" class="detail-action-btn" style="background:var(--bg-elevated);border:1px solid var(--border)">
+                MAL ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info Section -->
+      <div class="section">
+        <div class="two-col">
+          <!-- Left: Info + Episodes + Characters -->
+          <div>
+            <!-- Synopsis -->
+            <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-bottom:24px">
+              <h2 class="widget-title">Synopsis</h2>
+              <p style="font-size:0.9rem;line-height:1.8;color:var(--text-secondary)">${synopsis}</p>
+            </div>
+
+            <!-- Info Grid -->
+            <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-bottom:24px">
+              <h2 class="widget-title">Information</h2>
+              <div class="info-grid">
+                <div class="info-item"><div class="info-label">Country</div><div class="info-value">Japan</div></div>
+                <div class="info-item"><div class="info-label">Genres</div><div class="info-value">${genres.join(', ') || 'N/A'}</div></div>
+                <div class="info-item"><div class="info-label">Premiered</div><div class="info-value">${anime.season ? anime.season.charAt(0).toUpperCase() + anime.season.slice(1) + ' ' + anime.year : 'N/A'}</div></div>
+                <div class="info-item"><div class="info-label">Date Aired</div><div class="info-value">${anime.aired?.string || 'N/A'}</div></div>
+                <div class="info-item"><div class="info-label">Broadcast</div><div class="info-value">${anime.broadcast?.string || 'N/A'}</div></div>
+                <div class="info-item"><div class="info-label">Episodes</div><div class="info-value">${anime.episodes || '?'}</div></div>
+                <div class="info-item"><div class="info-label">Duration</div><div class="info-value">${anime.duration || 'N/A'}</div></div>
+                <div class="info-item"><div class="info-label">Status</div><div class="info-value">${anime.status || 'N/A'}</div></div>
+                <div class="info-item"><div class="info-label">Score</div><div class="info-value text-score">⭐ ${anime.score || 'N/A'} <span style="color:var(--muted);font-size:0.75rem">(${anime.scored_by ? anime.scored_by.toLocaleString() : 0} votes)</span></div></div>
+                <div class="info-item"><div class="info-label">Studios</div><div class="info-value">${studios}</div></div>
+                <div class="info-item"><div class="info-label">Producers</div><div class="info-value">${producers}</div></div>
+                <div class="info-item"><div class="info-label">Links</div><div class="info-value"><a href="https://myanimelist.net/anime/${id}/" target="_blank" style="color:var(--purple-light)">MyAnimeList ↗</a></div></div>
+              </div>
+            </div>
+
+            <!-- Episodes -->
+            <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-bottom:24px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+                <h2 class="widget-title" style="margin:0">Episodes</h2>
+                <div class="type-switcher">
+                  <button class="type-btn active" id="sub-btn" onclick="switchType('sub')">SUB</button>
+                  <button class="type-btn" id="dub-btn" onclick="switchType('dub')">DUB</button>
+                </div>
+              </div>
+              <div class="episodes-grid" id="episodes-grid">
+                ${epCount > 0 ? generateEpisodeButtons(id, epCount, 'sub') : '<p style="color:var(--muted);font-size:0.875rem">Episodes not yet available</p>'}
+              </div>
+            </div>
+
+            <!-- Characters -->
+            ${chars.length ? `
+            <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-bottom:24px">
+              <h2 class="widget-title">Characters</h2>
+              <div style="display:flex;gap:12px;overflow-x:auto;padding-bottom:8px">
+                ${chars.slice(0, 12).map(c => `
+                  <div class="char-card" style="flex:0 0 200px">
+                    <img class="char-img" src="${c.character.images?.webp?.image_url || c.character.images?.jpg?.image_url || 'assets/images/no-image.svg'}" alt="${c.character.name}" onerror="this.src='assets/images/no-image.svg'">
+                    <div class="char-info">
+                      <div class="char-name">${c.character.name}</div>
+                      <div class="char-role" style="color:var(--purple-light);margin-top:4px">${c.role}</div>
+                      ${c.voice_actors?.find(v => v.language === 'Japanese') ? `<div class="char-role" style="margin-top:4px">VA: ${c.voice_actors.find(v => v.language === 'Japanese').person.name}</div>` : ''}
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            ` : ''}
+
+            <!-- Trailer -->
+            ${trailer ? `
+            <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-bottom:24px">
+              <h2 class="widget-title">Trailer</h2>
+              <div style="position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden">
+                <iframe src="${trailer}" frameborder="0" allowfullscreen style="width:100%;height:100%"></iframe>
+              </div>
+            </div>
+            ` : ''}
+
+          </div><!-- end left -->
+
+          <!-- Sidebar: Recommendations -->
+          <aside class="sidebar">
+            <div class="sidebar-widget">
+              <div class="widget-title">Related Anime</div>
+              <div id="recs-list">
+                ${recs.slice(0, 8).map(r => `
+                  <a href="anime.html?id=${r.entry.mal_id}" class="rank-item">
+                    <img class="rank-poster" src="${r.entry.images?.webp?.image_url || r.entry.images?.jpg?.image_url || 'assets/images/no-image.svg'}" alt="${r.entry.title}" onerror="this.src='assets/images/no-image.svg'">
+                    <div class="rank-info">
+                      <div class="rank-title">${r.entry.title}</div>
+                      <div class="rank-meta">Recommended</div>
+                    </div>
+                  </a>
+                `).join('') || '<p style="color:var(--muted);font-size:0.875rem">No recommendations</p>'}
+              </div>
+            </div>
+
+            <!-- Genres -->
+            ${genres.length ? `
+            <div class="sidebar-widget">
+              <div class="widget-title">Genres</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                ${genres.map(g => `<a href="search.html?gname=${encodeURIComponent(g)}" class="filter-chip">${g}</a>`).join('')}
+              </div>
+            </div>
+            ` : ''}
+          </aside>
+
+        </div><!-- end two-col -->
+      </div><!-- end section -->
+    `;
+
+    // Setup action buttons
+    updateActionButtons(anime, currentUser);
+
+    // Save to history if logged in
+    if (currentUser) {
+      try {
+        const { addToHistory } = await import('./firebase/firestore.js');
+        await addToHistory(currentUser.uid, {
+          mal_id: id,
+          title: title,
+          image: poster,
+          type: anime.type,
+          score: anime.score,
+        });
+      } catch(e) {}
+    }
+
+  } catch (e) {
+    console.error(e);
+    document.getElementById('anime-page').innerHTML = `<div style="text-align:center;padding:80px;color:var(--muted)">
+      <div style="font-size:3rem;margin-bottom:16px">😔</div>
+      <h2>Failed to load anime</h2>
+      <p style="margin-top:8px">Please try again later</p>
+      <a href="index.html" class="btn btn-primary" style="margin-top:20px;display:inline-flex">Go Home</a>
+    </div>`;
+  }
+}
+
+function generateEpisodeButtons(malId, count, type) {
+  return Array.from({ length: count }, (_, i) => i + 1).map(ep => `
+    <button class="ep-btn" onclick="window.location.href='watch.html?id=${malId}&ep=${ep}&type=${type}'" title="Episode ${ep}">
+      ${ep}
+    </button>
+  `).join('');
+}
+
+window.switchType = function(type) {
+  document.getElementById('sub-btn').classList.toggle('active', type === 'sub');
+  document.getElementById('dub-btn').classList.toggle('active', type === 'dub');
+  const grid = document.getElementById('episodes-grid');
+  const epCount = window._animeData?.episodes || 0;
+  if (epCount > 0) grid.innerHTML = generateEpisodeButtons(malId, epCount, type);
+};
+
+async function updateActionButtons(anime, user) {
+  if (!user) return;
+  try {
+    const { isBookmarked, isFavorited, addBookmark, removeBookmark, addFavorite, removeFavorite } = await import('./firebase/firestore.js');
+    const [bookmarked, favorited] = await Promise.all([
+      isBookmarked(user.uid, anime.mal_id),
+      isFavorited(user.uid, anime.mal_id)
+    ]);
+
+    const bmBtn = document.getElementById('bookmark-btn');
+    const favBtn = document.getElementById('favorite-btn');
+
+    if (bmBtn) {
+      if (bookmarked) bmBtn.classList.add('active');
+      bmBtn.onclick = async () => {
+        if (bmBtn.classList.contains('active')) {
+          await removeBookmark(user.uid, anime.mal_id);
+          bmBtn.classList.remove('active');
+          showToast('Bookmark removed', 'info');
+        } else {
+          await addBookmark(user.uid, { mal_id: anime.mal_id, title: anime.title_english || anime.title, image: anime.images?.webp?.image_url });
+          bmBtn.classList.add('active');
+          showToast('Bookmarked!', 'success');
+        }
+      };
+    }
+
+    if (favBtn) {
+      if (favorited) favBtn.classList.add('active');
+      favBtn.onclick = async () => {
+        if (favBtn.classList.contains('active')) {
+          await removeFavorite(user.uid, anime.mal_id);
+          favBtn.classList.remove('active');
+          showToast('Removed from favorites', 'info');
+        } else {
+          await addFavorite(user.uid, { mal_id: anime.mal_id, title: anime.title_english || anime.title, image: anime.images?.webp?.image_url });
+          favBtn.classList.add('active');
+          showToast('Added to favorites!', 'success');
+        }
+      };
+    }
+  } catch(e) {}
+}
+
+// Search in navbar
+const searchInput = document.getElementById('nav-search-input');
+const searchDropdown = document.getElementById('search-dropdown');
+const doSearch = debounce(async (q) => {
+  if (!q.trim()) { searchDropdown.classList.remove('visible'); return; }
+  const res = await Jikan.search(q, { limit: 6 });
+  searchDropdown.innerHTML = (res.data || []).map(a => `
+    <a href="anime.html?id=${a.mal_id}" class="search-result-item">
+      <img class="search-result-img" src="${a.images?.webp?.image_url || 'assets/images/no-image.svg'}" alt="${a.title}" onerror="this.src='assets/images/no-image.svg'">
+      <div class="search-result-info">
+        <div class="search-result-title">${a.title_english || a.title}</div>
+        <div class="search-result-meta">${a.type || ''} ${a.score ? '· ⭐' + a.score : ''}</div>
+      </div>
+    </a>
+  `).join('') || '<div style="padding:16px;color:var(--muted);font-size:0.875rem">No results</div>';
+  searchDropdown.classList.add('visible');
+}, 400);
+searchInput?.addEventListener('input', e => doSearch(e.target.value));
+searchInput?.addEventListener('keydown', e => { if (e.key === 'Enter') window.location.href = `search.html?q=${encodeURIComponent(e.target.value)}`; });
+document.addEventListener('click', e => { if (!e.target.closest('.nav-search')) searchDropdown.classList.remove('visible'); });
+
+loadAnimePage(malId);
+</script>
+</body>
+</html>
