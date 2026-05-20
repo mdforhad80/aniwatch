@@ -1,170 +1,411 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="AnimeStream – Premium Anime Streaming" />
-  <meta property="og:title" content="AnimeStream – Watch Anime Online" />
-  <meta property="og:description" content="Cinematic anime streaming with sub/dub" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <title>AnimeStream – Watch Anime Online</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>" />
-  <style>
-    /* ============ LIGHT / DARK THEME VARIABLES ============ */
-    :root {
-      --bg: #0b0b0f;
-      --bg-secondary: #121218;
-      --bg-tertiary: #1a1a24;
-      --text: #f3f4f6;
-      --text-secondary: #d1d5db;
-      --muted: #9ca3af;
-      --border: rgba(255,255,255,0.08);
-      --border-light: rgba(255,255,255,0.14);
-      --glass: rgba(18,18,24,0.7);
-      --glass-strong: rgba(18,18,24,0.85);
-      --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
-      --shadow-md: 0 8px 32px rgba(0,0,0,0.4);
-      --shadow-lg: 0 16px 48px rgba(0,0,0,0.5);
-      --shadow-purple: 0 0 30px rgba(139,92,246,0.3);
-      --shadow-pink: 0 0 30px rgba(217,70,239,0.25);
-      --purple: #8b5cf6;
-      --purple-dark: #6d28d9;
-      --purple-light: #a78bfa;
-      --pink: #d946ef;
-      --pink-dark: #c026d3;
-      --pink-light: #f0abfc;
-    }
-
-    body.light-mode {
-      --bg: #f8f9fc;
-      --bg-secondary: #ffffff;
-      --bg-tertiary: #eef0f5;
-      --text: #1a1a2e;
-      --text-secondary: #2d2d44;
-      --muted: #555770;
-      --border: rgba(0,0,0,0.06);
-      --border-light: rgba(0,0,0,0.10);
-      --glass: rgba(255,255,255,0.75);
-      --glass-strong: rgba(255,255,255,0.9);
-      --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
-      --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
-      --shadow-lg: 0 16px 40px rgba(0,0,0,0.12);
-      --shadow-purple: 0 0 20px rgba(139,92,246,0.15);
-      --shadow-pink: 0 0 20px rgba(217,70,239,0.12);
-    }
-
-    /* (rest of the CSS from the original answer, unchanged) */
-    * { box-sizing: border-box; margin:0; padding:0; }
-    html { scroll-behavior: smooth; font-size: 16px; -webkit-font-smoothing: antialiased; }
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      min-height: 100vh;
-      transition: background 0.3s, color 0.3s;
-    }
-    /* ... (include all other CSS rules from the original answer, they remain identical) ... */
-
-    /* Particle canvas, cursor glow, navbar, sidebar, hero, cards, etc. – keep everything */
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AnimeHub — Watch Anime Online Free in HD</title>
+  <meta name="description" content="Watch the latest anime online in HD quality. Sub and Dub available. AnimeHub — Your ultimate anime streaming platform.">
+  <meta property="og:title" content="AnimeHub — Watch Anime Online">
+  <meta property="og:description" content="Stream anime in HD quality for free. Sub & Dub available.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
-  <canvas id="particles-canvas"></canvas>
-  <div class="cursor-glow" id="cursorGlow"></div>
 
-  <nav class="navbar" id="navbar">
-    <!-- same navbar structure as before, but links use hash or query routing -->
-  </nav>
+<!-- Loading Screen -->
+<div id="loading-screen">
+  <div class="loader-logo">ANIMEHUB</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
 
-  <div class="app-layout">
-    <aside class="sidebar" id="sidebar"><!-- ... --></aside>
-    <main class="main-content" id="mainContent">
-      <div id="pageContent"><!-- dynamic content rendered by JS --></div>
-    </main>
+<!-- Cursor -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- Particles -->
+<div id="particles"></div>
+
+<!-- Navbar -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">ANIMEHUB</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link active">Home</a>
+    <a href="search.html" class="nav-link">Browse</a>
+    <a href="search.html?filter=movie" class="nav-link">Movies</a>
+    <a href="schedule.html" class="nav-link">Schedule</a>
+    <a href="creator.html" class="nav-link">About</a>
+  </div>
+  <div class="nav-search">
+    <input type="text" id="nav-search-input" placeholder="Search anime... (Press /)" autocomplete="off">
+    <svg class="nav-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <div id="search-dropdown"></div>
+  </div>
+  <div class="nav-actions">
+    <div id="nav-auth-btns" style="display:flex;gap:8px">
+      <a href="login.html" class="nav-btn nav-btn-ghost">Login</a>
+      <a href="signup.html" class="nav-btn nav-btn-primary">Sign Up</a>
+    </div>
+    <div id="nav-user-menu" class="nav-avatar-wrap" style="display:none">
+      <div class="nav-avatar" id="nav-avatar-letter">U</div>
+      <div class="nav-dropdown">
+        <a href="profile.html">👤 My Profile</a>
+        <a href="profile.html#history">📺 Watch History</a>
+        <a href="profile.html#bookmarks">🔖 Bookmarks</a>
+        <a href="profile.html#favorites">❤️ Favorites</a>
+        <button id="nav-logout-btn">🚪 Logout</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content">
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero-section">
+    <div class="hero-slides"></div>
+    <div class="hero-dots"></div>
+    <div class="hero-arrows">
+      <button class="hero-arrow hero-arrow-prev">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <button class="hero-arrow hero-arrow-next">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Continue Watching (only shown when logged in) -->
+  <section class="section" id="continue-section" style="display:none">
+    <div class="section-header">
+      <h2 class="section-title">Continue Watching</h2>
+    </div>
+    <div class="anime-row" id="continue-watching-row"></div>
+  </section>
+
+  <!-- Two Column Layout: Main + Sidebar -->
+  <div class="section" style="padding-top:0">
+    <div class="two-col" id="main-layout">
+
+      <!-- Main Column -->
+      <div>
+        <!-- Trending -->
+        <div style="margin-bottom:40px">
+          <div class="section-header">
+            <h2 class="section-title">🔥 Trending Now</h2>
+            <a href="search.html?filter=airing" class="section-link">View All →</a>
+          </div>
+          <div class="anime-grid" id="trending-grid"><div class="skeleton skeleton-card" style="aspect-ratio:2/3;border-radius:12px"></div><div class="skeleton skeleton-card" style="aspect-ratio:2/3;border-radius:12px"></div><div class="skeleton skeleton-card" style="aspect-ratio:2/3;border-radius:12px"></div><div class="skeleton skeleton-card" style="aspect-ratio:2/3;border-radius:12px"></div><div class="skeleton skeleton-card" style="aspect-ratio:2/3;border-radius:12px"></div><div class="skeleton skeleton-card" style="aspect-ratio:2/3;border-radius:12px"></div></div>
+        </div>
+
+        <!-- Latest Updates -->
+        <div style="margin-bottom:40px">
+          <div class="section-header">
+            <h2 class="section-title">🆕 Latest Updates</h2>
+            <a href="search.html?filter=airing" class="section-link">View All →</a>
+          </div>
+          <div class="anime-grid" id="latest-grid"><div class="skeleton skeleton-card" style="aspect-ratio:2/3;border-radius:12px"></div><div class="skeleton skeleton-card" style="aspect-ratio:2/3;border-radius:12px"></div><div class="skeleton skeleton-card" style="aspect-ratio:2/3;border-radius:12px"></div><div class="skeleton skeleton-card" style="aspect-ratio:2/3;border-radius:12px"></div><div class="skeleton skeleton-card" style="aspect-ratio:2/3;border-radius:12px"></div><div class="skeleton skeleton-card" style="aspect-ratio:2/3;border-radius:12px"></div></div>
+        </div>
+
+        <!-- New This Season -->
+        <div style="margin-bottom:40px">
+          <div class="section-header">
+            <h2 class="section-title">🌸 New This Season</h2>
+            <a href="search.html?filter=season" class="section-link">View All →</a>
+          </div>
+          <div class="anime-row" id="season-row"></div>
+        </div>
+
+        <!-- Popular Movies -->
+        <div style="margin-bottom:40px">
+          <div class="section-header">
+            <h2 class="section-title">🎬 Popular Movies</h2>
+            <a href="search.html?filter=movie" class="section-link">View All →</a>
+          </div>
+          <div class="anime-row" id="movies-row"></div>
+        </div>
+
+        <!-- Upcoming Anime -->
+        <div style="margin-bottom:40px">
+          <div class="section-header">
+            <h2 class="section-title">📅 Upcoming</h2>
+            <a href="schedule.html" class="section-link">Full Schedule →</a>
+          </div>
+          <div class="anime-grid" id="upcoming-grid"></div>
+        </div>
+
+        <!-- Completed Anime -->
+        <div style="margin-bottom:40px">
+          <div class="section-header">
+            <h2 class="section-title">✅ Completed Series</h2>
+            <a href="search.html?status=complete" class="section-link">View All →</a>
+          </div>
+          <div class="anime-row" id="completed-row"></div>
+        </div>
+
+      </div><!-- end main col -->
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+
+        <!-- Random Anime -->
+        <div class="sidebar-widget" style="text-align:center">
+          <div class="widget-title">🎲 Random Anime</div>
+          <p style="font-size:0.85rem;color:var(--muted);margin-bottom:16px">Discover something new!</p>
+          <button id="random-btn" class="btn btn-primary" style="width:100%;justify-content:center">
+            Surprise Me!
+          </button>
+        </div>
+
+        <!-- Top Rankings -->
+        <div class="sidebar-widget">
+          <div class="widget-title">🏆 Top Ranked</div>
+          <div id="rank-list"></div>
+        </div>
+
+        <!-- Popular -->
+        <div class="sidebar-widget">
+          <div class="widget-title">💫 Most Popular</div>
+          <div id="popular-list"></div>
+        </div>
+
+        <!-- Genre Explore -->
+        <div class="sidebar-widget">
+          <div class="widget-title">🎭 Browse Genres</div>
+          <div id="genre-chips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+        </div>
+
+      </aside>
+
+    </div>
   </div>
 
-  <!-- Auth modal, toasts, footer, mobile nav – identical to original -->
+</main>
 
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<!-- Mobile Nav -->
+<nav id="mobile-nav">
+  <div class="mobile-nav-items">
+    <a href="index.html" class="mobile-nav-item active">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span class="mobile-nav-label">Home</span>
+    </a>
+    <a href="search.html" class="mobile-nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <span class="mobile-nav-label">Browse</span>
+    </a>
+    <a href="schedule.html" class="mobile-nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span class="mobile-nav-label">Schedule</span>
+    </a>
+    <a href="profile.html" class="mobile-nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span class="mobile-nav-label">Profile</span>
+    </a>
+  </div>
+</nav>
 
-  <script>
-    // ==================== CONFIG & INIT ====================
-    const firebaseConfig = { /* your config */ };
-    // ... (keep all the original JS, but modify the routing part)
+<!-- Toast Container -->
+<div id="toast-container"></div>
 
-    // ----- NEW: SPA ROUTING for GitHub Pages -----
-    function parsePageFromURL() {
-      const params = new URLSearchParams(window.location.search);
-      const pageParam = params.get('p'); // original path from 404.html
-      if (pageParam) {
-        // decode and simulate that page
-        const decoded = decodeURIComponent(pageParam);
-        const url = new URL(decoded, window.location.origin);
-        const path = url.pathname;
-        const searchParams = url.searchParams;
-        if (path.includes('anime.html')) {
-          const id = searchParams.get('id');
-          if (id) renderAnimePage(id);
-        } else if (path.includes('watch.html')) {
-          const id = searchParams.get('id');
-          const ep = searchParams.get('ep') || '1';
-          const type = searchParams.get('type') || 'sub';
-          if (id) renderWatchPage(id, ep, type);
-        } else if (path.includes('search.html')) {
-          const q = searchParams.get('q');
-          renderSearchPage(q);
-        } else if (path.includes('schedule.html')) {
-          renderSchedulePage();
-        } else if (path.includes('creator.html')) {
-          renderCreatorPage();
-        } else if (path.includes('profile.html')) {
-          renderProfilePage();
-        } else if (path.includes('login.html')) {
-          openAuthModal('login');
-        } else if (path.includes('signup.html')) {
-          openAuthModal('signup');
-        }
-        // Clean up the URL to remove the p= param
-        window.history.replaceState(null, '', window.location.pathname + '?' + searchParams.toString());
-      } else {
-        // Default: home page
-        renderHomePage();
-      }
+<script type="module">
+import { initApp, initHeroSlider } from './assets/js/app.js';
+import { initAuth, updateNavbarAuth, handleLogout } from './assets/js/auth.js';
+import Jikan from './api/jikan.js';
+import { animeCard, skeletonCards } from './assets/js/ui.js';
+import { debounce, showToast } from './assets/js/utils.js';
+
+// Init
+initApp();
+initAuth();
+
+// Auth state
+const { onUserChange } = await import('./assets/js/auth.js');
+onUserChange(async user => {
+  updateNavbarAuth(user);
+  if (user) {
+    document.getElementById('continue-section').style.display = 'block';
+    loadContinueWatching(user.uid);
+  }
+});
+
+document.getElementById('nav-logout-btn')?.addEventListener('click', handleLogout);
+
+// ── Load Home Data ─────────────────────────────────────────────────────────
+async function loadHome() {
+  try {
+    const [trending, latest, season, movies, upcoming, top, popular] = await Promise.allSettled([
+      Jikan.getTopAiring(),
+      Jikan.getTopAiring(2),
+      Jikan.getCurrentSeason(),
+      Jikan.getTopMovies(),
+      Jikan.getUpcoming(),
+      Jikan.getTopAnime(),
+      Jikan.getPopular(),
+    ]);
+
+    const trendingData = trending.value?.data || [];
+    const latestData = latest.value?.data || [];
+    const seasonData = season.value?.data || [];
+    const moviesData = movies.value?.data || [];
+    const upcomingData = upcoming.value?.data || [];
+    const topData = top.value?.data || [];
+    const popularData = popular.value?.data || [];
+
+    // Hero Slider
+    const heroData = trendingData.slice(0, 5).map(a => ({
+      mal_id: a.mal_id,
+      title: a.title_english || a.title,
+      synopsis: a.synopsis,
+      score: a.score,
+      type: a.type,
+      episodes: a.episodes,
+      status: a.status,
+      genres: a.genres?.map(g => g.name) || [],
+      banner: a.images?.webp?.large_image_url || a.images?.jpg?.large_image_url,
+    }));
+    initHeroSlider(heroData);
+
+    // Trending Grid
+    const tGrid = document.getElementById('trending-grid');
+    tGrid.innerHTML = trendingData.slice(0, 12).map(a => animeCard(a)).join('');
+
+    // Latest Grid
+    const lGrid = document.getElementById('latest-grid');
+    lGrid.innerHTML = latestData.slice(0, 12).map(a => animeCard(a)).join('');
+
+    // Season Row
+    const sRow = document.getElementById('season-row');
+    sRow.innerHTML = seasonData.slice(0, 10).map(a => animeCard(a)).join('');
+
+    // Movies Row
+    const mRow = document.getElementById('movies-row');
+    mRow.innerHTML = moviesData.slice(0, 10).map(a => animeCard(a)).join('');
+
+    // Upcoming
+    const uGrid = document.getElementById('upcoming-grid');
+    uGrid.innerHTML = upcomingData.slice(0, 6).map(a => animeCard(a)).join('');
+
+    // Completed Row
+    const cRow = document.getElementById('completed-row');
+    const completedData = topData.filter(a => a.status === 'Finished Airing').slice(0, 10);
+    cRow.innerHTML = completedData.map(a => animeCard(a)).join('');
+
+    // Rankings
+    renderRankList('rank-list', topData.slice(0, 8));
+    renderRankList('popular-list', popularData.slice(0, 8));
+
+    // Genres
+    loadGenres();
+
+  } catch (e) {
+    console.error('Home load error:', e);
+    showToast('Failed to load some content', 'error');
+  }
+}
+
+function renderRankList(id, list) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = list.map((a, i) => `
+    <a href="anime.html?id=${a.mal_id}" class="rank-item">
+      <span class="rank-num">${i + 1}</span>
+      <img class="rank-poster" src="${a.images?.webp?.image_url || a.images?.jpg?.image_url || 'assets/images/no-image.svg'}" alt="${a.title}" loading="lazy" onerror="this.src='assets/images/no-image.svg'">
+      <div class="rank-info">
+        <div class="rank-title">${a.title_english || a.title}</div>
+        <div class="rank-meta">${a.type || ''} ${a.episodes ? '· ' + a.episodes + ' eps' : ''}</div>
+      </div>
+      <span class="rank-score">⭐ ${a.score || 'N/A'}</span>
+    </a>
+  `).join('');
+}
+
+async function loadGenres() {
+  try {
+    const res = await Jikan.getGenres();
+    const genres = res.data?.slice(0, 18) || [];
+    const container = document.getElementById('genre-chips');
+    container.innerHTML = genres.map(g => `
+      <a href="search.html?genre=${g.mal_id}&gname=${encodeURIComponent(g.name)}" class="filter-chip">
+        ${g.name}
+      </a>
+    `).join('');
+  } catch(e) {}
+}
+
+// Continue Watching
+async function loadContinueWatching(uid) {
+  try {
+    const { getContinueWatching } = await import('./firebase/firestore.js');
+    const items = await getContinueWatching(uid);
+    if (!items.length) return;
+    const row = document.getElementById('continue-watching-row');
+    row.innerHTML = items.slice(0, 8).map(item => `
+      <a href="watch.html?id=${item.mal_id}&ep=${item.episode}&type=${item.type || 'sub'}" class="continue-card">
+        <img class="continue-thumb" src="${item.image || 'assets/images/no-image.svg'}" alt="${item.title}" onerror="this.src='assets/images/no-image.svg'">
+        <div class="continue-progress">
+          <div class="continue-progress-fill" style="width:${item.progress || 0}%"></div>
+        </div>
+        <div class="continue-info">
+          <div class="continue-title">${item.title}</div>
+          <div class="continue-ep">Episode ${item.episode}</div>
+        </div>
+      </a>
+    `).join('');
+  } catch(e) {}
+}
+
+// Search
+const searchInput = document.getElementById('nav-search-input');
+const searchDropdown = document.getElementById('search-dropdown');
+
+const doSearch = debounce(async (q) => {
+  if (!q.trim()) { searchDropdown.classList.remove('visible'); searchDropdown.innerHTML = ''; return; }
+  try {
+    const res = await Jikan.search(q, { limit: 8 });
+    const items = res.data || [];
+    if (!items.length) { searchDropdown.innerHTML = '<div style="padding:16px;color:var(--muted);font-size:0.875rem;text-align:center">No results found</div>'; }
+    else {
+      searchDropdown.innerHTML = items.map(a => `
+        <a href="anime.html?id=${a.mal_id}" class="search-result-item">
+          <img class="search-result-img" src="${a.images?.webp?.image_url || 'assets/images/no-image.svg'}" alt="${a.title}" onerror="this.src='assets/images/no-image.svg'">
+          <div class="search-result-info">
+            <div class="search-result-title">${a.title_english || a.title}</div>
+            <div class="search-result-meta">${a.type || ''} ${a.score ? '· ⭐' + a.score : ''} ${a.episodes ? '· ' + a.episodes + ' eps' : ''}</div>
+          </div>
+        </a>
+      `).join('');
     }
+    searchDropdown.classList.add('visible');
+  } catch(e) {}
+}, 400);
 
-    // On load, parse the URL and render the correct page
-    window.addEventListener('DOMContentLoaded', () => {
-      // Initialize Firebase, theme, particles, etc.
-      // Then call parsePageFromURL()
-      parsePageFromURL();
-    });
+searchInput?.addEventListener('input', e => doSearch(e.target.value));
+searchInput?.addEventListener('keydown', e => {
+  if (e.key === 'Enter') window.location.href = `search.html?q=${encodeURIComponent(e.target.value)}`;
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nav-search')) {
+    searchDropdown.classList.remove('visible');
+  }
+});
 
-    // ----- THEME TOGGLE (Light/Dark) -----
-    const themeToggle = document.getElementById('themeToggle');
-    // Default: dark mode (body does not have .light-mode)
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('light-mode');
-      const isLight = document.body.classList.contains('light-mode');
-      themeToggle.textContent = isLight ? '☀️' : '🌙';
-      localStorage.setItem('theme', isLight ? 'light' : 'dark');
-    });
-    // Load saved theme
-    (function() {
-      const saved = localStorage.getItem('theme');
-      if (saved === 'light') {
-        document.body.classList.add('light-mode');
-        themeToggle.textContent = '☀️';
-      } else {
-        themeToggle.textContent = '🌙';
-      }
-    })();
+// Random anime
+document.getElementById('random-btn')?.addEventListener('click', async () => {
+  try {
+    const btn = document.getElementById('random-btn');
+    btn.textContent = 'Loading...';
+    const res = await Jikan.getRandom();
+    if (res.data) window.location.href = `anime.html?id=${res.data.mal_id}`;
+  } catch(e) { showToast('Could not fetch random anime', 'error'); }
+});
 
-    // ----- REMOVE POPULAR ANIME WIDGET -----
-    // (simply do not call getPopularAnime() or render it)
-    // The homepage render function now only shows Trending, Upcoming, Completed.
-  </script>
+// Start loading
+loadHome();
+</script>
 </body>
 </html>
