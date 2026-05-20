@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule - AnimeVault</title>
+    <meta name="description" content="Anime airing schedule and upcoming episodes.">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">AnimeVault</div>
+            <div class="loading-bar"><div class="loading-progress"></div></div>
+            <p class="loading-text">Loading schedule...</p>
+        </div>
+    </div>
+
+    <div id="cursor-glow" class="cursor-glow"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"><i class="fas fa-play-circle"></i></span>
+                <span class="logo-text">AnimeVault</span>
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="search.html" class="nav-link">Browse</a>
+                <a href="schedule.html" class="nav-link active">Schedule</a>
+            </div>
+            <div class="nav-actions">
+                <div class="search-trigger" id="search-trigger"><i class="fas fa-search"></i></div>
+                <div class="user-menu" id="user-menu">
+                    <a href="login.html" class="btn btn-primary btn-sm" id="login-btn">Sign In</a>
+                    <div class="user-dropdown hidden" id="user-dropdown">
+                        <a href="profile.html" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#" class="dropdown-item" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="mobile-nav" id="mobile-nav">
+        <a href="index.html" class="mobile-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="search.html" class="mobile-nav-item"><i class="fas fa-search"></i><span>Search</span></a>
+        <a href="schedule.html" class="mobile-nav-item active"><i class="fas fa-calendar"></i><span>Schedule</span></a>
+        <a href="profile.html" class="mobile-nav-item"><i class="fas fa-user"></i><span>Profile</span></a>
+    </div>
+
+    <div class="search-overlay" id="search-overlay">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" class="search-input" id="search-input" placeholder="Search anime..." autocomplete="off">
+                <button class="search-close" id="search-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="search-results" id="search-results"></div>
+        </div>
+    </div>
+
+    <main class="main-content schedule-page">
+        <section class="schedule-header">
+            <h1 class="page-title"><i class="fas fa-calendar-alt"></i> Anime Schedule</h1>
+            <div class="schedule-tabs">
+                <button class="schedule-tab active" data-day="all">All</button>
+                <button class="schedule-tab" data-day="monday">Mon</button>
+                <button class="schedule-tab" data-day="tuesday">Tue</button>
+                <button class="schedule-tab" data-day="wednesday">Wed</button>
+                <button class="schedule-tab" data-day="thursday">Thu</button>
+                <button class="schedule-tab" data-day="friday">Fri</button>
+                <button class="schedule-tab" data-day="saturday">Sat</button>
+                <button class="schedule-tab" data-day="sunday">Sun</button>
+            </div>
+        </section>
+
+        <section class="schedule-content">
+            <div class="schedule-grid" id="schedule-grid"></div>
+            <div class="empty-state hidden" id="empty-schedule">
+                <i class="fas fa-calendar-times"></i>
+                <h3>No anime scheduled</h3>
+                <p>Check back later for updates</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p> AnimeVault. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="assets/js/schedule-page.js"></script>
+</body>
+</html>
