@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - AnimeVault</title>
+    <meta name="description" content="About AnimeVault - Premium anime streaming platform.">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">AnimeVault</div>
+            <div class="loading-bar"><div class="loading-progress"></div></div>
+            <p class="loading-text">Loading...</p>
+        </div>
+    </div>
+
+    <div id="cursor-glow" class="cursor-glow"></div>
+    <div id="particles" class="particles"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"><i class="fas fa-play-circle"></i></span>
+                <span class="logo-text">AnimeVault</span>
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="search.html" class="nav-link">Browse</a>
+                <a href="schedule.html" class="nav-link">Schedule</a>
+                <a href="creator.html" class="nav-link active">About</a>
+            </div>
+            <div class="nav-actions">
+                <div class="search-trigger" id="search-trigger"><i class="fas fa-search"></i></div>
+                <div class="user-menu" id="user-menu">
+                    <a href="login.html" class="btn btn-primary btn-sm" id="login-btn">Sign In</a>
+                    <div class="user-dropdown hidden" id="user-dropdown">
+                        <a href="profile.html" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#" class="dropdown-item" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <main class="main-content creator-page">
+        <section class="creator-hero">
+            <div class="creator-content">
+                <div class="creator-avatar">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h1>AnimeVault</h1>
+                <p class="creator-tagline">Premium Anime Streaming Platform</p>
+                <p class="creator-version">Version 1.0.0</p>
+                <div class="creator-links">
+                    <a href="https://github.com" target="_blank" class="btn btn-secondary">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <i class="fab fa-discord"></i> Discord
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="creator-info">
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Powered By</h3>
+                    <p>Jikan API (MyAnimeList)</p>
+                    <p>Firebase Authentication</p>
+                    <p>Firebase Firestore</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Features</h3>
+                    <p>User Authentication</p>
+                    <p>Watch History</p>
+                    <p>Bookmarks & Favorites</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Technology</h3>
+                    <p>HTML5 / CSS3 / JS</p>
+                    <p>Static Hosting Ready</p>
+                    <p>PWA Support</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="creator-credits">
+            <h2>Credits</h2>
+            <div class="credits-list">
+                <div class="credit-item">
+                    <span class="credit-name">Jikan API</span>
+                    <span class="credit-desc">Anime data provider</span>
+                </div>
+                <div class="credit-item">
+                    <span class="credit-name">MyAnimeList</span>
+                    <span class="credit-desc">Database source</span>
+                </div>
+                <div class="credit-item">
+                    <span class="credit-name">Firebase</span>
+                    <span class="credit-desc">Auth & Database</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p> AnimeVault. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
