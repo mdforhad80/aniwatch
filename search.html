@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Anime - AnimeVault</title>
+    <meta name="description" content="Search and discover thousands of anime titles.">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">AnimeVault</div>
+            <div class="loading-bar"><div class="loading-progress"></div></div>
+            <p class="loading-text">Searching anime...</p>
+        </div>
+    </div>
+
+    <div id="cursor-glow" class="cursor-glow"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"><i class="fas fa-play-circle"></i></span>
+                <span class="logo-text">AnimeVault</span>
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="search.html" class="nav-link active">Browse</a>
+                <a href="schedule.html" class="nav-link">Schedule</a>
+            </div>
+            <div class="nav-actions">
+                <div class="user-menu" id="user-menu">
+                    <a href="login.html" class="btn btn-primary btn-sm" id="login-btn">Sign In</a>
+                    <div class="user-dropdown hidden" id="user-dropdown">
+                        <a href="profile.html" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#" class="dropdown-item" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <div class="mobile-nav" id="mobile-nav">
+        <a href="index.html" class="mobile-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="search.html" class="mobile-nav-item active"><i class="fas fa-search"></i><span>Search</span></a>
+        <a href="schedule.html" class="mobile-nav-item"><i class="fas fa-calendar"></i><span>Schedule</span></a>
+        <a href="profile.html" class="mobile-nav-item"><i class="fas fa-user"></i><span>Profile</span></a>
+    </div>
+
+    <main class="main-content search-page">
+        <!-- Search Header -->
+        <section class="search-header-section">
+            <div class="search-box-large">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input-large" id="search-input" placeholder="Search anime, movies, OVAs..." autocomplete="off">
+                <button class="search-clear" id="search-clear"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="search-stats" id="search-stats"></div>
+        </section>
+
+        <!-- Filters -->
+        <section class="filters-section">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label>Genre</label>
+                    <select id="genre-filter">
+                        <option value="">All Genres</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Type</label>
+                    <select id="type-filter">
+                        <option value="">All Types</option>
+                        <option value="tv">TV Series</option>
+                        <option value="movie">Movie</option>
+                        <option value="ova">OVA</option>
+                        <option value="special">Special</option>
+                        <option value="ona">ONA</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select id="status-filter">
+                        <option value="">All Status</option>
+                        <option value="airing">Airing</option>
+                        <option value="complete">Completed</option>
+                        <option value="upcoming">Upcoming</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Season</label>
+                    <select id="season-filter">
+                        <option value="">All Seasons</option>
+                        <option value="winter">Winter</option>
+                        <option value="spring">Spring</option>
+                        <option value="summer">Summer</option>
+                        <option value="fall">Fall</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Year</label>
+                    <select id="year-filter">
+                        <option value="">All Years</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Sort By</label>
+                    <select id="sort-filter">
+                        <option value="score">Score</option>
+                        <option value="popularity">Popularity</option>
+                        <option value="members">Members</option>
+                        <option value="start_date">Release Date</option>
+                    </select>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="reset-filters">Reset</button>
+            </div>
+        </section>
+
+        <!-- Results -->
+        <section class="results-section">
+            <div class="anime-grid" id="search-results-grid"></div>
+            <div class="loading-more" id="loading-more">
+                <div class="loader-spinner"></div>
+                <p>Loading more...</p>
+            </div>
+            <div class="no-results hidden" id="no-results">
+                <i class="fas fa-search"></i>
+                <h3>No results found</h3>
+                <p>Try adjusting your search or filters</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p> AnimeVault. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="assets/js/search-page.js"></script>
+</body>
+</html>
