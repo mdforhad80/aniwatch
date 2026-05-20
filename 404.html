@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script>
+    // Capture the original URL that caused the 404
+    var originalPath = window.location.pathname + window.location.search + window.location.hash;
+    // If the path is just '/' we stay on index, else we redirect to index with a 'p' parameter
+    if (originalPath === '/' || originalPath === '') {
+      window.location.replace('/');
+    } else {
+      // Encode the full path as a query parameter
+      var redirectUrl = '/?p=' + encodeURIComponent(originalPath);
+      window.location.replace(redirectUrl);
+    }
+  </script>
+</head>
+<body>
+  <p>Redirecting to the correct page…</p>
+</body>
+</html>
