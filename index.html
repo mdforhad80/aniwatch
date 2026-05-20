@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeVault - Premium Anime Streaming</title>
+    <meta name="description" content="Watch premium anime in HD. Thousands of titles, zero ads, cinematic experience.">
+    <meta property="og:title" content="AnimeVault - Premium Anime Streaming">
+    <meta property="og:description" content="Watch premium anime in HD. Thousands of titles, zero ads.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">AnimeVault</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p class="loading-text">Loading your anime universe...</p>
+        </div>
+    </div>
+
+    <!-- Custom Cursor Glow -->
+    <div id="cursor-glow" class="cursor-glow"></div>
+
+    <!-- Particle Background -->
+    <div id="particles" class="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon"><i class="fas fa-play-circle"></i></span>
+                <span class="logo-text">AnimeVault</span>
+            </a>
+
+            <div class="nav-links" id="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="search.html" class="nav-link">Browse</a>
+                <a href="schedule.html" class="nav-link">Schedule</a>
+                <a href="creator.html" class="nav-link">About</a>
+            </div>
+
+            <div class="nav-actions">
+                <div class="search-trigger" id="search-trigger">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="user-menu" id="user-menu">
+                    <a href="login.html" class="btn btn-primary btn-sm" id="login-btn">Sign In</a>
+                    <div class="user-dropdown hidden" id="user-dropdown">
+                        <a href="profile.html" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#" class="dropdown-item" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Bottom Navigation -->
+    <div class="mobile-nav" id="mobile-nav">
+        <a href="index.html" class="mobile-nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="search.html" class="mobile-nav-item">
+            <i class="fas fa-search"></i>
+            <span>Search</span>
+        </a>
+        <a href="schedule.html" class="mobile-nav-item">
+            <i class="fas fa-calendar"></i>
+            <span>Schedule</span>
+        </a>
+        <a href="profile.html" class="mobile-nav-item">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </div>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="search-overlay">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" class="search-input" id="search-input" placeholder="Search anime, movies, OVAs..." autocomplete="off">
+                <button class="search-close" id="search-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="search-results" id="search-results"></div>
+            <div class="search-suggestions" id="search-suggestions">
+                <h3>Trending Searches</h3>
+                <div class="suggestion-tags" id="suggestion-tags"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section" id="hero-section">
+            <div class="hero-slider" id="hero-slider"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="hero-badge" id="hero-badge">TRENDING NOW</div>
+                <h1 class="hero-title" id="hero-title"></h1>
+                <p class="hero-synopsis" id="hero-synopsis"></p>
+                <div class="hero-meta" id="hero-meta"></div>
+                <div class="hero-actions">
+                    <a href="#" class="btn btn-primary btn-lg hero-watch-btn" id="hero-watch-btn">
+                        <i class="fas fa-play"></i> Watch Now
+                    </a>
+                    <button class="btn btn-secondary btn-lg" id="hero-info-btn">
+                        <i class="fas fa-info-circle"></i> More Info
+                    </button>
+                    <button class="btn btn-icon" id="hero-mute-btn">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="hero-slider-nav">
+                <button class="slider-prev" id="slider-prev"><i class="fas fa-chevron-left"></i></button>
+                <div class="slider-dots" id="slider-dots"></div>
+                <button class="slider-next" id="slider-next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <!-- Continue Watching -->
+        <section class="content-section" id="continue-watching-section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-clock-rotate-left"></i> Continue Watching</h2>
+                <a href="profile.html" class="section-link">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="content-carousel" id="continue-watching-carousel"></div>
+        </section>
+
+        <!-- Latest Updates -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-bolt"></i> Latest Updates</h2>
+                <a href="search.html?sort=updated" class="section-link">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="anime-grid" id="latest-updates-grid"></div>
+        </section>
+
+        <!-- Trending Now -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-fire"></i> Trending Now</h2>
+                <a href="search.html?sort=trending" class="section-link">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="content-carousel" id="trending-carousel"></div>
+        </section>
+
+        <!-- New Releases -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-star"></i> New Releases</h2>
+                <a href="search.html?status=airing" class="section-link">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="anime-grid" id="new-releases-grid"></div>
+        </section>
+
+        <!-- Top Airing -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-tv"></i> Top Airing</h2>
+                <a href="search.html?status=airing&sort=score" class="section-link">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="content-carousel" id="top-airing-carousel"></div>
+        </section>
+
+        <!-- Upcoming -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-calendar-alt"></i> Upcoming</h2>
+                <a href="search.html?status=upcoming" class="section-link">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="anime-grid" id="upcoming-grid"></div>
+        </section>
+
+        <!-- Popular Movies -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-film"></i> Popular Movies</h2>
+                <a href="search.html?type=movie" class="section-link">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="content-carousel" id="movies-carousel"></div>
+        </section>
+
+        <!-- Completed Series -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-check-circle"></i> Completed Series</h2>
+                <a href="search.html?status=complete" class="section-link">View All <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="anime-grid" id="completed-grid"></div>
+        </section>
+
+        <!-- Genre Highlights -->
+        <section class="content-section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-tags"></i> Browse by Genre</h2>
+            </div>
+            <div class="genre-grid" id="genre-grid"></div>
+        </section>
+
+        <!-- Random Anime CTA -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>Can't Decide?</h2>
+                <p>Let us pick a random anime for you to binge!</p>
+                <button class="btn btn-primary btn-lg" id="random-anime-btn">
+                    <i class="fas fa-dice"></i> Random Anime
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span class="logo-icon"><i class="fas fa-play-circle"></i></span>
+                    <span class="logo-text">AnimeVault</span>
+                </div>
+                <p>Your premium destination for anime streaming. Watch thousands of titles in HD quality.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <a href="index.html">Home</a>
+                    <a href="search.html">Browse</a>
+                    <a href="schedule.html">Schedule</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Account</h4>
+                    <a href="profile.html">Profile</a>
+                    <a href="login.html">Login</a>
+                    <a href="signup.html">Sign Up</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="creator.html">About</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p> AnimeVault. All rights reserved. Powered by Jikan API.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
