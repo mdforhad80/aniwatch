@@ -1575,417 +1575,117 @@ ul, ol {
     </div>
   </section>
 
-<!-- =========================
-COMPLETED SECTION - PREMIUM STYLE
-========================= -->
-
-<section class="section">
-
-  <style>
-
-    #completed{
-      position:relative;
-      margin-top:40px;
-    }
-
-    #completed .slider-track{
-      display:flex;
-      gap:18px;
-      overflow-x:auto;
-      scroll-behavior:smooth;
-      padding:10px 0;
-
-      scrollbar-width:none;
-    }
-
-    #completed .slider-track::-webkit-scrollbar{
-      display:none;
-    }
-
-    .anime-card{
-      min-width:185px;
-      max-width:185px;
-      text-decoration:none;
-      color:#fff;
-      flex-shrink:0;
-      transition:.3s ease;
-    }
-
-    .anime-card:hover{
-      transform:translateY(-6px);
-    }
-
-    .card-poster{
-      position:relative;
-      width:100%;
-      height:280px;
-      overflow:hidden;
-      border-radius:16px;
-      background:#111;
-      box-shadow:
-        0 10px 25px rgba(0,0,0,.35);
-    }
-
-    .card-poster img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      transition:.4s ease;
-      display:block;
-    }
-
-    .anime-card:hover img{
-      transform:scale(1.08);
-    }
-
-    .card-poster::after{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:linear-gradient(
-        to top,
-        rgba(0,0,0,.95) 10%,
-        rgba(0,0,0,.15) 55%,
-        rgba(0,0,0,.05) 100%
-      );
-    }
-
-    /* TOP BADGES */
-
-    .card-top{
-      position:absolute;
-      top:10px;
-      left:10px;
-      z-index:3;
-
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-    }
-
-    .score-badge{
-      background:#fbc02d;
-      color:#000;
-      font-size:12px;
-      font-weight:700;
-      padding:4px 10px;
-      border-radius:6px;
-      width:max-content;
-    }
-
-    .ep-badge{
-      background:#8b5cf6;
-      color:#fff;
-      font-size:12px;
-      font-weight:700;
-      padding:4px 10px;
-      border-radius:6px;
-      width:max-content;
-    }
-
-    .type-badge{
-      background:rgba(0,0,0,.55);
-      backdrop-filter:blur(5px);
-      color:#fff;
-      font-size:11px;
-      font-weight:600;
-      padding:4px 10px;
-      border-radius:6px;
-      width:max-content;
-    }
-
-    /* CONTENT */
-
-    .card-content{
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:0;
-      z-index:3;
-      padding:14px;
-    }
-
-    .card-title{
-      font-size:15px;
-      font-weight:700;
-      line-height:1.4;
-      margin-bottom:8px;
-
-      display:-webkit-box;
-      -webkit-line-clamp:2;
-      -webkit-box-orient:vertical;
-      overflow:hidden;
-    }
-
-    .card-meta{
-      font-size:12px;
-      color:#ddd;
-      opacity:.9;
-    }
-
-    /* NAV BUTTONS */
-
-    .slider-nav{
-      position:absolute;
-      top:45%;
-      transform:translateY(-50%);
-      width:44px;
-      height:44px;
-      border:none;
-      border-radius:50%;
-      background:rgba(0,0,0,.75);
-      backdrop-filter:blur(10px);
-      color:#fff;
-      cursor:pointer;
-      z-index:10;
-      transition:.3s;
-    }
-
-    .slider-nav:hover{
-      background:#7c4dff;
-    }
-
-    .slider-prev{
-      left:-10px;
-    }
-
-    .slider-next{
-      right:-10px;
-    }
-
-    /* MOBILE */
-
-    @media(max-width:768px){
-
-      .anime-card{
-        min-width:145px;
-        max-width:145px;
-      }
-
-      .card-poster{
-        height:220px;
-      }
-
-      .card-title{
-        font-size:13px;
-      }
-
-      .slider-nav{
-        display:none;
-      }
-
-    }
-
-  </style>
-
-  <div class="section-header">
-
-    <h2 class="section-title">
-      <span class="icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-          <polyline points="22 4 12 14.01 9 11.01"/>
-        </svg>
-      </span>
-      Completed
-    </h2>
-
-    <a href="search.html?status=completed" class="section-link">
-      View All
-    </a>
-
-  </div>
-
-  <div id="completed">
-
-    <div class="slider-track">
-
-      <!-- Skeleton -->
-      <div class="anime-card">
-        <div class="card-poster skeleton skeleton-card"></div>
+  <!-- Completed -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+        Completed
+      </h2>
+      <a href="search.html?status=complete" class="section-link">View All <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></a>
+    </div>
+    <div class="slider-wrapper" id="completed">
+      <div class="slider-track">
+    <div class="anime-card">
+      <div class="card-poster skeleton skeleton-card"></div>
+      <div class="card-info">
+        <div class="skeleton skeleton-text" style="width:80%"></div>
+        <div class="skeleton skeleton-text" style="width:50%"></div>
       </div>
-
-      <div class="anime-card">
-        <div class="card-poster skeleton skeleton-card"></div>
-      </div>
-
-      <div class="anime-card">
-        <div class="card-poster skeleton skeleton-card"></div>
-      </div>
-
-      <div class="anime-card">
-        <div class="card-poster skeleton skeleton-card"></div>
-      </div>
-
     </div>
 
-    <!-- NAVIGATION -->
-    <button class="slider-nav slider-prev">
+    <div class="anime-card">
+      <div class="card-poster skeleton skeleton-card"></div>
+      <div class="card-info">
+        <div class="skeleton skeleton-text" style="width:80%"></div>
+        <div class="skeleton skeleton-text" style="width:50%"></div>
+      </div>
+    </div>
 
-      <svg width="20" height="20"
-           viewBox="0 0 24 24"
-           fill="none"
-           stroke="currentColor"
-           stroke-width="2.5">
+    <div class="anime-card">
+      <div class="card-poster skeleton skeleton-card"></div>
+      <div class="card-info">
+        <div class="skeleton skeleton-text" style="width:80%"></div>
+        <div class="skeleton skeleton-text" style="width:50%"></div>
+      </div>
+    </div>
 
-        <path d="M15 18l-6-6 6-6"/>
+    <div class="anime-card">
+      <div class="card-poster skeleton skeleton-card"></div>
+      <div class="card-info">
+        <div class="skeleton skeleton-text" style="width:80%"></div>
+        <div class="skeleton skeleton-text" style="width:50%"></div>
+      </div>
+    </div>
 
-      </svg>
+    <div class="anime-card">
+      <div class="card-poster skeleton skeleton-card"></div>
+      <div class="card-info">
+        <div class="skeleton skeleton-text" style="width:80%"></div>
+        <div class="skeleton skeleton-text" style="width:50%"></div>
+      </div>
+    </div>
 
-    </button>
+    <div class="anime-card">
+      <div class="card-poster skeleton skeleton-card"></div>
+      <div class="card-info">
+        <div class="skeleton skeleton-text" style="width:80%"></div>
+        <div class="skeleton skeleton-text" style="width:50%"></div>
+      </div>
+    </div>
 
-    <button class="slider-nav slider-next">
+    <div class="anime-card">
+      <div class="card-poster skeleton skeleton-card"></div>
+      <div class="card-info">
+        <div class="skeleton skeleton-text" style="width:80%"></div>
+        <div class="skeleton skeleton-text" style="width:50%"></div>
+      </div>
+    </div>
 
-      <svg width="20" height="20"
-           viewBox="0 0 24 24"
-           fill="none"
-           stroke="currentColor"
-           stroke-width="2.5">
+    <div class="anime-card">
+      <div class="card-poster skeleton skeleton-card"></div>
+      <div class="card-info">
+        <div class="skeleton skeleton-text" style="width:80%"></div>
+        <div class="skeleton skeleton-text" style="width:50%"></div>
+      </div>
+    </div>
 
-        <path d="M9 18l6-6-6-6"/>
+    <div class="anime-card">
+      <div class="card-poster skeleton skeleton-card"></div>
+      <div class="card-info">
+        <div class="skeleton skeleton-text" style="width:80%"></div>
+        <div class="skeleton skeleton-text" style="width:50%"></div>
+      </div>
+    </div>
 
-      </svg>
+    <div class="anime-card">
+      <div class="card-poster skeleton skeleton-card"></div>
+      <div class="card-info">
+        <div class="skeleton skeleton-text" style="width:80%"></div>
+        <div class="skeleton skeleton-text" style="width:50%"></div>
+      </div>
+    </div>
 
-    </button>
+    <div class="anime-card">
+      <div class="card-poster skeleton skeleton-card"></div>
+      <div class="card-info">
+        <div class="skeleton skeleton-text" style="width:80%"></div>
+        <div class="skeleton skeleton-text" style="width:50%"></div>
+      </div>
+    </div>
 
-  </div>
+    <div class="anime-card">
+      <div class="card-poster skeleton skeleton-card"></div>
+      <div class="card-info">
+        <div class="skeleton skeleton-text" style="width:80%"></div>
+        <div class="skeleton skeleton-text" style="width:50%"></div>
+      </div>
+    </div></div>
+      <button class="slider-nav slider-prev" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button class="slider-nav slider-next" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </section>
 
-  <script>
-
-    async function loadCompletedAnime(){
-
-      const track =
-        document.querySelector('#completed .slider-track');
-
-      try{
-
-        const response = await fetch(
-          'https://api.jikan.moe/v4/anime?status=complete&order_by=score&sort=desc&limit=12'
-        );
-
-        const result = await response.json();
-
-        track.innerHTML = '';
-
-        result.data.forEach(anime => {
-
-          const title =
-            anime.title_english ||
-            anime.title;
-
-          const image =
-            anime.images?.webp?.large_image_url ||
-            anime.images?.jpg?.large_image_url;
-
-          const score =
-            anime.score || 'N/A';
-
-          const episodes =
-            anime.episodes || '?';
-
-          const year =
-            anime.year || '';
-
-          const type =
-            anime.type || 'TV';
-
-          track.innerHTML += `
-
-            <a class="anime-card"
-               href="watch.html?id=${anime.mal_id}">
-
-              <div class="card-poster">
-
-                <img
-                  src="${image}"
-                  alt="${title}"
-                  loading="lazy"
-                >
-
-                <div class="card-top">
-
-                  <span class="score-badge">
-                    ★ ${score}
-                  </span>
-
-                  <span class="ep-badge">
-                    EP ${episodes}
-                  </span>
-
-                  <span class="type-badge">
-                    ${type}
-                  </span>
-
-                </div>
-
-                <div class="card-content">
-
-                  <div class="card-title">
-                    ${title}
-                  </div>
-
-                  <div class="card-meta">
-                    ${year} · Finished Airing
-                  </div>
-
-                </div>
-
-              </div>
-
-            </a>
-
-          `;
-        });
-
-      }catch(error){
-
-        console.error(error);
-
-        track.innerHTML = `
-          <p style="
-            color:#fff;
-            padding:20px;
-          ">
-            Failed to load anime
-          </p>
-        `;
-      }
-    }
-
-    loadCompletedAnime();
-
-    // SLIDER
-
-    const slider =
-      document.querySelector('#completed .slider-track');
-
-    const prev =
-      document.querySelector('#completed .slider-prev');
-
-    const next =
-      document.querySelector('#completed .slider-next');
-
-    prev.addEventListener('click', ()=>{
-
-      slider.scrollBy({
-        left:-900,
-        behavior:'smooth'
-      });
-
-    });
-
-    next.addEventListener('click', ()=>{
-
-      slider.scrollBy({
-        left:900,
-        behavior:'smooth'
-      });
-
-    });
-
-  </script>
-
-</section>
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-content">
