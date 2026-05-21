@@ -1,159 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Watch - AnimeVault</title>
-    <meta name="description" content="Stream anime episodes in HD quality.">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/player.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Watch Anime - AnimeStream</title>
+    <!-- COPY THE EXACT <style> TAG FROM index.html HERE -->
 </head>
-<body class="watch-page">
-    <div id="loading-screen" class="loading-screen">
-        <div class="loading-content">
-            <div class="loading-logo">AnimeVault</div>
-            <div class="loading-bar"><div class="loading-progress"></div></div>
-            <p class="loading-text">Loading player...</p>
+<body>
+    <!-- Same header, sidebar, search overlay as index.html -->
+
+    <main class="main-content" id="mainContent">
+        <div id="watchContent">
+            <!-- Dynamic player and controls -->
         </div>
-    </div>
-
-    <nav class="navbar navbar-compact" id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <span class="logo-icon"><i class="fas fa-play-circle"></i></span>
-                <span class="logo-text">AnimeVault</span>
-            </a>
-            <div class="nav-actions">
-                <div class="search-trigger" id="search-trigger"><i class="fas fa-search"></i></div>
-                <div class="user-menu" id="user-menu">
-                    <a href="login.html" class="btn btn-primary btn-sm" id="login-btn">Sign In</a>
-                    <div class="user-dropdown hidden" id="user-dropdown">
-                        <a href="profile.html" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
-                        <a href="#" class="dropdown-item" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <div class="search-overlay" id="search-overlay">
-        <div class="search-container">
-            <div class="search-header">
-                <input type="text" class="search-input" id="search-input" placeholder="Search anime..." autocomplete="off">
-                <button class="search-close" id="search-close"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="search-results" id="search-results"></div>
-        </div>
-    </div>
-
-    <main class="watch-main">
-        <!-- Player Section -->
-        <section class="player-section">
-            <div class="player-wrapper" id="player-wrapper">
-                <div class="player-container" id="player-container">
-                    <iframe id="video-player" src="" frameborder="0" allowfullscreen allow="autoplay; fullscreen; encrypted-media"></iframe>
-                    <div class="player-loader" id="player-loader">
-                        <div class="loader-spinner"></div>
-                        <p>Loading stream...</p>
-                    </div>
-                    <div class="player-error hidden" id="player-error">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p>Stream unavailable. Try another server.</p>
-                    </div>
-                </div>
-
-                <!-- Player Controls Overlay -->
-                <div class="player-controls-overlay" id="player-controls-overlay">
-                    <div class="player-top-bar">
-                        <div class="player-title" id="player-title"></div>
-                        <button class="btn btn-icon" id="theater-mode-btn" title="Theater Mode">
-                            <i class="fas fa-expand-alt"></i>
-                        </button>
-                        <button class="btn btn-icon" id="fullscreen-btn" title="Fullscreen">
-                            <i class="fas fa-expand"></i>
-                        </button>
-                    </div>
-                    <div class="player-bottom-bar">
-                        <div class="player-progress" id="player-progress">
-                            <div class="progress-bar" id="progress-bar"></div>
-                        </div>
-                        <div class="player-controls">
-                            <button class="btn btn-icon" id="play-pause-btn"><i class="fas fa-play"></i></button>
-                            <button class="btn btn-icon" id="skip-intro-btn"><i class="fas fa-forward"></i> Skip Intro</button>
-                            <button class="btn btn-icon" id="next-ep-btn"><i class="fas fa-step-forward"></i> Next Ep</button>
-                            <div class="player-time">
-                                <span id="current-time">00:00</span> / <span id="total-time">00:00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Server Selector -->
-            <div class="server-selector">
-                <span class="server-label">Server:</span>
-                <div class="server-buttons" id="server-buttons">
-                    <button class="server-btn active" data-server="vidcloud">VidCloud</button>
-                    <button class="server-btn" data-server="backup">Backup</button>
-                </div>
-                <div class="stream-toggle">
-                    <button class="toggle-btn active" data-type="sub">SUB</button>
-                    <button class="toggle-btn" data-type="dub">DUB</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Episode Info -->
-        <section class="episode-info-section">
-            <div class="episode-info-container">
-                <div class="episode-details">
-                    <h1 class="episode-title" id="episode-title"></h1>
-                    <div class="episode-meta" id="episode-meta"></div>
-                    <div class="episode-nav">
-                        <button class="btn btn-secondary" id="prev-ep-btn">
-                            <i class="fas fa-chevron-left"></i> Previous
-                        </button>
-                        <button class="btn btn-secondary" id="ep-list-btn">
-                            <i class="fas fa-list"></i> Episodes
-                        </button>
-                        <button class="btn btn-secondary" id="next-ep-btn2">
-                            Next <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Episode List -->
-        <section class="episodes-sidebar" id="episodes-sidebar">
-            <div class="section-header">
-                <h3><i class="fas fa-list"></i> Episodes</h3>
-                <div class="episode-filter">
-                    <input type="text" id="sidebar-ep-search" placeholder="Search...">
-                </div>
-            </div>
-            <div class="episodes-list" id="episodes-list"></div>
-        </section>
-
-        <!-- Related Anime Sidebar -->
-        <section class="content-section">
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-compact-disc"></i> You May Also Like</h2>
-            </div>
-            <div class="content-carousel" id="related-carousel"></div>
-        </section>
     </main>
 
-    <footer class="footer footer-compact">
-        <div class="footer-bottom">
-            <p> AnimeVault. All rights reserved.</p>
-        </div>
+    <footer class="site-footer">
+        <!-- same footer -->
     </footer>
 
-    <script type="module" src="assets/js/watch-page.js"></script>
+    <script>
+        const JIKAN_BASE = 'https://api.jikan.moe/v4';
+        const STREAM_BASE = 'https://megaplay.buzz/stream/mal';
+        const $ = (sel) => document.querySelector(sel);
+
+        const storage = {
+            get(key, fallback = null) {
+                try { const v = localStorage.getItem('as_' + key); return v ? JSON.parse(v) : fallback; } catch { return fallback; }
+            },
+            set(key, value) { try { localStorage.setItem('as_' + key, JSON.stringify(value)); } catch {} },
+            updateContinueWatching(item) {
+                let cw = this.get('continueWatching', []);
+                cw = cw.filter(c => c.malId !== item.malId);
+                cw.unshift({ ...item, updatedAt: Date.now() });
+                if (cw.length > 20) cw = cw.slice(0, 20);
+                this.set('continueWatching', cw);
+            }
+        };
+
+        async function fetchJikan(endpoint) {
+            try {
+                const res = await fetch(`${JIKAN_BASE}${endpoint}`);
+                if (!res.ok) throw new Error('API error');
+                return await res.json();
+            } catch (e) { return null; }
+        }
+
+        async function loadWatch() {
+            const params = new URLSearchParams(location.search);
+            const malId = params.get('id');
+            const ep = params.get('ep') || '1';
+            const type = params.get('type') || 'sub'; // sub or dub
+
+            if (!malId) return document.getElementById('watchContent').innerHTML = '<p>No anime ID.</p>';
+
+            // Save watch progress
+            storage.updateContinueWatching({ malId: parseInt(malId), episode: parseInt(ep), type });
+
+            // Fetch anime info for title
+            const data = await fetchJikan(`/anime/${malId}`);
+            const anime = data?.data;
+            const title = anime?.title_english || anime?.title || 'Unknown';
+            const totalEpisodes = anime?.episodes || 1;
+            const streamUrl = `${STREAM_BASE}/${malId}/${ep}/${type}`;
+
+            // Build episode grid
+            const episodeButtons = Array.from({ length: totalEpisodes || 1 }, (_, i) => i + 1)
+                .map(num => {
+                    const isActive = num === parseInt(ep) ? 'active' : '';
+                    return `<a href="?id=${malId}&ep=${num}&type=${type}" class="ep-btn ${isActive}">${num}</a>`;
+                }).join('');
+
+            document.getElementById('watchContent').innerHTML = `
+                <h1 style="margin-bottom:12px;">${title} - Episode ${ep} (${type.toUpperCase()})</h1>
+                <div class="player-container">
+                    <iframe src="${streamUrl}" allowfullscreen allow="autoplay; fullscreen"></iframe>
+                </div>
+                <div class="type-toggle" style="margin-bottom:16px;">
+                    <button class="${type === 'sub' ? 'active' : ''}" onclick="location.href='?id=${malId}&ep=${ep}&type=sub'">Sub</button>
+                    <button class="${type === 'dub' ? 'active' : ''}" onclick="location.href='?id=${malId}&ep=${ep}&type=dub'">Dub</button>
+                </div>
+                <div class="episode-grid">${episodeButtons}</div>
+                <div style="margin-top:16px;">
+                    <a href="anime.html?id=${malId}" class="btn btn-outline">← Back to Details</a>
+                </div>
+            `;
+        }
+
+        loadWatch();
+    </script>
 </body>
 </html>
