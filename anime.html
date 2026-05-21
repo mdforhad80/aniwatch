@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Details - AnimeStream</title>
+    <meta name="description" content="View details, synopsis, genres, and watch anime online.">
+    <!-- COPY THE EXACT <style> TAG FROM index.html HERE -->
+</head>
+<body>
+    <!-- Cursor Glow, Particles, Loading Screen, Header, Sidebar, Search Overlay (identical to index.html) -->
+
+    <main class="main-content" id="mainContent">
+        <div id="animeDetail">
+            <!-- Dynamically filled -->
+            <div class="skeleton" style="height:400px; width:100%; margin-bottom:20px;"></div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <!-- same footer -->
+    </footer>
+
+    <script>
+        // ===== SHARED ELEMENTS & STORAGE (include from index.html) =====
+        const JIKAN_BASE = 'https://api.jikan.moe/v4';
+        const $ = (sel) => document.querySelector(sel);
+
+        async function fetchJikan(endpoint) {
+            try {
+                const res = await fetch(`${JIKAN_BASE}${endpoint}`);
+                if (!res.ok) throw new Error('API error');
+                return await res.json();
+            } catch (e) { return null; }
+        }
+
+        // ===== PAGE SPECIFIC LOGIC =====
+        async function loadAnimeDetail() {
+            const params = new URLSearchParams(location.search);
+            const id = params.get('id');
+            if (!id) return (document.getElementById('animeDetail').innerHTML = '<p>No anime ID.</p>');
+
+            const data = await fetchJikan(`/anime/${id}`);
+            if (!data || !data.data) return (document.getElementById('animeDetail').innerHTML = '<p>Anime not found.</p>');
+
+            const anime = data.data;
+            const img = anime.images?.jpg?.large_image_url || '';
+            const title = anime.title_english || anime.title || 'Unknown';
+            const jp = anime.title_japanese || '';
+            const synopsis = anime.synopsis || 'No synopsis available.';
+            const type = anime.type || 'TV';
+            const episodes = anime.episodes || 0;
+            const score = anime.score || 'N/A';
+            const status = anime.status || 'Unknown';
+            const genres = (anime.genres || []).map(g => g.name).join(', ');
+            const studios = (anime.studios || []).map(s => s.name).join(', ');
+            const premiered = anime.aired?.prop?.from?.year ? `${anime.aired.prop.from.year}` : '?';
+            const duration = anime.duration || '?';
+            const rating = anime.rating || '?';
+            const malLink = `https://myanimelist.net/anime/${anime.mal_id}`;
+
+            const episodeList = Array.from({ length: episodes || 1 }, (_, i) => i + 1)
+                .map(ep => `<a href="watch.html?id=${anime.mal_id}&ep=${ep}&type=sub" class="ep-btn">${ep}</a>`).join('');
+
+            document.getElementById('animeDetail').innerHTML = `
+                <div class="anime-banner">
+                    <img src="${img}" alt="${title}" onerror="this.style.display='none'">
+                </div>
+                <div class="anime-detail-content">
+                    <div class="anime-poster-lg">
+                        <img src="${anime.images?.jpg?.large_image_url}" alt="${title}" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="anime-info-detail">
+                        <h1>${title}</h1>
+                        <p class="subtitle">${jp ? jp : ''} ${jp && type ? '•' : ''} ${type}</p>
+                        <div class="meta-tags">
+                            <span class="meta-tag">${type}</span>
+                            <span class="meta-tag">⭐ ${score}</span>
+                            <span class="meta-tag">${status}</span>
+                            <span class="meta-tag">Episodes: ${episodes || '?'}</span>
+                            <span class="meta-tag">Duration: ${duration}</span>
+                        </div>
+                        <p class="synopsis">${synopsis}</p>
+                        <div class="meta-tags">
+                            <span class="meta-tag">Genres: ${genres || 'N/A'}</span>
+                            <span class="meta-tag">Studios: ${studios || 'N/A'}</span>
+                            <span class="meta-tag">Premiered: ${premiered}</span>
+                            <span class="meta-tag">Rating: ${rating}</span>
+                        </div>
+                        <div style="margin:20px 0;">
+                            <a href="watch.html?id=${anime.mal_id}&ep=1&type=sub" class="btn btn-primary">▶ Watch Now (Sub)</a>
+                            <a href="watch.html?id=${anime.mal_id}&ep=1&type=dub" class="btn btn-outline" style="margin-left:8px;">🔊 Watch Dub</a>
+                        </div>
+                        <p>Links: <a href="${malLink}" target="_blank" style="color:#c4b5fd;">MyAnimeList</a></p>
+                    </div>
+                </div>
+                ${episodes > 0 ? `<h2 class="section-title mt-4">Episodes</h2><div class="episode-grid">${episodeList}</div>` : ''}
+            `;
+        }
+
+        // Init
+        loadAnimeDetail();
+    </script>
+</body>
+</html>
