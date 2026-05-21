@@ -476,17 +476,29 @@
             border-radius: 4px;
         }
 
-        /* ========== BRAND NEW HERO SLIDER (AnimeKai / HiAnime inspired) ========== */
+        /* ========== FULL-WIDTH HERO SLIDER (fixed container width issue) ========== */
         .hero-slider {
             position: relative;
-            border-radius: var(--radius-xl);
-            overflow: hidden;
+            width: 100%;
             margin-bottom: 28px;
             background: var(--bg-tertiary);
             box-shadow: var(--glow-purple);
-            min-height: 350px;
-            max-height: 500px;
+            border-radius: 0;               /* no rounded corners for full width */
+            min-height: 400px;
+            max-height: 550px;
             aspect-ratio: 16 / 9;
+        }
+        /* Wrap the slider in a full-width container */
+        .hero-slider-wrapper {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            overflow: hidden;
+        }
+        @media (max-width: 768px) {
+            .hero-slider {
+                min-height: 300px;
+            }
         }
         .hero-slide {
             position: absolute;
@@ -511,7 +523,6 @@
             background: linear-gradient(90deg, rgba(11,11,15,0.95) 0%, rgba(11,11,15,0.7) 35%, rgba(11,11,15,0.2) 100%);
             z-index: 1;
         }
-        /* On mobile, gradient from bottom */
         @media (max-width: 768px) {
             .hero-slide {
                 align-items: flex-end;
@@ -523,7 +534,7 @@
         .hero-info {
             position: relative;
             z-index: 2;
-            max-width: 580px;
+            max-width: 600px;
         }
         .hero-info .hero-title {
             font-size: clamp(1.8rem, 4.5vw, 2.6rem);
@@ -639,13 +650,6 @@
             border-radius: 10px;
             box-shadow: 0 0 12px rgba(255,255,255,0.6);
         }
-        @media (max-width: 600px) {
-            .hero-slider {
-                border-radius: var(--radius);
-                min-height: 280px;
-            }
-        }
-        /* ========== END NEW HERO ========== */
 
         /* === ANIME GRID === */
         .anime-grid {
@@ -953,13 +957,15 @@
         </div>
     </div>
 
-    <!-- Main Content -->
-    <main class="main-content" id="mainContent">
-        <!-- New dynamic Hero Slider – populated by JavaScript -->
+    <!-- ===== FULL-WIDTH HERO SLIDER (outside main-content, spans viewport) ===== -->
+    <div class="hero-slider-wrapper">
         <section class="hero-slider" id="heroSlider">
             <div class="hero-dots" id="heroDots"></div>
         </section>
+    </div>
 
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
         <!-- Continue Watching -->
         <section id="continueWatchingSection" class="hidden">
             <h2 class="section-title">Continue Watching</h2>
@@ -1199,7 +1205,7 @@
             return Array(count).fill('<div class="skeleton skeleton-card"></div>').join('');
         }
 
-        // ========== BRAND NEW DYNAMIC HERO SLIDER (AnimeKai style) ==========
+        // ========== DYNAMIC HERO SLIDER (Full Width) ==========
         function buildHeroSlide(anime) {
             const img = anime.images?.jpg?.large_image_url || '';
             const title = anime.title_english || anime.title || 'Unknown';
@@ -1233,13 +1239,11 @@
         }
 
         async function loadHeroSlider() {
-            // Fetch top airing anime for the slider
             const data = await fetchJikan('/top/anime?filter=airing&limit=6');
             let animeList = [];
             if (data && data.data && data.data.length > 0) {
                 animeList = data.data;
             } else {
-                // Fallback to a few popular IDs
                 const fallbackIds = [5114, 9253, 1535, 16498, 30276, 11061];
                 const promises = fallbackIds.map(id => fetchJikan(`/anime/${id}`));
                 const results = await Promise.all(promises);
@@ -1248,16 +1252,13 @@
 
             if (animeList.length === 0) return;
 
-            // Build slides HTML
             const slidesHTML = animeList.map(anime => buildHeroSlide(anime)).join('');
             heroSlider.insertAdjacentHTML('afterbegin', slidesHTML);
 
-            // Create dots
             heroDots.innerHTML = animeList.map((_, i) =>
                 `<span class="hero-dot${i === 0 ? ' active' : ''}" data-index="${i}"></span>`
             ).join('');
 
-            // Initialize slider logic
             initHeroSlider(animeList.length);
         }
 
@@ -1288,7 +1289,6 @@
                 autoSlide = setInterval(() => goToSlide((current + 1) % total), 5000);
             });
 
-            // Touch swipe
             let touchStartX = 0;
             heroSlider.addEventListener('touchstart', (e) => {
                 touchStartX = e.touches[0].clientX;
@@ -1333,10 +1333,8 @@
         }
 
         async function loadHomePage() {
-            // Hero slider loads first (dynamic)
             loadHeroSlider();
 
-            // Other sections in parallel
             await Promise.all([
                 loadSection('#trendingGrid', '/top/anime?filter=airing&limit=12', [5114, 9253, 1535, 16498, 30276, 11061, 28851, 36456]),
                 loadSection('#popularGrid', '/top/anime?filter=bypopularity&limit=12', [1, 5, 6, 7, 8, 16, 20, 21]),
