@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.0">
     <title>CineStream — Watch Movies & TV Shows Online</title>
     <meta name="description" content="Stream the latest movies and TV shows in cinematic quality. CineStream brings you trending content with a premium viewing experience.">
     <meta property="og:type" content="website">
@@ -81,27 +81,12 @@
             opacity: 0;
         }
         @keyframes floatUp {
-            0% {
-                transform: translateY(105vh) scale(0);
-                opacity: 0;
-            }
-            2% {
-                opacity: 1;
-            }
-            15% {
-                transform: translateY(80vh) scale(1.2);
-                opacity: 0.8;
-            }
-            50% {
-                opacity: 0.5;
-            }
-            90% {
-                opacity: 0.1;
-            }
-            100% {
-                transform: translateY(-10vh) scale(0.3);
-                opacity: 0;
-            }
+            0% { transform: translateY(105vh) scale(0); opacity: 0; }
+            2% { opacity: 1; }
+            15% { transform: translateY(80vh) scale(1.2); opacity: 0.8; }
+            50% { opacity: 0.5; }
+            90% { opacity: 0.1; }
+            100% { transform: translateY(-10vh) scale(0.3); opacity: 0; }
         }
 
         /* === HEADER / NAVBAR === */
@@ -116,8 +101,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
-            height: 60px;
+            padding: 0 24px;
+            height: 64px;
             transition: var(--transition);
         }
         .navbar.scrolled {
@@ -127,18 +112,25 @@
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 12px;
             flex: 1;
+        }
+        .nav-left {
+            justify-content: flex-start;
+            gap: 8px;
         }
         .nav-right {
             justify-content: flex-end;
+            gap: 8px;
         }
         .nav-center {
             flex: 0 0 auto;
             text-align: center;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
         }
         .logo {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 800;
             letter-spacing: -0.5px;
             background: linear-gradient(135deg, var(--purple), var(--pink));
@@ -153,53 +145,34 @@
             filter: brightness(1.3);
             transform: scale(1.03);
         }
-        .nav-icon-btn {
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 1.3rem;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 50%;
-            transition: var(--transition);
+
+        /* DESKTOP MENU BAR */
+        .nav-menu {
             display: flex;
             align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            position: relative;
+            gap: 8px;
         }
-        .nav-icon-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 20px;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background: rgba(139, 92, 246, 0.15);
             color: var(--purple);
         }
-        .nav-icon-btn svg {
-            width: 20px;
-            height: 20px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
+        .nav-menu a.active {
+            color: var(--purple);
+            font-weight: 600;
         }
-        .search-mini {
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 8px 16px;
-            color: var(--text);
-            font-size: 0.9rem;
-            width: 200px;
-            transition: var(--transition);
-            outline: none;
-            font-family: var(--font-sans);
-        }
-        .search-mini:focus {
-            border-color: var(--purple);
-            box-shadow: 0 0 20px var(--purple-glow);
-            width: 260px;
-        }
-        .search-mini::placeholder {
-            color: var(--muted);
-        }
+
+        /* MOBILE MENU BUTTON */
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -218,7 +191,54 @@
             transition: var(--transition);
         }
 
-        /* === SIDE MENU === */
+        .search-mini {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 8px 16px;
+            color: var(--text);
+            font-size: 0.9rem;
+            width: 200px;
+            transition: var(--transition);
+            outline: none;
+            font-family: var(--font-sans);
+        }
+        .search-mini:focus {
+            border-color: var(--purple);
+            box-shadow: 0 0 20px var(--purple-glow);
+            width: 240px;
+        }
+        .search-mini::placeholder {
+            color: var(--muted);
+        }
+        .nav-icon-btn {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.3rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+        .nav-icon-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--purple);
+        }
+        .nav-icon-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        /* === SIDE MENU (MOBILE) === */
         .side-menu-overlay {
             position: fixed;
             top: 0;
@@ -322,12 +342,8 @@
             animation: heroZoom 20s ease-in-out infinite alternate;
         }
         @keyframes heroZoom {
-            0% {
-                transform: scale(1);
-            }
-            100% {
-                transform: scale(1.08);
-            }
+            0% { transform: scale(1); }
+            100% { transform: scale(1.08); }
         }
         .hero-gradient-bottom {
             position: absolute;
@@ -354,14 +370,8 @@
             animation: fadeInUp 0.8s ease-out;
         }
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .hero-badge {
             display: inline-block;
@@ -508,12 +518,8 @@
             scrollbar-width: none;
             cursor: grab;
         }
-        .card-scroll::-webkit-scrollbar {
-            display: none;
-        }
-        .card-scroll:active {
-            cursor: grabbing;
-        }
+        .card-scroll::-webkit-scrollbar { display: none; }
+        .card-scroll:active { cursor: grabbing; }
         .card {
             flex: 0 0 auto;
             width: 170px;
@@ -542,9 +548,7 @@
             background: var(--bg-tertiary);
             transition: var(--transition);
         }
-        .card:hover .card-poster {
-            filter: brightness(1.1);
-        }
+        .card:hover .card-poster { filter: brightness(1.1); }
         .card-info {
             padding: 10px 12px;
             position: absolute;
@@ -554,9 +558,7 @@
             background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
             transition: var(--transition);
         }
-        .card:hover .card-info {
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.95));
-        }
+        .card:hover .card-info { background: linear-gradient(transparent, rgba(0, 0, 0, 0.95)); }
         .card-title {
             font-weight: 600;
             font-size: 0.85rem;
@@ -580,10 +582,7 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
-        .card-rating svg {
-            width: 12px;
-            height: 12px;
-        }
+        .card-rating svg { width: 12px; height: 12px; }
         .card .play-overlay {
             position: absolute;
             top: 50%;
@@ -600,9 +599,7 @@
             z-index: 3;
             pointer-events: none;
         }
-        .card:hover .play-overlay {
-            transform: translate(-50%, -50%) scale(1);
-        }
+        .card:hover .play-overlay { transform: translate(-50%, -50%) scale(1); }
         .card .play-overlay::after {
             content: '';
             display: block;
@@ -622,12 +619,8 @@
             border-radius: var(--radius);
         }
         @keyframes shimmer {
-            0% {
-                background-position: 200% 0;
-            }
-            100% {
-                background-position: -200% 0;
-            }
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
         .skeleton-card {
             width: 170px;
@@ -636,7 +629,7 @@
             border-radius: var(--radius);
         }
 
-        /* === WATCH PAGE === */
+        /* === WATCH PAGE (generic) === */
         .player-wrapper {
             position: relative;
             width: 100%;
@@ -659,74 +652,6 @@
             border-radius: 0;
             aspect-ratio: 21/9;
             min-height: 70vh;
-        }
-        .player-controls-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 16px;
-            flex-wrap: wrap;
-            background: var(--bg-secondary);
-            border-radius: var(--radius-sm);
-            margin-top: 12px;
-            border: 1px solid var(--border);
-        }
-        .server-btn {
-            padding: 8px 16px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            background: var(--bg-tertiary);
-            color: var(--text);
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: var(--transition);
-            font-family: var(--font-sans);
-        }
-        .server-btn.active,
-        .server-btn:hover {
-            background: var(--purple);
-            border-color: var(--purple);
-            color: #fff;
-            box-shadow: 0 0 15px var(--purple-glow);
-        }
-        .episode-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-            gap: 6px;
-            margin-top: 10px;
-            max-height: 200px;
-            overflow-y: auto;
-            padding: 4px;
-        }
-        .episode-btn {
-            padding: 8px 4px;
-            border-radius: var(--radius-xs);
-            border: 1px solid var(--border);
-            background: var(--bg-tertiary);
-            color: var(--text);
-            cursor: pointer;
-            font-size: 0.75rem;
-            text-align: center;
-            transition: var(--transition);
-            font-family: var(--font-sans);
-        }
-        .episode-btn.active,
-        .episode-btn:hover {
-            background: var(--purple);
-            border-color: var(--purple);
-            color: #fff;
-        }
-        .season-select {
-            padding: 10px 14px;
-            border-radius: var(--radius-sm);
-            background: var(--bg-tertiary);
-            color: var(--text);
-            border: 1px solid var(--border);
-            font-size: 0.9rem;
-            cursor: pointer;
-            font-family: var(--font-sans);
-            min-width: 150px;
         }
 
         /* === DETAIL PAGES === */
@@ -805,41 +730,9 @@
             color: var(--purple);
             border: 1px solid rgba(139, 92, 246, 0.3);
         }
-        .cast-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 10px;
-        }
-        .cast-item {
-            text-align: center;
-            width: 70px;
-        }
-        .cast-item img {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--border);
-            transition: var(--transition);
-        }
-        .cast-item:hover img {
-            border-color: var(--purple);
-            box-shadow: 0 0 15px var(--purple-glow);
-        }
-        .cast-item .name {
-            font-size: 0.7rem;
-            margin-top: 4px;
-            color: var(--text-secondary);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
 
         /* === SEARCH PAGE === */
-        .search-full {
-            padding: 30px 40px;
-        }
+        .search-full { padding: 30px 40px; }
         .search-input-lg {
             width: 100%;
             padding: 16px 24px;
@@ -863,7 +756,7 @@
             margin-top: 20px;
         }
 
-        /* === LOADING SPINNER === */
+        /* === SPINNER === */
         .spinner {
             width: 40px;
             height: 40px;
@@ -873,11 +766,7 @@
             animation: spin 0.8s linear infinite;
             margin: 40px auto;
         }
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         /* === TOAST === */
         .toast {
@@ -897,14 +786,8 @@
             pointer-events: none;
         }
         @keyframes toastIn {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
+            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
         /* === FOOTER === */
@@ -919,84 +802,25 @@
 
         /* === RESPONSIVE === */
         @media (max-width: 768px) {
-            .navbar {
-                padding: 0 12px;
-                height: 54px;
-            }
-            .search-mini {
-                display: none;
-            }
-            .mobile-menu-btn {
-                display: block;
-            }
-            .hero-section {
-                height: 55vh;
-                min-height: 380px;
-                padding: 20px;
-            }
-            .hero-title {
-                font-size: 1.8rem;
-            }
-            .hero-description {
-                font-size: 0.85rem;
-                -webkit-line-clamp: 2;
-            }
-            .section {
-                padding: 14px 16px;
-            }
-            .card {
-                width: 130px;
-            }
-            .detail-hero {
-                padding: 20px;
-            }
-            .detail-poster {
-                width: 160px;
-            }
-            .detail-info h1 {
-                font-size: 1.6rem;
-            }
-            .search-full {
-                padding: 16px;
-            }
-            .results-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-                gap: 10px;
-            }
-            .player-controls-bar {
-                gap: 6px;
-                padding: 8px 10px;
-            }
-            .server-btn {
-                padding: 6px 10px;
-                font-size: 0.75rem;
-            }
+            .nav-menu { display: none; }
+            .mobile-menu-btn { display: block; }
+            .navbar { padding: 0 16px; }
+            .nav-center { position: static; transform: none; margin: 0 auto; }
+            .logo { font-size: 1.5rem; }
+            .search-mini { width: 140px; }
+            .hero-section { height: 55vh; min-height: 380px; padding: 20px; }
+            .hero-title { font-size: 1.8rem; }
+            .hero-description { font-size: 0.85rem; -webkit-line-clamp: 2; }
+            .section { padding: 14px 16px; }
+            .card { width: 130px; }
+            .results-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
         }
         @media (max-width: 480px) {
-            .card {
-                width: 110px;
-            }
-            .hero-section {
-                height: 45vh;
-                min-height: 300px;
-            }
-            .hero-title {
-                font-size: 1.4rem;
-            }
-            .btn {
-                padding: 10px 16px;
-                font-size: 0.8rem;
-            }
-            .detail-poster {
-                width: 120px;
-            }
-            .detail-info h1 {
-                font-size: 1.3rem;
-            }
-            .results-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-                gap: 8px;
-            }
+            .card { width: 110px; }
+            .hero-section { height: 45vh; min-height: 300px; }
+            .hero-title { font-size: 1.4rem; }
+            .btn { padding: 10px 16px; font-size: 0.8rem; }
+            .results-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
         }
     </style>
 </head>
@@ -1005,16 +829,16 @@
     <!-- PARTICLES -->
     <div class="particles-container" id="particles"></div>
 
-    <!-- SIDE MENU OVERLAY -->
+    <!-- SIDE MENU OVERLAY (mobile) -->
     <div class="side-menu-overlay" id="sideMenuOverlay"></div>
 
-    <!-- SIDE MENU -->
+    <!-- SIDE MENU (mobile) -->
     <nav class="side-menu" id="sideMenu">
         <button class="side-menu-close" id="sideMenuClose" aria-label="Close menu">✕</button>
         <a href="index.html" class="active">🏠 Home</a>
-        <a href="trending.html">🔥 Trending</a>
         <a href="movies.html">🎬 Movies</a>
         <a href="tv.html">📺 TV Shows</a>
+        <a href="trending.html">🔥 Trending</a>
         <a href="schedule.html">📅 Schedule</a>
         <div class="menu-divider"></div>
         <a href="search.html">🔍 Search</a>
@@ -1024,6 +848,15 @@
     <!-- NAVBAR -->
     <header class="navbar" id="navbar">
         <div class="nav-left">
+            <!-- DESKTOP MENU BAR -->
+            <div class="nav-menu" id="desktopMenu">
+                <a href="index.html" class="active">Home</a>
+                <a href="movies.html">Movies</a>
+                <a href="tv.html">TV Shows</a>
+                <a href="trending.html">Trending</a>
+                <a href="schedule.html">Schedule</a>
+            </div>
+            <!-- MOBILE HAMBURGER (only visible on small screens) -->
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
                 <span></span><span></span><span></span>
             </button>
@@ -1039,7 +872,7 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN CONTENT (identical functionality as before) -->
     <main class="main-content" id="mainContent">
         <!-- HERO SECTION -->
         <section class="hero-section" id="heroSection">
@@ -1213,11 +1046,7 @@
         function getStorage(key) {
             try { return JSON.parse(localStorage.getItem(key)) || []; } catch (e) { return []; }
         }
-
-        function setStorage(key, data) {
-            localStorage.setItem(key, JSON.stringify(data));
-        }
-
+        function setStorage(key, data) { localStorage.setItem(key, JSON.stringify(data)); }
         function addToContinueWatching(item) {
             let list = getStorage('continueWatching');
             list = list.filter(i => !(i.id === item.id && i.type === item.type));
@@ -1225,7 +1054,6 @@
             if (list.length > 30) list = list.slice(0, 30);
             setStorage('continueWatching', list);
         }
-
         function addToHistory(item) {
             let list = getStorage('watchHistory');
             list = list.filter(i => !(i.id === item.id && i.type === item.type));
@@ -1233,13 +1061,9 @@
             if (list.length > 50) list = list.slice(0, 50);
             setStorage('watchHistory', list);
         }
-
         function getContinueWatching() { return getStorage('continueWatching'); }
-
         function getWatchHistory() { return getStorage('watchHistory'); }
-
         function clearContinueWatching() { localStorage.removeItem('continueWatching'); }
-
         function clearWatchHistory() { localStorage.removeItem('watchHistory'); }
 
         // ============================================
@@ -1307,8 +1131,7 @@
             if (!container) return;
             container.innerHTML = '';
             if (!items || items.length === 0) {
-                container.innerHTML =
-                    '<p style="color:var(--muted);padding:20px;">No content available.</p>';
+                container.innerHTML = '<p style="color:var(--muted);padding:20px;">No content available.</p>';
                 return;
             }
             items.forEach(item => {
@@ -1322,10 +1145,7 @@
             const section = document.getElementById('continueWatchingSection');
             const scroll = document.getElementById('continueScroll');
             const items = getContinueWatching();
-            if (items.length === 0) {
-                section.style.display = 'none';
-                return;
-            }
+            if (items.length === 0) { section.style.display = 'none'; return; }
             section.style.display = 'block';
             scroll.innerHTML = '';
             items.forEach(item => {
@@ -1350,10 +1170,7 @@
             const section = document.getElementById('watchHistorySection');
             const scroll = document.getElementById('historyScroll');
             const items = getWatchHistory();
-            if (items.length === 0) {
-                section.style.display = 'none';
-                return;
-            }
+            if (items.length === 0) { section.style.display = 'none'; return; }
             section.style.display = 'block';
             scroll.innerHTML = '';
             items.forEach(item => {
@@ -1375,7 +1192,7 @@
         }
 
         // ============================================
-        // PARTICLES GENERATOR
+        // PARTICLES
         // ============================================
         function createParticles() {
             const container = document.getElementById('particles');
@@ -1396,13 +1213,11 @@
         }
 
         // ============================================
-        // INITIALIZATION
+        // INIT HOMEPAGE
         // ============================================
         async function initHomepage() {
             createParticles();
-
             try {
-                // Load trending for hero
                 const trendingData = await fetchTrending();
                 const heroItem = trendingData.results.find(item =>
                     (item.media_type === 'movie' || item.media_type === 'tv') &&
@@ -1412,14 +1227,10 @@
                 if (heroItem) {
                     const isMovie = heroItem.media_type === 'movie' || heroItem.title;
                     const heroType = isMovie ? 'movie' : 'tv';
-                    document.getElementById('heroBackdrop').src = heroItem.backdrop_path ?
-                        `${IMG_ORIGINAL}${heroItem.backdrop_path}` :
-                        '';
-                    document.getElementById('heroTitle').textContent = heroItem.title || heroItem.name ||
-                        'Featured Title';
+                    document.getElementById('heroBackdrop').src = heroItem.backdrop_path ? `${IMG_ORIGINAL}${heroItem.backdrop_path}` : '';
+                    document.getElementById('heroTitle').textContent = heroItem.title || heroItem.name || 'Featured Title';
                     document.getElementById('heroDescription').textContent = heroItem.overview || '';
-                    document.getElementById('heroBadge').textContent = heroItem.media_type === 'movie' ?
-                        '🎬 Featured Movie' : '📺 Featured Series';
+                    document.getElementById('heroBadge').textContent = heroItem.media_type === 'movie' ? '🎬 Featured Movie' : '📺 Featured Series';
                     const rating = heroItem.vote_average ? heroItem.vote_average.toFixed(1) : 'N/A';
                     const year = (heroItem.release_date || heroItem.first_air_date || '').substring(0, 4);
                     document.getElementById('heroMeta').innerHTML = `
@@ -1427,16 +1238,12 @@
                 ${year ? `<span>📅 ${year}</span>` : ''}
                 <span>${heroItem.media_type === 'movie' ? 'Movie' : 'TV Series'}</span>
               `;
-                    const watchUrl = isMovie ?
-                        `watch.html?id=${heroItem.id}&type=movie&server=vidplus` :
-                        `watch.html?id=${heroItem.id}&type=tv&season=1&episode=1&server=vidplus`;
-                    const detailUrl = isMovie ? `movie.html?id=${heroItem.id}` :
-                        `show.html?id=${heroItem.id}`;
+                    const watchUrl = isMovie ? `watch.html?id=${heroItem.id}&type=movie&server=vidplus` : `watch.html?id=${heroItem.id}&type=tv&season=1&episode=1&server=vidplus`;
+                    const detailUrl = isMovie ? `movie.html?id=${heroItem.id}` : `show.html?id=${heroItem.id}`;
                     document.getElementById('heroWatchBtn').href = watchUrl;
                     document.getElementById('heroInfoBtn').href = detailUrl;
                 }
 
-                // Populate sections
                 populateScroll('trendingScroll', trendingData.results.filter(i => i.poster_path));
                 const popularMovies = await fetchPopularMovies();
                 populateScroll('popularMoviesScroll', popularMovies.results, 'movie');
@@ -1447,7 +1254,6 @@
                 const upcoming = await fetchUpcoming();
                 populateScroll('upcomingScroll', upcoming.results, 'movie');
 
-                // Continue watching & history
                 populateContinueWatching();
                 populateWatchHistory();
             } catch (err) {
@@ -1493,70 +1299,40 @@
             showToast('Watch history cleared.');
         });
 
-        // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) navbar.classList.add('scrolled');
             else navbar.classList.remove('scrolled');
         });
 
-        // Keyboard shortcut: press '/' to focus search
         document.addEventListener('keydown', (e) => {
             if (e.key === '/' && document.activeElement !== document.getElementById('searchMini') &&
-                document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !==
-                'TEXTAREA') {
+                document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
                 e.preventDefault();
                 document.getElementById('searchMini').focus();
             }
         });
 
-        // Initialize
         initHomepage();
 
-        // Export for other pages
+        // Export globals for other pages
         window.CineStream = {
-            API_KEY,
-            BASE_URL,
-            IMG_BASE,
-            IMG_ORIGINAL,
-            IMG_W500,
-            IMG_W342,
-            IMG_W185,
-            tmdbFetch,
-            fetchTrending,
-            fetchPopularMovies,
-            fetchPopularTV,
-            fetchTopRated,
-            fetchUpcoming,
-            fetchMovie,
-            fetchTV,
-            searchMulti,
-            generateMovieEmbed,
-            generateTVEmbed,
-            getContinueWatching,
-            getWatchHistory,
-            addToContinueWatching,
-            addToHistory,
-            clearContinueWatching,
-            clearWatchHistory,
-            createCard,
-            populateScroll,
-            showToast,
-            createParticles,
+            API_KEY, BASE_URL, IMG_BASE, IMG_ORIGINAL, IMG_W500, IMG_W342, IMG_W185,
+            tmdbFetch, fetchTrending, fetchPopularMovies, fetchPopularTV, fetchTopRated, fetchUpcoming,
+            fetchMovie, fetchTV, searchMulti,
+            generateMovieEmbed, generateTVEmbed,
+            getContinueWatching, getWatchHistory, addToContinueWatching, addToHistory,
+            clearContinueWatching, clearWatchHistory,
+            createCard, populateScroll, showToast, createParticles,
         };
-
-        console.log('🎬 CineStream initialized successfully!');
-        console.log('📡 TMDB API connected | 🎥 VidStorm · VidRock · VidPlus');
+        console.log('🎬 CineStream initialized with desktop menu bar!');
     </script>
 
-    <!-- Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').then(() => {
-                console.log('⚡ Service Worker registered');
-            }).catch(err => {
-                console.log('Service Worker registration failed:', err);
-            });
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('⚡ Service Worker registered'))
+                .catch(err => console.log('SW registration failed:', err));
         }
     </script>
 </body>
