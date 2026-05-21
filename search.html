@@ -1,149 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Anime - AnimeVault</title>
-    <meta name="description" content="Search and discover thousands of anime titles.">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/components.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Search Anime - AnimeStream</title>
+    <!-- COPY THE EXACT <style> TAG FROM index.html HERE -->
 </head>
 <body>
-    <div id="loading-screen" class="loading-screen">
-        <div class="loading-content">
-            <div class="loading-logo">AnimeVault</div>
-            <div class="loading-bar"><div class="loading-progress"></div></div>
-            <p class="loading-text">Searching anime...</p>
+    <!-- Same header, sidebar, search overlay as index.html -->
+
+    <main class="main-content" id="mainContent">
+        <h2 class="section-title">🔍 Search Anime</h2>
+        <div class="search-input-row" style="margin-bottom:20px;">
+            <input type="text" id="searchQuery" placeholder="Search by title..." value="">
+            <button class="btn btn-primary" id="searchBtnPage">Search</button>
         </div>
-    </div>
 
-    <div id="cursor-glow" class="cursor-glow"></div>
-
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <span class="logo-icon"><i class="fas fa-play-circle"></i></span>
-                <span class="logo-text">AnimeVault</span>
-            </a>
-            <div class="nav-links" id="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="search.html" class="nav-link active">Browse</a>
-                <a href="schedule.html" class="nav-link">Schedule</a>
-            </div>
-            <div class="nav-actions">
-                <div class="user-menu" id="user-menu">
-                    <a href="login.html" class="btn btn-primary btn-sm" id="login-btn">Sign In</a>
-                    <div class="user-dropdown hidden" id="user-dropdown">
-                        <a href="profile.html" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
-                        <a href="#" class="dropdown-item" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                    </div>
-                </div>
-            </div>
-            <button class="mobile-menu-btn" id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        <div class="flex-wrap gap-2" style="margin-bottom:20px;">
+            <select id="typeFilter" class="meta-tag"><option value="">All Types</option><option>tv</option><option>movie</option><option>ova</option><option>special</option></select>
+            <select id="statusFilter" class="meta-tag"><option value="">All Status</option><option>airing</option><option>complete</option><option>upcoming</option></select>
+            <select id="seasonFilter" class="meta-tag"><option value="">Any Season</option><option>spring</option><option>summer</option><option>fall</option><option>winter</option></select>
+            <input type="number" id="yearFilter" placeholder="Year" class="meta-tag" style="width:80px;">
         </div>
-    </nav>
 
-    <div class="mobile-nav" id="mobile-nav">
-        <a href="index.html" class="mobile-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
-        <a href="search.html" class="mobile-nav-item active"><i class="fas fa-search"></i><span>Search</span></a>
-        <a href="schedule.html" class="mobile-nav-item"><i class="fas fa-calendar"></i><span>Schedule</span></a>
-        <a href="profile.html" class="mobile-nav-item"><i class="fas fa-user"></i><span>Profile</span></a>
-    </div>
-
-    <main class="main-content search-page">
-        <!-- Search Header -->
-        <section class="search-header-section">
-            <div class="search-box-large">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input-large" id="search-input" placeholder="Search anime, movies, OVAs..." autocomplete="off">
-                <button class="search-clear" id="search-clear"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="search-stats" id="search-stats"></div>
-        </section>
-
-        <!-- Filters -->
-        <section class="filters-section">
-            <div class="filters-container">
-                <div class="filter-group">
-                    <label>Genre</label>
-                    <select id="genre-filter">
-                        <option value="">All Genres</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label>Type</label>
-                    <select id="type-filter">
-                        <option value="">All Types</option>
-                        <option value="tv">TV Series</option>
-                        <option value="movie">Movie</option>
-                        <option value="ova">OVA</option>
-                        <option value="special">Special</option>
-                        <option value="ona">ONA</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label>Status</label>
-                    <select id="status-filter">
-                        <option value="">All Status</option>
-                        <option value="airing">Airing</option>
-                        <option value="complete">Completed</option>
-                        <option value="upcoming">Upcoming</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label>Season</label>
-                    <select id="season-filter">
-                        <option value="">All Seasons</option>
-                        <option value="winter">Winter</option>
-                        <option value="spring">Spring</option>
-                        <option value="summer">Summer</option>
-                        <option value="fall">Fall</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label>Year</label>
-                    <select id="year-filter">
-                        <option value="">All Years</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label>Sort By</label>
-                    <select id="sort-filter">
-                        <option value="score">Score</option>
-                        <option value="popularity">Popularity</option>
-                        <option value="members">Members</option>
-                        <option value="start_date">Release Date</option>
-                    </select>
-                </div>
-                <button class="btn btn-secondary btn-sm" id="reset-filters">Reset</button>
-            </div>
-        </section>
-
-        <!-- Results -->
-        <section class="results-section">
-            <div class="anime-grid" id="search-results-grid"></div>
-            <div class="loading-more" id="loading-more">
-                <div class="loader-spinner"></div>
-                <p>Loading more...</p>
-            </div>
-            <div class="no-results hidden" id="no-results">
-                <i class="fas fa-search"></i>
-                <h3>No results found</h3>
-                <p>Try adjusting your search or filters</p>
-            </div>
-        </section>
+        <div class="anime-grid" id="searchResultsGrid">
+            <p style="color:var(--muted);">Search for an anime to see results.</p>
+        </div>
+        <div id="loadMoreBtn" class="text-center mt-4 hidden">
+            <button class="btn btn-outline" onclick="loadMore()">Load More</button>
+        </div>
     </main>
 
-    <footer class="footer">
-        <div class="footer-bottom">
-            <p> AnimeVault. All rights reserved.</p>
-        </div>
+    <footer class="site-footer">
+        <!-- same footer -->
     </footer>
 
-    <script type="module" src="assets/js/search-page.js"></script>
+    <script>
+        const JIKAN_BASE = 'https://api.jikan.moe/v4';
+        const $ = (sel) => document.querySelector(sel);
+        let currentPage = 1;
+        let lastQuery = '';
+
+        async function searchAnime(page = 1) {
+            const query = document.getElementById('searchQuery').value.trim();
+            const type = document.getElementById('typeFilter').value;
+            const status = document.getElementById('statusFilter').value;
+            const season = document.getElementById('seasonFilter').value;
+            const year = document.getElementById('yearFilter').value;
+
+            let url = `${JIKAN_BASE}/anime?page=${page}&limit=12&sfw=true`;
+            if (query) url += `&q=${encodeURIComponent(query)}`;
+            if (type) url += `&type=${type}`;
+            if (status) url += `&status=${status}`;
+            if (season && year) url += `&season=${season}&year=${year}`;
+
+            const res = await fetch(url);
+            const data = await res.json();
+            return data;
+        }
+
+        function createAnimeCard(anime) {
+            const img = anime.images?.jpg?.large_image_url || '';
+            const title = anime.title_english || anime.title || 'Unknown';
+            const type = anime.type || '';
+            const episodes = anime.episodes || '?';
+            const score = anime.score || 'N/A';
+            return `
+            <a href="anime.html?id=${anime.mal_id}" class="anime-card">
+              <div class="poster-wrap">
+                <img src="${img}" alt="${title}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 140%22><rect fill=%22%231a1a24%22 width=%22100%22 height=%22140%22/></svg>'">
+                <span class="card-badge">${type || 'TV'}</span>
+                <span class="card-rating">⭐ ${score}</span>
+              </div>
+              <div class="card-info">
+                <span class="card-title">${title}</span>
+                <span class="card-meta">${episodes} eps</span>
+              </div>
+            </a>`;
+        }
+
+        async function performSearch(newSearch = true) {
+            if (newSearch) {
+                currentPage = 1;
+                lastQuery = document.getElementById('searchQuery').value.trim();
+                document.getElementById('searchResultsGrid').innerHTML = '';
+            }
+
+            const data = await searchAnime(currentPage);
+            if (data && data.data) {
+                const grid = document.getElementById('searchResultsGrid');
+                if (currentPage === 1) grid.innerHTML = '';
+                data.data.forEach(anime => grid.insertAdjacentHTML('beforeend', createAnimeCard(anime)));
+                document.getElementById('loadMoreBtn').classList.toggle('hidden', !data.pagination?.has_next_page);
+            } else {
+                if (currentPage === 1) document.getElementById('searchResultsGrid').innerHTML = '<p>No results found.</p>';
+            }
+        }
+
+        function loadMore() {
+            currentPage++;
+            performSearch(false);
+        }
+
+        document.getElementById('searchBtnPage').addEventListener('click', performSearch);
+        document.getElementById('searchQuery').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') performSearch();
+        });
+    </script>
 </body>
 </html>
