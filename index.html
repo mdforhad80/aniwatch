@@ -999,8 +999,7 @@ function animeCardHTML(anime, index = 0) {
   const type = anime.type || 'TV';
   const episodes = anime.episodes || '?';
   const status = anime.status || 'Unknown';
-  const year = anime.year || (anime.aired?.string?.match(/\d{4}/)?.[0]) || '';
-  const genres = (anime.genres || []).slice(0, 2).map(g => g.name).join(', ');
+  // Year and genres removed from card display per user request
 
   return `
     <a href="anime.html?id=${anime.mal_id}" class="anime-card" data-index="${index}">
@@ -1017,8 +1016,7 @@ function animeCardHTML(anime, index = 0) {
       <div class="card-info">
         <div class="card-title">${escapeHtml(title)}</div>
         <div class="card-meta">
-          <span>${year}</span>
-          <span>${escapeHtml(genres)}</span>
+          <span>${episodes} Episodes</span>
         </div>
       </div>
     </a>
