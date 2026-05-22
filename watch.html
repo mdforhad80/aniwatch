@@ -879,10 +879,12 @@ function loadPlayer() {
   const loading = document.getElementById('playerLoading');
 
   if (frame) {
-    loading?.classList.remove('hidden');
+    if (loading) loading.classList.remove('hidden');
     frame.src = url;
-    frame.onload = () => { loading?.classList.add('hidden'); };
-    frame.onerror = () => { loading?.classList.add('hidden'); };
+    // iframe onload/onerror are unreliable for cross-origin, use timeout
+    setTimeout(() => {
+      if (loading) loading.classList.add('hidden');
+    }, 3000);
   }
 }
 
@@ -1024,20 +1026,42 @@ async function loadWatchData() {
   const animeId = getUrlParam('id');
   if (!animeId) { showError('No anime ID provided'); return; }
 
-  const [animeData, recommendationsData] = await Promise.allSettled([
-    apiFetch(`/anime/${animeId}/full`),
-    apiFetch(`/anime/${animeId}/recommendations`)
-  ]);
+  let animeData = null;
+  let recommendationsData = null;
 
-  currentAnime = animeData.status === 'fulfilled' ? animeData.value?.data : null;
-  if (!currentAnime) { showError('Failed to load anime data'); return; }
+  try {
+    const results = await Promise.allSettled([
+      apiFetch(`/anime/${animeId}/full`),
+      apiFetch(`/anime/${animeId}/recommendations`)
+    ]);
+    animeData = results[0].status === 'fulfilled' ? results[0].value : null;
+    recommendationsData = results[1].status === 'fulfilled' ? results[1].value : null;
+  } catch (err) {
+    console.error('Load error:', err);
+  }
+
+  // Try fallback to basic anime endpoint if full fails
+  if (!animeData || !animeData.data) {
+    try {
+      animeData = await apiFetch(`/anime/${animeId}`);
+    } catch (err) {
+      console.error('Fallback error:', err);
+    }
+  }
+
+  currentAnime = animeData?.data || null;
+
+  if (!currentAnime) {
+    showError('Failed to load anime data. Please check the anime ID and try again.');
+    return;
+  }
 
   totalEpisodes = currentAnime.episodes || 12;
   currentEpisode = Math.min(parseInt(getUrlParam('ep')) || 1, totalEpisodes);
 
   renderEpisodeList();
   updateEpisodeInfo();
-  renderRelated(recommendationsData.status === 'fulfilled' ? recommendationsData.value : null);
+  renderRelated(recommendationsData);
   loadPlayer();
   updatePlayerControls();
 
@@ -1055,12 +1079,13 @@ function showError(message) {
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         <h2>Oops!</h2>
         <p>${escapeHtml(message)}</p>
-        <a href="index.html" class="control-btn" style="background:var(--accent);color:white;border-color:var(--accent);">Go Home</a>
+        <a href="index.html" class="control-btn" style="background:var(--accent);color:white;border-color:var(--accent);padding:12px 28px;border-radius:var(--radius-md);font-weight:600;display:inline-flex;align-items:center;gap:8px;margin-top:8px;">Go Home</a>
       </div>
     `;
   }
+  // Always hide loader on error
   const loader = document.getElementById('pageLoader');
-  if (loader) loader.classList.add('hidden');
+  if (loader) { loader.classList.add('hidden'); }
 }
 
 // ========== EVENT LISTENERS ==========
@@ -1078,6 +1103,19 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('fullscreenBtn')?.addEventListener('click', toggleFullscreen);
 
   loadWatchData();
+
+  // Failsafe: hide loader after 15s no matter what
+  setTimeout(() => {
+    const loader = document.getElementById('pageLoader');
+    if (loader && !loader.classList.contains('hidden')) {
+      loader.classList.add('hidden');
+      // If content is still empty, show error
+      const layout = document.getElementById('watchLayout');
+      if (layout && !layout.querySelector('.player-section')) {
+        showError('Loading timed out. The anime data could not be loaded.');
+      }
+    }
+  }, 15000);
 });
 </script>
 </body>
