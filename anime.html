@@ -237,7 +237,7 @@ ul,ol { list-style:none; }
 .anime-banner {
   position: relative;
   width: 100%;
-  height: clamp(300px, 45vh, 500px);
+  height: clamp(380px, 55vh, 600px);
   overflow: hidden;
   margin-top: var(--header-height);
 }
@@ -256,7 +256,7 @@ ul,ol { list-style:none; }
   z-index: 2;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: clamp(24px, 4vw, 48px);
+  padding: clamp(40px, 6vw, 80px) clamp(24px, 4vw, 48px) clamp(24px, 4vw, 48px);
   display: flex;
   gap: clamp(20px, 3vw, 40px);
   align-items: flex-end;
@@ -270,6 +270,7 @@ ul,ol { list-style:none; }
   overflow: hidden;
   box-shadow: var(--shadow-md);
   border: 2px solid var(--border);
+  margin-top: 20px;
 }
 .anime-poster img {
   width: 100%; height: 100%; object-fit: cover;
