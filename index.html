@@ -3,814 +3,688 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AnimeStream - Watch Anime Online Free</title>
-<meta name="description" content="Watch anime online free in HD quality. Stream subbed and dubbed anime instantly.">
-<meta property="og:title" content="AnimeStream - Watch Anime Online Free">
-<meta property="og:description" content="Stream thousands of anime episodes in HD quality.">
+<title>AniVerse - Watch Anime Online Free</title>
+<meta name="description" content="Watch anime online free in HD. Stream the latest anime episodes with sub and dub options.">
+<meta property="og:title" content="AniVerse - Watch Anime Online Free">
+<meta property="og:description" content="Watch anime online free in HD. Stream the latest anime episodes.">
 <meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* ==================== CSS RESET & BASE ==================== */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0a0a0a;color:#e0e0e0;min-height:100vh;overflow-x:hidden;line-height:1.6}
-a{text-decoration:none;color:inherit}
-img{max-width:100%;display:block}
-button{border:none;background:none;cursor:pointer;font-family:inherit;color:inherit}
-ul,ol{list-style:none}
-input,select{font-family:inherit;color:inherit}
-
-/* ==================== CSS VARIABLES ==================== */
-:root{
-  --primary:#a855f7;--primary-dark:#7e22ce;--primary-glow:rgba(168,85,247,0.4);
-  --bg:#0a0a0a;--bg-elevated:#141414;--bg-card:#1a1a1a;--bg-glass:rgba(20,20,20,0.85);
-  --text:#e0e0e0;--text-secondary:#9ca3af;--text-muted:#6b7280;
-  --border:rgba(255,255,255,0.08);--radius:12px;--radius-sm:8px;
-  --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
-  --header-h:64px;--widget-h:320px;
+/* ===== CSS VARIABLES ===== */
+:root {
+  --bg-primary: #080810;
+  --bg-secondary: #0d0d1a;
+  --bg-card: rgba(255,255,255,0.04);
+  --bg-card-hover: rgba(255,255,255,0.08);
+  --accent: #7c3aed;
+  --accent-bright: #a855f7;
+  --accent-glow: rgba(124,58,237,0.4);
+  --accent-2: #06b6d4;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #475569;
+  --border: rgba(255,255,255,0.08);
+  --border-accent: rgba(124,58,237,0.3);
+  --radius: 12px;
+  --radius-lg: 20px;
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.4);
+  --shadow-glow: 0 0 30px rgba(124,58,237,0.3);
+  --header-h: 68px;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 
-/* ==================== SCROLLBAR ==================== */
-::-webkit-scrollbar{width:8px;height:8px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:#333;border-radius:4px}
-::-webkit-scrollbar-thumb:hover{background:var(--primary)}
+/* ===== RESET ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Outfit',sans-serif;background:var(--bg-primary);color:var(--text-primary);overflow-x:hidden;min-height:100vh}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+ul{list-style:none}
 
-/* ==================== SKELETON LOADING ==================== */
-.skeleton{background:linear-gradient(90deg,#1a1a1a 25%,#252525 50%,#1a1a1a 75%);background-size:200% 100%;animation:skeleton 1.5s infinite;border-radius:var(--radius-sm)}
-@keyframes skeleton{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.skeleton-banner{height:100%;width:100%;border-radius:0}
-.skeleton-card{aspect-ratio:2/3;border-radius:var(--radius)}
-.skeleton-text{height:16px;border-radius:4px;margin-top:8px}
-.skeleton-text.short{width:60%}
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg-secondary)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
 
-/* ==================== HEADER ==================== */
-.header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--bg-glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,48px);transition:var(--transition)}
-.header.scrolled{background:rgba(10,10,10,0.95);box-shadow:0 4px 30px rgba(0,0,0,0.5)}
-.header-left,.header-right{display:flex;align-items:center;gap:16px}
-.logo{font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:800;background:linear-gradient(135deg,var(--primary),#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.5px}
-.logo span{color:var(--text);-webkit-text-fill-color:var(--text);font-weight:400}
-.nav-btn{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:var(--transition);color:var(--text-secondary)}
-.nav-btn:hover{background:var(--bg-card);color:var(--primary)}
-.nav-btn svg{width:22px;height:22px}
-.search-btn{position:relative}
-.search-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);z-index:999;opacity:0;pointer-events:none;transition:opacity 0.3s;display:flex;align-items:flex-start;justify-content:center;padding-top:15vh}
-.search-overlay.active{opacity:1;pointer-events:all}
-.search-container{width:min(600px,90vw);position:relative}
-.search-input{width:100%;padding:16px 24px;background:var(--bg-elevated);border:2px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:1.1rem;outline:none;transition:var(--transition)}
-.search-input:focus{border-color:var(--primary);box-shadow:0 0 20px var(--primary-glow)}
-.search-results{position:absolute;top:calc(100%+8px);left:0;right:0;background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius);max-height:400px;overflow-y:auto;opacity:0;transform:translateY(-10px);transition:all 0.3s;pointer-events:none}
-.search-results.active{opacity:1;transform:translateY(0);pointer-events:all}
-.search-item{display:flex;gap:12px;padding:12px 16px;align-items:center;transition:var(--transition);cursor:pointer;border-bottom:1px solid var(--border)}
+/* ===== SKELETON ===== */
+.skeleton{background:linear-gradient(90deg,rgba(255,255,255,0.05) 25%,rgba(255,255,255,0.1) 50%,rgba(255,255,255,0.05) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:var(--radius)}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ===== HEADER ===== */
+#header{position:fixed;top:0;left:0;right:0;height:var(--header-h);z-index:1000;display:flex;align-items:center;padding:0 clamp(16px,4vw,48px);gap:16px;transition:background var(--transition),backdrop-filter var(--transition)}
+#header.scrolled{background:rgba(8,8,16,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.header-left{display:flex;align-items:center;gap:12px}
+.hamburger{width:40px;height:40px;display:flex;flex-direction:column;justify-content:center;gap:5px;padding:8px;border-radius:8px;transition:background var(--transition)}
+.hamburger:hover{background:var(--bg-card)}
+.hamburger span{display:block;height:2px;background:var(--text-primary);border-radius:1px;transition:all var(--transition)}
+.logo{font-family:'Cinzel',serif;font-size:clamp(20px,3vw,28px);font-weight:700;background:linear-gradient(135deg,#a855f7,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:1px}
+.header-center{flex:1;display:flex;justify-content:center}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--text-secondary);transition:all var(--transition)}
+.nav-links a:hover,.nav-links a.active{color:var(--text-primary);background:var(--bg-card)}
+.header-right{display:flex;align-items:center;gap:8px}
+.icon-btn{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:8px;color:var(--text-secondary);transition:all var(--transition);font-size:18px}
+.icon-btn:hover{background:var(--bg-card);color:var(--text-primary)}
+
+/* ===== SEARCH OVERLAY ===== */
+#search-overlay{position:fixed;inset:0;z-index:2000;background:rgba(8,8,16,0.96);backdrop-filter:blur(20px);display:none;flex-direction:column;align-items:center;padding-top:80px}
+#search-overlay.active{display:flex}
+.search-box{width:min(680px,90vw);position:relative}
+.search-box input{width:100%;padding:18px 56px 18px 56px;background:rgba(255,255,255,0.06);border:1.5px solid var(--border-accent);border-radius:14px;font-size:18px;color:var(--text-primary);font-family:'Outfit',sans-serif;outline:none;transition:border-color var(--transition)}
+.search-box input:focus{border-color:var(--accent-bright)}
+.search-box input::placeholder{color:var(--text-muted)}
+.search-icon-inner{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:20px}
+.search-close{position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:20px;cursor:pointer;transition:color var(--transition)}
+.search-close:hover{color:var(--text-primary)}
+#search-results{width:min(680px,90vw);margin-top:12px;background:rgba(13,13,26,0.98);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;max-height:60vh;overflow-y:auto}
+.search-item{display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;transition:background var(--transition);border-bottom:1px solid var(--border)}
 .search-item:hover{background:var(--bg-card)}
-.search-item img{width:48px;height:72px;object-fit:cover;border-radius:var(--radius-sm);flex-shrink:0}
-.search-item-info{flex:1;min-width:0}
-.search-item-title{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
-.search-item-meta{font-size:0.8rem;color:var(--text-muted);margin-top:2px}
-.search-close{position:absolute;top:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--bg-elevated);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:var(--transition)}
-.search-close:hover{background:var(--bg-card);color:var(--text)}
+.search-item img{width:44px;height:62px;object-fit:cover;border-radius:6px;flex-shrink:0}
+.search-item-info h4{font-size:14px;font-weight:600;margin-bottom:4px}
+.search-item-info p{font-size:12px;color:var(--text-secondary)}
 
-/* ==================== SIDEBAR ==================== */
-.sidebar{position:fixed;top:0;left:0;bottom:0;width:280px;background:var(--bg-elevated);border-right:1px solid var(--border);z-index:1001;transform:translateX(-100%);transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);padding-top:var(--header-h);overflow-y:auto}
-.sidebar.active{transform:translateX(0)}
-.sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;opacity:0;pointer-events:none;transition:opacity 0.3s}
-.sidebar-overlay.active{opacity:1;pointer-events:all}
-.sidebar-nav{padding:16px}
-.sidebar-nav a{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:var(--radius-sm);color:var(--text-secondary);font-weight:500;transition:var(--transition);margin-bottom:4px}
-.sidebar-nav a:hover,.sidebar-nav a.active{background:var(--bg-card);color:var(--primary)}
-.sidebar-nav a svg{width:22px;height:22px;flex-shrink:0}
-.sidebar-section{margin-top:24px;padding:0 16px}
-.sidebar-section-title{font-size:0.75rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:12px;font-weight:600}
+/* ===== SIDEBAR ===== */
+#sidebar{position:fixed;top:0;left:0;height:100vh;width:260px;background:rgba(8,8,16,0.98);backdrop-filter:blur(20px);z-index:1500;transform:translateX(-100%);transition:transform var(--transition);border-right:1px solid var(--border);padding-top:var(--header-h)}
+#sidebar.open{transform:translateX(0)}
+#sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1400;display:none}
+#sidebar-overlay.active{display:block}
+.sidebar-nav{padding:24px 16px}
+.sidebar-nav a{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:10px;color:var(--text-secondary);font-weight:500;margin-bottom:4px;transition:all var(--transition)}
+.sidebar-nav a:hover{background:var(--bg-card);color:var(--text-primary)}
+.sidebar-nav a span{font-size:18px}
 
-/* ==================== HERO SLIDER ==================== */
-.hero{position:relative;width:100%;height:clamp(400px,60vh,700px);overflow:hidden;margin-top:var(--header-h)}
-.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 0.8s ease;pointer-events:none}
-.hero-slide.active{opacity:1;pointer-events:all;z-index:2}
-.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center 20%;transition:transform 8s ease}
+/* ===== HERO SLIDER ===== */
+#hero{position:relative;width:100%;height:100vh;min-height:560px;max-height:900px;overflow:hidden;margin-top:0}
+.hero-track{display:flex;height:100%;transition:transform 0.8s cubic-bezier(0.77,0,0.175,1)}
+.hero-slide{position:relative;min-width:100%;height:100%;overflow:hidden;flex-shrink:0}
+.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center top;transition:transform 8s ease}
 .hero-slide.active .hero-bg{transform:scale(1.05)}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,rgba(10,10,10,0.7) 40%,rgba(10,10,10,0.3) 100%)}
-.hero-content{position:absolute;bottom:0;left:0;right:0;padding:clamp(24px,5vw,64px);padding-bottom:clamp(40px,8vw,80px);z-index:3;max-width:800px}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--primary);color:#fff;font-size:0.75rem;font-weight:700;border-radius:20px;margin-bottom:16px;text-transform:uppercase;letter-spacing:1px}
-.hero-title{font-size:clamp(1.8rem,4vw,3.5rem);font-weight:800;line-height:1.15;margin-bottom:16px;text-shadow:0 2px 20px rgba(0,0,0,0.5);opacity:0;transform:translateY(30px);transition:all 0.6s 0.2s}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,8,16,0.95) 0%,rgba(8,8,16,0.6) 50%,transparent 100%),linear-gradient(0deg,rgba(8,8,16,0.9) 0%,transparent 50%)}
+.hero-content{position:absolute;bottom:0;left:0;right:0;padding:clamp(24px,5vw,80px);padding-top:var(--header-h);display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.hero-meta{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.hero-badge{padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase}
+.badge-score{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff}
+.badge-type{background:var(--accent);color:#fff}
+.badge-ep{background:rgba(255,255,255,0.1);color:var(--text-secondary);border:1px solid var(--border)}
+.hero-title{font-size:clamp(28px,5vw,72px);font-weight:800;line-height:1.1;margin-bottom:12px;max-width:700px;opacity:0;transform:translateY(30px);transition:all 0.6s ease 0.2s}
 .hero-slide.active .hero-title{opacity:1;transform:translateY(0)}
-.hero-meta{display:flex;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap;opacity:0;transform:translateY(20px);transition:all 0.6s 0.35s}
-.hero-slide.active .hero-meta{opacity:1;transform:translateY(0)}
-.hero-score{display:flex;align-items:center;gap:6px;color:#fbbf24;font-weight:700;font-size:1rem}
-.hero-genres{display:flex;gap:8px;flex-wrap:wrap}
-.hero-genre{padding:4px 12px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:20px;font-size:0.8rem;color:var(--text-secondary)}
-.hero-synopsis{font-size:clamp(0.9rem,1.2vw,1.05rem);color:var(--text-secondary);line-height:1.6;margin-bottom:24px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;opacity:0;transform:translateY(20px);transition:all 0.6s 0.5s}
+.hero-genres{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;opacity:0;transition:opacity 0.6s ease 0.35s}
+.hero-slide.active .hero-genres{opacity:1}
+.genre-pill{padding:4px 12px;background:rgba(255,255,255,0.08);border:1px solid var(--border);border-radius:100px;font-size:12px;color:var(--text-secondary)}
+.hero-synopsis{font-size:clamp(13px,1.5vw,15px);color:var(--text-secondary);max-width:560px;line-height:1.7;margin-bottom:28px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;opacity:0;transform:translateY(20px);transition:all 0.6s ease 0.45s}
 .hero-slide.active .hero-synopsis{opacity:1;transform:translateY(0)}
-.hero-buttons{display:flex;gap:12px;flex-wrap:wrap;opacity:0;transform:translateY(20px);transition:all 0.6s 0.65s}
-.hero-slide.active .hero-buttons{opacity:1;transform:translateY(0)}
-.btn-primary{padding:12px 28px;background:var(--primary);color:#fff;font-weight:700;border-radius:var(--radius);display:inline-flex;align-items:center;gap:8px;transition:var(--transition);font-size:0.95rem;box-shadow:0 4px 20px var(--primary-glow)}
-.btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 8px 30px var(--primary-glow)}
-.btn-secondary{padding:12px 28px;background:rgba(255,255,255,0.1);color:var(--text);font-weight:600;border-radius:var(--radius);display:inline-flex;align-items:center;gap:8px;transition:var(--transition);font-size:0.95rem;border:1px solid rgba(255,255,255,0.15)}
-.btn-secondary:hover{background:rgba(255,255,255,0.2);transform:translateY(-2px)}
-.hero-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,0.5);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;color:#fff;transition:var(--transition);border:1px solid rgba(255,255,255,0.1)}
-.hero-nav:hover{background:rgba(0,0,0,0.8);color:var(--primary)}
-.hero-nav.prev{left:clamp(16px,3vw,40px)}
-.hero-nav.next{right:clamp(16px,3vw,40px)}
-.hero-nav svg{width:24px;height:24px}
-.hero-dots{position:absolute;bottom:clamp(20px,4vw,40px);left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:10}
-.hero-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer;transition:var(--transition);border:2px solid transparent}
-.hero-dot.active{background:var(--primary);border-color:rgba(168,85,247,0.3);transform:scale(1.3);box-shadow:0 0 10px var(--primary-glow)}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;opacity:0;transition:opacity 0.6s ease 0.55s}
+.hero-slide.active .hero-actions{opacity:1}
+.btn-watch{display:flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,var(--accent),var(--accent-bright));color:#fff;border-radius:10px;font-weight:700;font-size:15px;transition:all var(--transition);box-shadow:0 4px 20px var(--accent-glow)}
+.btn-watch:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--accent-glow)}
+.btn-details{display:flex;align-items:center;gap:8px;padding:14px 28px;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);color:#fff;border-radius:10px;font-weight:600;font-size:15px;border:1px solid rgba(255,255,255,0.15);transition:all var(--transition)}
+.btn-details:hover{background:rgba(255,255,255,0.18)}
+.hero-arrows{position:absolute;right:clamp(16px,3vw,40px);bottom:50%;transform:translateY(50%);display:flex;flex-direction:column;gap:8px;z-index:10}
+.hero-arrow{width:46px;height:46px;background:rgba(255,255,255,0.08);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--text-primary);font-size:18px;cursor:pointer;transition:all var(--transition)}
+.hero-arrow:hover{background:var(--accent);border-color:var(--accent)}
+.hero-dots{position:absolute;bottom:32px;right:clamp(16px,3vw,40px);display:flex;gap:6px;z-index:10}
+.hero-dot{width:6px;height:6px;background:rgba(255,255,255,0.3);border-radius:3px;cursor:pointer;transition:all var(--transition)}
+.hero-dot.active{width:24px;background:var(--accent-bright)}
+.hero-progress{position:absolute;bottom:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width 0.1s linear}
 
-/* ==================== WIDGETS ==================== */
-.main-content{padding:clamp(24px,4vw,48px) clamp(16px,4vw,48px);max-width:1600px;margin:0 auto}
-.widget{margin-bottom:clamp(32px,5vw,56px)}
-.widget-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:16px;flex-wrap:wrap}
-.widget-title{font-size:clamp(1.1rem,2vw,1.4rem);font-weight:700;display:flex;align-items:center;gap:10px}
-.widget-title svg{width:24px;height:24px;color:var(--primary)}
-.widget-actions{display:flex;gap:8px}
-.widget-btn{width:36px;height:36px;border-radius:50%;background:var(--bg-card);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:var(--transition);border:1px solid var(--border)}
-.widget-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
-.widget-btn svg{width:18px;height:18px}
+/* ===== MAIN CONTENT ===== */
+main{padding-top:0}
+.section{padding:clamp(32px,5vw,64px) clamp(16px,4vw,48px)}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.section-title{font-size:clamp(18px,2.5vw,24px);font-weight:700;display:flex;align-items:center;gap:10px}
+.section-title::before{content:'';width:4px;height:24px;background:linear-gradient(180deg,var(--accent),var(--accent-2));border-radius:2px;display:block}
+.section-link{font-size:13px;color:var(--accent-bright);font-weight:600;transition:opacity var(--transition)}
+.section-link:hover{opacity:0.7}
 
-/* ==================== UNIVERSAL SLIDER ==================== */
-.slider-wrapper{position:relative;overflow:hidden}
-.slider-track{display:flex;gap:16px;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;padding:4px 4px 16px;cursor:grab}
-.slider-track::-webkit-scrollbar{display:none}
-.slider-track:active{cursor:grabbing}
-.slider-track.dragging{scroll-behavior:auto;scroll-snap-type:none}
-.anime-card{flex:0 0 auto;width:clamp(160px,18vw,220px);scroll-snap-align:start;position:relative;border-radius:var(--radius);overflow:hidden;background:var(--bg-card);transition:var(--transition);cursor:pointer;transform:translateZ(0)}
-.anime-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 20px 40px rgba(0,0,0,0.4),0 0 30px var(--primary-glow);z-index:5}
-.card-image{aspect-ratio:2/3;position:relative;overflow:hidden;border-radius:var(--radius) var(--radius) 0 0}
-.card-image img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s}
-.anime-card:hover .card-image img{transform:scale(1.1)}
-.card-gradient{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.9) 0%,transparent 50%);pointer-events:none}
-.card-badges{position:absolute;top:8px;left:8px;right:8px;display:flex;gap:6px;flex-wrap:wrap;pointer-events:none}
-.card-badge{padding:4px 10px;border-radius:20px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
-.badge-hd{background:#ef4444;color:#fff}
-.badge-score{background:rgba(0,0,0,0.7);color:#fbbf24;display:flex;align-items:center;gap:4px;backdrop-filter:blur(4px)}
-.badge-ep{background:var(--primary);color:#fff}
-.badge-type{background:rgba(255,255,255,0.15);color:#fff;backdrop-filter:blur(4px)}
-.card-info{padding:12px 14px 14px}
-.card-title{font-weight:600;font-size:0.9rem;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.7em}
-.card-meta{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:0.8rem;color:var(--text-muted)}
-.card-meta-dot{width:4px;height:4px;border-radius:50%;background:var(--text-muted)}
+/* ===== SLIDER WIDGET ===== */
+.slider-container{position:relative}
+.slider-track-wrap{overflow:hidden;position:relative}
+.slider-track{display:flex;gap:12px;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);will-change:transform}
+.slider-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:42px;height:42px;background:rgba(8,8,16,0.9);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--text-primary);font-size:16px;cursor:pointer;transition:all var(--transition)}
+.slider-btn:hover{background:var(--accent);border-color:var(--accent);box-shadow:var(--shadow-glow)}
+.slider-btn.prev{left:-21px}
+.slider-btn.next{right:-21px}
+.slider-btn:disabled{opacity:0.3;cursor:not-allowed}
 
-/* ==================== FOOTER ==================== */
-.footer{border-top:1px solid var(--border);padding:clamp(24px,4vw,40px) clamp(16px,4vw,48px);text-align:center;background:var(--bg-elevated)}
-.footer-content{max-width:1600px;margin:0 auto}
-.footer-logo{font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,var(--primary),#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px}
-.footer-text{color:var(--text-muted);font-size:0.9rem;margin-bottom:16px}
-.footer-socials{display:flex;justify-content:center;gap:16px;margin-bottom:16px}
-.footer-social{width:40px;height:40px;border-radius:50%;background:var(--bg-card);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:var(--transition);border:1px solid var(--border)}
-.footer-social:hover{background:var(--primary);color:#fff;border-color:var(--primary);transform:translateY(-3px)}
-.footer-copyright{color:var(--text-muted);font-size:0.8rem}
+/* ===== ANIME CARD ===== */
+.anime-card{flex-shrink:0;width:clamp(140px,14vw,180px);cursor:pointer;position:relative;border-radius:var(--radius);overflow:hidden;background:var(--bg-card);border:1px solid var(--border);transition:all var(--transition);transform:translateZ(0)}
+.anime-card:hover{transform:translateY(-6px) scale(1.02);border-color:var(--border-accent);box-shadow:var(--shadow-card),var(--shadow-glow)}
+.card-poster{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;transition:transform var(--transition)}
+.anime-card:hover .card-poster{transform:scale(1.05)}
+.card-poster-wrap{position:relative;overflow:hidden}
+.card-badges{position:absolute;top:8px;left:8px;display:flex;flex-direction:column;gap:4px}
+.card-badge{padding:2px 7px;border-radius:5px;font-size:10px;font-weight:700;letter-spacing:0.3px}
+.card-badge.score{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff}
+.card-badge.hd{background:rgba(6,182,212,0.9);color:#fff}
+.card-badge.ep{background:rgba(0,0,0,0.8);color:var(--text-secondary);border:1px solid rgba(255,255,255,0.1)}
+.card-type-badge{position:absolute;top:8px;right:8px;padding:2px 7px;border-radius:5px;font-size:10px;font-weight:700;background:var(--accent);color:#fff}
+.card-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,8,16,0.95) 0%,transparent 50%);opacity:0;transition:opacity var(--transition);display:flex;align-items:flex-end;padding:12px}
+.anime-card:hover .card-overlay{opacity:1}
+.card-play{width:36px;height:36px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:14px;flex-shrink:0}
+.card-info{padding:10px}
+.card-title{font-size:12px;font-weight:600;color:var(--text-primary);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-sub-info{font-size:11px;color:var(--text-muted);margin-top:4px}
+.card-skeleton{flex-shrink:0;width:clamp(140px,14vw,180px)}
+.card-skeleton .poster-skel{aspect-ratio:3/4;border-radius:var(--radius) var(--radius) 0 0}
+.card-skeleton .title-skel{height:12px;margin:10px 10px 6px;border-radius:4px}
+.card-skeleton .sub-skel{height:10px;margin:0 10px 10px;width:60%;border-radius:4px}
 
-/* ==================== RESPONSIVE ==================== */
+/* ===== FOOTER ===== */
+footer{border-top:1px solid var(--border);padding:32px clamp(16px,4vw,48px);text-align:center}
+.footer-logo{font-family:'Cinzel',serif;font-size:22px;font-weight:700;background:linear-gradient(135deg,#a855f7,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
+.footer-socials{display:flex;justify-content:center;gap:12px;margin-bottom:16px}
+.social-btn{width:38px;height:38px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);font-size:16px;transition:all var(--transition)}
+.social-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.footer-copy{font-size:12px;color:var(--text-muted)}
+
+/* ===== MOBILE NAV ===== */
 @media(max-width:768px){
-  .hero{height:clamp(350px,70vh,500px)}
-  .hero-content{padding:20px;padding-bottom:60px}
-  .hero-nav{display:none}
-  .hero-buttons{flex-direction:column}
-  .btn-primary,.btn-secondary{width:100%;justify-content:center}
-  .anime-card{width:150px}
-  .search-container{width:95vw}
+  .nav-links{display:none}
+  .hero-arrows{display:none}
+  #hero{height:100svh;min-height:480px}
+  .hero-content{padding:16px;padding-top:var(--header-h)}
+  .slider-btn.prev{left:-10px}
+  .slider-btn.next{right:-10px}
 }
 @media(max-width:480px){
-  .anime-card{width:130px}
-  .hero-title{font-size:1.5rem}
-}
-@media(min-width:1920px){
-  .main-content{max-width:1800px}
-  .anime-card{width:240px}
+  .anime-card{width:clamp(120px,42vw,155px)}
+  .card-skeleton{width:clamp(120px,42vw,155px)}
 }
 
-/* ==================== ERROR / EMPTY STATES ==================== */
-.error-state{text-align:center;padding:40px 20px;color:var(--text-muted)}
-.error-state svg{width:48px;height:48px;margin-bottom:12px;color:var(--text-muted);opacity:0.5}
-.error-state p{font-size:0.95rem}
-.retry-btn{margin-top:12px;padding:8px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:0.85rem;transition:var(--transition)}
-.retry-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
-
-/* ==================== ANIMATIONS ==================== */
+/* ===== ANIMATIONS ===== */
 @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{animation:fadeIn 0.6s ease forwards}
+.fade-in{animation:fadeIn 0.5s ease forwards}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
 </style>
-<base target="_blank">
 </head>
 <body>
 
-<!-- ==================== HEADER ==================== -->
-<header class="header" id="header">
+<!-- ===== HEADER ===== -->
+<header id="header">
   <div class="header-left">
-    <button class="nav-btn" id="menuBtn" aria-label="Open menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    <button class="hamburger" id="hamburger-btn" aria-label="Menu">
+      <span></span><span></span><span></span>
     </button>
-    <a href="index.html" class="logo">Anime<span>Stream</span></a>
+    <a href="index.html" class="logo">AniVerse</a>
+  </div>
+  <div class="header-center">
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="search.html">Browse</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="creator.html">About</a>
+    </nav>
   </div>
   <div class="header-right">
-    <button class="nav-btn search-btn" id="searchBtn" aria-label="Search">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-    </button>
+    <button class="icon-btn" id="search-btn" aria-label="Search">🔍</button>
   </div>
 </header>
 
-<!-- ==================== SEARCH OVERLAY ==================== -->
-<div class="search-overlay" id="searchOverlay">
-  <button class="search-close" id="searchClose" aria-label="Close search">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-  </button>
-  <div class="search-container">
-    <input type="text" class="search-input" id="searchInput" placeholder="Search anime..." autocomplete="off">
-    <div class="search-results" id="searchResults"></div>
+<!-- ===== SIDEBAR ===== -->
+<div id="sidebar-overlay"></div>
+<nav id="sidebar">
+  <div class="sidebar-nav">
+    <a href="index.html"><span>🏠</span> Home</a>
+    <a href="search.html"><span>🔍</span> Browse</a>
+    <a href="schedule.html"><span>📅</span> Schedule</a>
+    <a href="search.html?type=movie"><span>🎬</span> Movies</a>
+    <a href="search.html?status=airing"><span>📺</span> Airing</a>
+    <a href="creator.html"><span>👤</span> About</a>
   </div>
+</nav>
+
+<!-- ===== SEARCH OVERLAY ===== -->
+<div id="search-overlay">
+  <div class="search-box">
+    <span class="search-icon-inner">🔍</span>
+    <input type="text" id="search-input" placeholder="Search anime..." autocomplete="off">
+    <span class="search-close" id="search-close">✕</span>
+  </div>
+  <div id="search-results"></div>
 </div>
 
-<!-- ==================== SIDEBAR ==================== -->
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
-<aside class="sidebar" id="sidebar">
-  <nav class="sidebar-nav">
-    <a href="index.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>Home</a>
-    <a href="search.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>Search</a>
-    <a href="schedule.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Schedule</a>
-    <a href="creator.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>Creator</a>
-  </nav>
-</aside>
-
-<!-- ==================== HERO SLIDER ==================== -->
-<section class="hero" id="hero">
-  <div class="hero-slides" id="heroSlides"></div>
-  <button class="hero-nav prev" id="heroPrev" aria-label="Previous slide">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-  </button>
-  <button class="hero-nav next" id="heroNext" aria-label="Next slide">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-  </button>
-  <div class="hero-dots" id="heroDots"></div>
+<!-- ===== HERO SLIDER ===== -->
+<section id="hero">
+  <div class="hero-track" id="hero-track"></div>
+  <div class="hero-arrows">
+    <button class="hero-arrow" id="hero-prev">▲</button>
+    <button class="hero-arrow" id="hero-next">▼</button>
+  </div>
+  <div class="hero-dots" id="hero-dots"></div>
+  <div class="hero-progress" id="hero-progress"></div>
 </section>
 
-<!-- ==================== MAIN CONTENT ==================== -->
-<main class="main-content">
+<!-- ===== MAIN ===== -->
+<main>
   <!-- Recently Updated -->
-  <section class="widget" id="widget-recent">
-    <div class="widget-header">
-      <h2 class="widget-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>Recently Updated</h2>
-      <div class="widget-actions">
-        <button class="widget-btn" data-slider="recent" data-dir="prev" aria-label="Scroll left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-        <button class="widget-btn" data-slider="recent" data-dir="next" aria-label="Scroll right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-      </div>
+  <section class="section" id="sec-recent">
+    <div class="section-header">
+      <h2 class="section-title">Recently Updated</h2>
+      <a href="search.html?sort=recent" class="section-link">View All →</a>
     </div>
-    <div class="slider-wrapper">
-      <div class="slider-track" id="slider-recent"></div>
+    <div class="slider-container">
+      <button class="slider-btn prev" data-target="recent">‹</button>
+      <div class="slider-track-wrap">
+        <div class="slider-track" id="track-recent"></div>
+      </div>
+      <button class="slider-btn next" data-target="recent">›</button>
     </div>
   </section>
 
   <!-- Trending Now -->
-  <section class="widget" id="widget-trending">
-    <div class="widget-header">
-      <h2 class="widget-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>Trending Now</h2>
-      <div class="widget-actions">
-        <button class="widget-btn" data-slider="trending" data-dir="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-        <button class="widget-btn" data-slider="trending" data-dir="next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-      </div>
+  <section class="section" id="sec-trending">
+    <div class="section-header">
+      <h2 class="section-title">Trending Now</h2>
+      <a href="search.html?sort=bypopularity" class="section-link">View All →</a>
     </div>
-    <div class="slider-wrapper">
-      <div class="slider-track" id="slider-trending"></div>
+    <div class="slider-container">
+      <button class="slider-btn prev" data-target="trending">‹</button>
+      <div class="slider-track-wrap">
+        <div class="slider-track" id="track-trending"></div>
+      </div>
+      <button class="slider-btn next" data-target="trending">›</button>
     </div>
   </section>
 
   <!-- Top Rated -->
-  <section class="widget" id="widget-top">
-    <div class="widget-header">
-      <h2 class="widget-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>Top Rated</h2>
-      <div class="widget-actions">
-        <button class="widget-btn" data-slider="top" data-dir="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-        <button class="widget-btn" data-slider="top" data-dir="next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-      </div>
+  <section class="section" id="sec-toprated">
+    <div class="section-header">
+      <h2 class="section-title">Top Rated</h2>
+      <a href="search.html?sort=score" class="section-link">View All →</a>
     </div>
-    <div class="slider-wrapper">
-      <div class="slider-track" id="slider-top"></div>
+    <div class="slider-container">
+      <button class="slider-btn prev" data-target="toprated">‹</button>
+      <div class="slider-track-wrap">
+        <div class="slider-track" id="track-toprated"></div>
+      </div>
+      <button class="slider-btn next" data-target="toprated">›</button>
     </div>
   </section>
 
   <!-- Top Airing -->
-  <section class="widget" id="widget-airing">
-    <div class="widget-header">
-      <h2 class="widget-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>Top Airing</h2>
-      <div class="widget-actions">
-        <button class="widget-btn" data-slider="airing" data-dir="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-        <button class="widget-btn" data-slider="airing" data-dir="next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-      </div>
+  <section class="section" id="sec-airing">
+    <div class="section-header">
+      <h2 class="section-title">Top Airing</h2>
+      <a href="search.html?status=airing" class="section-link">View All →</a>
     </div>
-    <div class="slider-wrapper">
-      <div class="slider-track" id="slider-airing"></div>
+    <div class="slider-container">
+      <button class="slider-btn prev" data-target="airing">‹</button>
+      <div class="slider-track-wrap">
+        <div class="slider-track" id="track-airing"></div>
+      </div>
+      <button class="slider-btn next" data-target="airing">›</button>
     </div>
   </section>
 
   <!-- Upcoming -->
-  <section class="widget" id="widget-upcoming">
-    <div class="widget-header">
-      <h2 class="widget-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Upcoming</h2>
-      <div class="widget-actions">
-        <button class="widget-btn" data-slider="upcoming" data-dir="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-        <button class="widget-btn" data-slider="upcoming" data-dir="next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-      </div>
+  <section class="section" id="sec-upcoming">
+    <div class="section-header">
+      <h2 class="section-title">Upcoming</h2>
+      <a href="search.html?status=upcoming" class="section-link">View All →</a>
     </div>
-    <div class="slider-wrapper">
-      <div class="slider-track" id="slider-upcoming"></div>
+    <div class="slider-container">
+      <button class="slider-btn prev" data-target="upcoming">‹</button>
+      <div class="slider-track-wrap">
+        <div class="slider-track" id="track-upcoming"></div>
+      </div>
+      <button class="slider-btn next" data-target="upcoming">›</button>
     </div>
   </section>
 
   <!-- Completed -->
-  <section class="widget" id="widget-completed">
-    <div class="widget-header">
-      <h2 class="widget-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>Completed</h2>
-      <div class="widget-actions">
-        <button class="widget-btn" data-slider="completed" data-dir="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-        <button class="widget-btn" data-slider="completed" data-dir="next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-      </div>
+  <section class="section" id="sec-completed">
+    <div class="section-header">
+      <h2 class="section-title">Completed</h2>
+      <a href="search.html?status=complete" class="section-link">View All →</a>
     </div>
-    <div class="slider-wrapper">
-      <div class="slider-track" id="slider-completed"></div>
+    <div class="slider-container">
+      <button class="slider-btn prev" data-target="completed">‹</button>
+      <div class="slider-track-wrap">
+        <div class="slider-track" id="track-completed"></div>
+      </div>
+      <button class="slider-btn next" data-target="completed">›</button>
     </div>
   </section>
 </main>
 
-<!-- ==================== FOOTER ==================== -->
-<footer class="footer">
-  <div class="footer-content">
-    <div class="footer-logo">AnimeStream</div>
-    <p class="footer-text">Watch anime online in HD quality. Free streaming platform.</p>
-    <div class="footer-socials">
-      <a href="#" class="footer-social" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
-      <a href="#" class="footer-social" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg></a>
-      <a href="#" class="footer-social" aria-label="Discord"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg></a>
-    </div>
-    <p class="footer-copyright"> AnimeStream. All rights reserved. Not affiliated with any streaming service.</p>
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-logo">AniVerse</div>
+  <div class="footer-socials">
+    <a href="creator.html" class="social-btn" title="GitHub">⚡</a>
+    <a href="#" class="social-btn" title="Discord">💬</a>
+    <a href="#" class="social-btn" title="Twitter">🐦</a>
   </div>
+  <p class="footer-copy">© 2024 AniVerse. Built with ❤️ for anime fans. Data from Jikan/MyAnimeList.</p>
 </footer>
 
 <script>
-// ==================== API CONFIG ====================
-const API_BASE = 'https://api.jikan.moe/v4';
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
-const MAX_RETRIES = 3;
-const RETRY_DELAY = 1000;
+/* ===== CONFIG ===== */
+const API = 'https://api.jikan.moe/v4';
+const CACHE_TTL = 10 * 60 * 1000; // 10 min
+const RATE_DELAY = 400; // ms between requests
 
-// ==================== UTILITY FUNCTIONS ====================
-const $ = (sel, ctx = document) => ctx.querySelector(sel);
-const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
-const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-
-function getCache(key) {
-  try {
-    const item = localStorage.getItem('as_cache_' + key);
-    if (!item) return null;
-    const parsed = JSON.parse(item);
-    if (Date.now() - parsed.ts > CACHE_TTL) { localStorage.removeItem('as_cache_' + key); return null; }
-    return parsed.data;
-  } catch { return null; }
-}
-function setCache(key, data) {
-  try { localStorage.setItem('as_cache_' + key, JSON.stringify({ ts: Date.now(), data })); } catch {}
-}
-
-async function fetchWithRetry(url, retries = MAX_RETRIES) {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 10000);
-  try {
-    const res = await fetch(url, { signal: controller.signal });
-    clearTimeout(timeout);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.json();
-  } catch (err) {
-    clearTimeout(timeout);
-    if (retries > 0) { await sleep(RETRY_DELAY * (MAX_RETRIES - retries + 1)); return fetchWithRetry(url, retries - 1); }
-    throw err;
-  }
-}
-
-async function apiRequest(endpoint, cacheKey) {
-  const cached = getCache(cacheKey);
-  if (cached) return cached;
-  const data = await fetchWithRetry(API_BASE + endpoint);
-  setCache(cacheKey, data);
-  return data;
-}
-
-// ==================== FALLBACK DATA ====================
-const FALLBACK_ANIME = [
-  { mal_id: 1, title: "Cowboy Bebop", images: { jpg: { large_image_url: "https://cdn.myanimelist.net/images/anime/4/19611l.jpg" } }, score: 8.75, type: "TV", episodes: 26, synopsis: "The futuristic misadventures of an easygoing bounty hunter and his partners.", genres: [{ name: "Action" }, { name: "Sci-Fi" }] },
-  { mal_id: 5114, title: "Fullmetal Alchemist: Brotherhood", images: { jpg: { large_image_url: "https://cdn.myanimelist.net/images/anime/1208/94745l.jpg" } }, score: 9.1, type: "TV", episodes: 64, synopsis: "Two brothers search for the Philosopher's Stone after an attempt to revive their mother goes wrong.", genres: [{ name: "Action" }, { name: "Adventure" }] },
-  { mal_id: 9253, title: "Steins;Gate", images: { jpg: { large_image_url: "https://cdn.myanimelist.net/images/anime/1935/127974l.jpg" } }, score: 9.08, type: "TV", episodes: 24, synopsis: "A mad scientist and his friends invent a time machine that can send text messages to the past.", genres: [{ name: "Sci-Fi" }, { name: "Thriller" }] },
-  { mal_id: 28977, title: "Gintama°", images: { jpg: { large_image_url: "https://cdn.myanimelist.net/images/anime/3/72078l.jpg" } }, score: 9.06, type: "TV", episodes: 51, synopsis: "The continuing adventures of Gintoki and his friends in an alternate Edo period.", genres: [{ name: "Comedy" }, { name: "Action" }] },
-  { mal_id: 38524, title: "Shingeki no Kyojin Season 3 Part 2", images: { jpg: { large_image_url: "https://cdn.myanimelist.net/images/anime/1517/100633l.jpg" } }, score: 9.05, type: "TV", episodes: 10, synopsis: "The Survey Corps returns to Shiganshina to reclaim Wall Maria.", genres: [{ name: "Action" }, { name: "Drama" }] },
-  { mal_id: 11061, title: "Hunter x Hunter (2011)", images: { jpg: { large_image_url: "https://cdn.myanimelist.net/images/anime/1337/99013l.jpg" } }, score: 9.04, type: "TV", episodes: 148, synopsis: "A young boy sets out to become a Hunter and find his father.", genres: [{ name: "Action" }, { name: "Adventure" }] },
-  { mal_id: 820, title: "Ginga Eiyuu Densetsu", images: { jpg: { large_image_url: "https://cdn.myanimelist.net/images/anime/13/13225l.jpg" } }, score: 9.03, type: "OVA", episodes: 110, synopsis: "The epic conflict between the Free Planets Alliance and the Galactic Empire.", genres: [{ name: "Sci-Fi" }, { name: "Drama" }] },
-  { mal_id: 42938, title: "Fruits Basket: The Final", images: { jpg: { large_image_url: "https://cdn.myanimelist.net/images/anime/1085/114792l.jpg" } }, score: 9.02, type: "TV", episodes: 13, synopsis: "The conclusion to the story of the Sohma family curse.", genres: [{ name: "Drama" }, { name: "Romance" }] },
-  { mal_id: 15417, title: "Gintama': Enchousen", images: { jpg: { large_image_url: "https://cdn.myanimelist.net/images/anime/6/75174l.jpg" } }, score: 9.02, type: "TV", episodes: 13, synopsis: "The third season of Gintama.", genres: [{ name: "Comedy" }, { name: "Action" }] },
-  { mal_id: 34096, title: "Gintama.", images: { jpg: { large_image_url: "https://cdn.myanimelist.net/images/anime/3/83528l.jpg" } }, score: 9.0, type: "TV", episodes: 12, synopsis: "The final arc of Gintama begins.", genres: [{ name: "Comedy" }, { name: "Action" }] },
-  { mal_id: 35180, title: "3-gatsu no Lion 2nd Season", images: { jpg: { large_image_url: "https://cdn.myanimelist.net/images/anime/3/88469l.jpg" } }, score: 8.99, type: "TV", episodes: 22, synopsis: "Rei continues his journey as a professional shogi player.", genres: [{ name: "Drama" }, { name: "Slice of Life" }] },
-  { mal_id: 918, title: "Gintama", images: { jpg: { large_image_url: "https://cdn.myanimelist.net/images/anime/10/73274l.jpg" } }, score: 8.98, type: "TV", episodes: 201, synopsis: "The adventures of Gintoki Sakata in an alternate Edo period.", genres: [{ name: "Comedy" }, { name: "Action" }] }
-];
-
-function getFallbackData(count = 12) {
-  return { data: FALLBACK_ANIME.slice(0, count) };
-}
-
-// ==================== CARD RENDERER ====================
-function createCard(anime, extraBadges = '') {
-  const img = anime.images?.jpg?.large_image_url || anime.images?.jpg?.image_url || '';
-  const score = anime.score ? anime.score.toFixed(2) : 'N/A';
-  const type = anime.type || 'TV';
-  const title = anime.title_english || anime.title || 'Unknown';
-
-  return `
-    <article class="anime-card" data-id="${anime.mal_id}" onclick="goToAnime(${anime.mal_id})">
-      <div class="card-image">
-        <img src="${img}" alt="${title}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22220%22 height=%22330%22><rect fill=%22%231a1a1a%22 width=%22100%25%22 height=%22100%25%22/><text fill=%22%23666%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 font-size=%2214%22>No Image</text></svg>'">
-        <div class="card-gradient"></div>
-        <div class="card-badges">
-          <span class="card-badge badge-hd">HD</span>
-          <span class="card-badge badge-score"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>${score}</span>
-          ${extraBadges}
-          <span class="card-badge badge-type">${type}</span>
-        </div>
-      </div>
-      <div class="card-info">
-        <h3 class="card-title">${title}</h3>
-      </div>
-    </article>
-  `;
-}
-
-function createSkeletonCard() {
-  return `
-    <article class="anime-card" style="pointer-events:none">
-      <div class="card-image"><div class="skeleton skeleton-card"></div></div>
-      <div class="card-info">
-        <div class="skeleton skeleton-text"></div>
-        <div class="skeleton skeleton-text short"></div>
-      </div>
-    </article>
-  `;
-}
-
-function createErrorState(msg, onRetry) {
-  return `
-    <div class="error-state" style="min-width:100%;padding:60px 20px;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-      <p>${msg}</p>
-      ${onRetry ? `<button class="retry-btn" onclick="${onRetry}">Try Again</button>` : ''}
-    </div>
-  `;
-}
-
-function goToAnime(id) { window.location.href = `anime.html?id=${id}`; }
-function goToWatch(id, ep = 1) { window.location.href = `watch.html?id=${id}&ep=${ep}`; }
-
-// ==================== UNIVERSAL SLIDER SYSTEM ====================
-class SliderSystem {
-  constructor() {
-    this.sliders = new Map();
-    this.initAll();
-    this.setupGlobalListeners();
-  }
-
-  register(id, track) {
-    if (this.sliders.has(id)) return;
-    const slider = {
-      track,
-      isDragging: false,
-      startX: 0,
-      scrollLeft: 0,
-      velocity: 0,
-      lastX: 0,
-      lastTime: 0,
-      rafId: null,
-      initialized: false
-    };
-    this.sliders.set(id, slider);
-    this.setupSliderEvents(id, slider);
-  }
-
-  setupSliderEvents(id, slider) {
-    const track = slider.track;
-
-    // Mouse drag
-    track.addEventListener('mousedown', (e) => {
-      slider.isDragging = true;
-      slider.startX = e.pageX - track.offsetLeft;
-      slider.scrollLeft = track.scrollLeft;
-      slider.lastX = e.pageX;
-      slider.lastTime = Date.now();
-      track.classList.add('dragging');
-    });
-
-    document.addEventListener('mousemove', (e) => {
-      if (!slider.isDragging) return;
-      e.preventDefault();
-      const x = e.pageX - track.offsetLeft;
-      const walk = (x - slider.startX) * 1.5;
-      track.scrollLeft = slider.scrollLeft - walk;
-      const now = Date.now();
-      slider.velocity = (e.pageX - slider.lastX) / (now - slider.lastTime + 1);
-      slider.lastX = e.pageX;
-      slider.lastTime = now;
-    });
-
-    document.addEventListener('mouseup', () => {
-      if (!slider.isDragging) return;
-      slider.isDragging = false;
-      track.classList.remove('dragging');
-      // Inertia scroll
-      const decelerate = () => {
-        if (Math.abs(slider.velocity) < 0.1) return;
-        track.scrollLeft -= slider.velocity * 20;
-        slider.velocity *= 0.9;
-        slider.rafId = requestAnimationFrame(decelerate);
-      };
-      cancelAnimationFrame(slider.rafId);
-      decelerate();
-    });
-
-    // Touch support
-    track.addEventListener('touchstart', (e) => {
-      slider.isDragging = true;
-      slider.startX = e.touches[0].pageX - track.offsetLeft;
-      slider.scrollLeft = track.scrollLeft;
-    }, { passive: true });
-
-    track.addEventListener('touchmove', (e) => {
-      if (!slider.isDragging) return;
-      const x = e.touches[0].pageX - track.offsetLeft;
-      const walk = (x - slider.startX) * 1.5;
-      track.scrollLeft = slider.scrollLeft - walk;
-    }, { passive: true });
-
-    track.addEventListener('touchend', () => { slider.isDragging = false; });
-
-    // Wheel scroll horizontal
-    track.addEventListener('wheel', (e) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        e.preventDefault();
-        track.scrollLeft += e.deltaY;
-      }
-    }, { passive: false });
-  }
-
-  scroll(id, direction) {
-    const slider = this.sliders.get(id);
-    if (!slider) return;
-    const card = slider.track.querySelector('.anime-card');
-    if (!card) return;
-    const scrollAmount = (card.offsetWidth + 16) * 4;
-    slider.track.scrollBy({ left: direction === 'next' ? scrollAmount : -scrollAmount, behavior: 'smooth' });
-  }
-
-  initAll() {
-    $$('[data-slider]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        this.scroll(btn.dataset.slider, btn.dataset.dir);
-      });
-    });
-  }
-
-  setupGlobalListeners() {
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        this.sliders.forEach(s => {
-          if (s.track) s.track.style.scrollBehavior = 'auto';
-        });
-      }, 250);
-    });
-  }
-}
-
-const sliderSystem = new SliderSystem();
-
-// ==================== HERO SLIDER ====================
-class HeroSlider {
-  constructor() {
-    this.container = $('#heroSlides');
-    this.dotsContainer = $('#heroDots');
-    this.slides = [];
-    this.current = 0;
-    this.interval = null;
-    this.touchStartX = 0;
-    this.isDragging = false;
-    this.init();
-  }
-
-  async init() {
-    // Show skeleton while loading
-    this.container.innerHTML = '<div class="skeleton skeleton-banner"></div>';
+/* ===== CACHE ===== */
+const cache = {
+  get(key) {
     try {
-      const data = await apiRequest('/top/anime?filter=airing&limit=10', 'hero_airing');
-      const animeList = data?.data || [];
-      if (animeList.length === 0) throw new Error('Empty hero data');
-      this.slides = animeList;
-      this.render();
-      this.startAutoSlide();
-      this.setupEvents();
-    } catch (err) {
-      console.error('Hero load failed:', err);
-      // Use fallback
-      this.slides = FALLBACK_ANIME.slice(0, 10);
-      this.render();
-      this.startAutoSlide();
-      this.setupEvents();
+      const item = localStorage.getItem('av_' + key);
+      if (!item) return null;
+      const { data, ts } = JSON.parse(item);
+      if (Date.now() - ts > CACHE_TTL) { localStorage.removeItem('av_' + key); return null; }
+      return data;
+    } catch { return null; }
+  },
+  set(key, data) {
+    try { localStorage.setItem('av_' + key, JSON.stringify({ data, ts: Date.now() })); } catch {}
+  }
+};
+
+/* ===== FETCH WITH RETRY ===== */
+async function apiFetch(endpoint, retries = 3) {
+  const cached = cache.get(endpoint);
+  if (cached) return cached;
+  for (let i = 0; i < retries; i++) {
+    try {
+      const ctrl = new AbortController();
+      const timeout = setTimeout(() => ctrl.abort(), 10000);
+      const res = await fetch(API + endpoint, { signal: ctrl.signal });
+      clearTimeout(timeout);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const json = await res.json();
+      if (json && json.data) { cache.set(endpoint, json); return json; }
+    } catch (e) {
+      if (i < retries - 1) await sleep(1000 * (i + 1));
     }
   }
-
-  render() {
-    this.container.innerHTML = this.slides.map((anime, i) => {
-      const img = anime.images?.jpg?.large_image_url || anime.images?.jpg?.image_url || '';
-      const title = anime.title_english || anime.title;
-      const score = anime.score ? anime.score.toFixed(2) : 'N/A';
-      const genres = (anime.genres || []).slice(0, 3).map(g => g.name).join(', ');
-      const synopsis = anime.synopsis || 'No synopsis available.';
-      const id = anime.mal_id;
-      return `
-        <div class="hero-slide ${i === 0 ? 'active' : ''}" data-index="${i}">
-          <div class="hero-bg" style="background-image:url('${img}')"></div>
-          <div class="hero-overlay"></div>
-          <div class="hero-content">
-            <span class="hero-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Top Airing</span>
-            <h1 class="hero-title">${title}</h1>
-            <div class="hero-meta">
-              <span class="hero-score"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> ${score}</span>
-              <div class="hero-genres">${genres.split(', ').map(g => `<span class="hero-genre">${g}</span>`).join('')}</div>
-            </div>
-            <p class="hero-synopsis">${synopsis}</p>
-            <div class="hero-buttons">
-              <button class="btn-primary" onclick="goToWatch(${id},1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> Watch Now</button>
-              <button class="btn-secondary" onclick="goToAnime(${id})">Details</button>
-            </div>
-          </div>
-        </div>
-      `;
-    }).join('');
-
-    this.dotsContainer.innerHTML = this.slides.map((_, i) =>
-      `<button class="hero-dot ${i === 0 ? 'active' : ''}" data-index="${i}" aria-label="Go to slide ${i+1}"></button>`
-    ).join('');
-  }
-
-  goTo(index) {
-    if (index < 0) index = this.slides.length - 1;
-    if (index >= this.slides.length) index = 0;
-    const slides = $$('.hero-slide');
-    const dots = $$('.hero-dot');
-    slides[this.current].classList.remove('active');
-    dots[this.current].classList.remove('active');
-    this.current = index;
-    slides[this.current].classList.add('active');
-    dots[this.current].classList.add('active');
-  }
-
-  next() { this.goTo(this.current + 1); }
-  prev() { this.goTo(this.current - 1); }
-
-  startAutoSlide() {
-    if (this.interval) clearInterval(this.interval);
-    this.interval = setInterval(() => this.next(), 6000);
-  }
-
-  setupEvents() {
-    $('#heroPrev').addEventListener('click', () => { this.prev(); this.startAutoSlide(); });
-    $('#heroNext').addEventListener('click', () => { this.next(); this.startAutoSlide(); });
-    this.dotsContainer.addEventListener('click', (e) => {
-      if (e.target.classList.contains('hero-dot')) {
-        this.goTo(parseInt(e.target.dataset.index));
-        this.startAutoSlide();
-      }
-    });
-
-    // Touch swipe
-    const hero = $('#hero');
-    hero.addEventListener('touchstart', (e) => { this.touchStartX = e.touches[0].clientX; }, { passive: true });
-    hero.addEventListener('touchend', (e) => {
-      const diff = this.touchStartX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 50) { diff > 0 ? this.next() : this.prev(); this.startAutoSlide(); }
-    }, { passive: true });
-
-    // Mouse drag
-    hero.addEventListener('mousedown', (e) => { this.isDragging = true; this.touchStartX = e.clientX; });
-    hero.addEventListener('mouseup', (e) => {
-      if (!this.isDragging) return;
-      this.isDragging = false;
-      const diff = this.touchStartX - e.clientX;
-      if (Math.abs(diff) > 50) { diff > 0 ? this.next() : this.prev(); this.startAutoSlide(); }
-    });
-  }
+  return null;
 }
 
-// ==================== WIDGET LOADER ====================
-async function loadWidget(id, endpoint, cacheKey, extraBadgesFn = null, fallbackFn = null) {
-  const track = $(`#slider-${id}`);
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+/* ===== SLIDER STATE ===== */
+const sliders = {};
+
+function initSlider(id, track) {
+  if (sliders[id]) return;
+  const wrap = track.parentElement;
+  let pos = 0;
+  let isDragging = false, startX = 0, scrollLeft = 0;
+
+  function clampPos() {
+    const maxPos = Math.max(0, track.scrollWidth - wrap.clientWidth);
+    pos = Math.max(0, Math.min(pos, maxPos));
+  }
+
+  function applyPos() {
+    track.style.transform = `translateX(${-pos}px)`;
+    updateBtns();
+  }
+
+  function updateBtns() {
+    const maxPos = Math.max(0, track.scrollWidth - wrap.clientWidth);
+    const prevBtn = document.querySelector(`.slider-btn.prev[data-target="${id}"]`);
+    const nextBtn = document.querySelector(`.slider-btn.next[data-target="${id}"]`);
+    if (prevBtn) prevBtn.disabled = pos <= 0;
+    if (nextBtn) nextBtn.disabled = pos >= maxPos - 1;
+  }
+
+  function slide(dir) {
+    const cardW = (track.firstElementChild?.offsetWidth || 160) + 12;
+    const visible = Math.floor(wrap.clientWidth / cardW);
+    pos += dir * cardW * Math.max(1, visible - 1);
+    clampPos(); applyPos();
+  }
+
+  // Arrow buttons
+  document.querySelector(`.slider-btn.prev[data-target="${id}"]`)?.addEventListener('click', () => slide(-1));
+  document.querySelector(`.slider-btn.next[data-target="${id}"]`)?.addEventListener('click', () => slide(1));
+
+  // Drag scroll
+  track.addEventListener('mousedown', e => { isDragging = true; startX = e.pageX; scrollLeft = pos; track.style.transition = 'none'; });
+  window.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    pos = scrollLeft - (e.pageX - startX);
+    clampPos(); track.style.transform = `translateX(${-pos}px)`;
+  });
+  window.addEventListener('mouseup', () => { if (!isDragging) return; isDragging = false; track.style.transition = ''; applyPos(); });
+
+  // Touch
+  let touchStart = 0;
+  track.addEventListener('touchstart', e => { touchStart = e.touches[0].clientX; scrollLeft = pos; track.style.transition = 'none'; }, { passive: true });
+  track.addEventListener('touchmove', e => { pos = scrollLeft - (e.touches[0].clientX - touchStart); clampPos(); track.style.transform = `translateX(${-pos}px)`; }, { passive: true });
+  track.addEventListener('touchend', () => { track.style.transition = ''; applyPos(); }, { passive: true });
+
+  // Wheel
+  wrap.addEventListener('wheel', e => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); pos += e.deltaX; clampPos(); applyPos(); } }, { passive: false });
+
+  sliders[id] = { slide, updateBtns };
+  updateBtns();
+}
+
+/* ===== RENDER CARD ===== */
+function renderCard(anime) {
+  if (!anime) return '';
+  const id = anime.mal_id;
+  const title = anime.title || anime.title_english || 'Unknown';
+  const img = anime.images?.jpg?.large_image_url || anime.images?.jpg?.image_url || '';
+  const score = anime.score ? anime.score.toFixed(1) : null;
+  const eps = anime.episodes;
+  const type = anime.type || '';
+  return `<div class="anime-card" onclick="location.href='anime.html?id=${id}'">
+    <div class="card-poster-wrap">
+      <img class="card-poster" src="${img}" alt="${title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22220%22%3E%3Crect fill=%22%230d0d1a%22 width=%22160%22 height=%22220%22/%3E%3C/svg%3E'">
+      <div class="card-badges">
+        ${score ? `<span class="card-badge score">★ ${score}</span>` : ''}
+        <span class="card-badge hd">HD</span>
+        ${eps ? `<span class="card-badge ep">EP ${eps}</span>` : ''}
+      </div>
+      ${type ? `<span class="card-type-badge">${type}</span>` : ''}
+      <div class="card-overlay"><div class="card-play">▶</div></div>
+    </div>
+    <div class="card-info">
+      <div class="card-title">${title}</div>
+      <div class="card-sub-info">${type}${eps ? ' · ' + eps + ' eps' : ''}</div>
+    </div>
+  </div>`;
+}
+
+function renderSkeletons(track, count = 12) {
+  track.innerHTML = Array(count).fill(0).map(() =>
+    `<div class="card-skeleton"><div class="skeleton poster-skel"></div><div class="skeleton title-skel"></div><div class="skeleton sub-skel"></div></div>`
+  ).join('');
+}
+
+async function loadTrack(id, endpoint) {
+  const track = document.getElementById('track-' + id);
   if (!track) return;
-
-  // Show skeletons
-  track.innerHTML = Array(6).fill(createSkeletonCard()).join('');
-  sliderSystem.register(id, track);
-
-  try {
-    const data = await apiRequest(endpoint, cacheKey);
-    const list = data?.data || [];
-    if (list.length === 0) throw new Error('Empty response');
-
-    track.innerHTML = list.slice(0, 18).map(anime => {
-      const extra = extraBadgesFn ? extraBadgesFn(anime) : '';
-      return createCard(anime, extra);
-    }).join('');
-  } catch (err) {
-    console.error(`Widget ${id} failed:`, err);
-    const fallback = fallbackFn ? fallbackFn() : getFallbackData();
-    track.innerHTML = fallback.data.slice(0, 12).map(anime => createCard(anime)).join('');
+  renderSkeletons(track);
+  const data = await apiFetch(endpoint);
+  const items = data?.data;
+  if (!items || items.length === 0) {
+    track.innerHTML = `<p style="color:var(--text-muted);padding:20px">Could not load content.</p>`;
+    return;
   }
+  track.innerHTML = items.slice(0, 20).map(renderCard).join('');
+  initSlider(id, track);
 }
 
-// ==================== SEARCH ====================
-let searchAbort = null;
+/* ===== HERO SLIDER ===== */
+let heroIndex = 0, heroTotal = 0, heroTimer = null, heroProgress = 0, heroProgressTimer = null;
 
-async function performSearch(query) {
-  const results = $('#searchResults');
-  if (!query || query.length < 2) { results.classList.remove('active'); return; }
+function renderHeroSlides(items) {
+  const track = document.getElementById('hero-track');
+  const dots = document.getElementById('hero-dots');
+  heroTotal = Math.min(items.length, 12);
 
-  if (searchAbort) searchAbort.abort();
-  searchAbort = new AbortController();
+  track.innerHTML = items.slice(0, heroTotal).map((a, i) => {
+    const id = a.mal_id;
+    const title = a.title || '';
+    const synopsis = (a.synopsis || '').replace(/\[.*?\]/g, '').slice(0, 220) + (a.synopsis?.length > 220 ? '...' : '');
+    const score = a.score ? a.score.toFixed(1) : null;
+    const type = a.type || 'TV';
+    const eps = a.episodes;
+    const genres = (a.genres || []).slice(0, 3).map(g => g.name);
+    const banner = a.images?.jpg?.large_image_url || a.images?.jpg?.image_url || '';
+    return `<div class="hero-slide${i === 0 ? ' active' : ''}" data-index="${i}">
+      <div class="hero-bg" style="background-image:url('${banner}')"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-meta">
+          ${score ? `<span class="hero-badge badge-score">★ ${score}</span>` : ''}
+          <span class="hero-badge badge-type">${type}</span>
+          ${eps ? `<span class="hero-badge badge-ep">${eps} Episodes</span>` : ''}
+        </div>
+        <h1 class="hero-title">${title}</h1>
+        <div class="hero-genres">${genres.map(g => `<span class="genre-pill">${g}</span>`).join('')}</div>
+        <p class="hero-synopsis">${synopsis}</p>
+        <div class="hero-actions">
+          <a href="watch.html?id=${id}&ep=1" class="btn-watch">▶ Watch Now</a>
+          <a href="anime.html?id=${id}" class="btn-details">ℹ Details</a>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 
-  try {
-    const res = await fetch(`${API_BASE}/anime?q=${encodeURIComponent(query)}&limit=8&sfw=true`, { signal: searchAbort.signal });
-    const data = await res.json();
-    const list = data?.data || [];
+  dots.innerHTML = Array(heroTotal).fill(0).map((_, i) =>
+    `<span class="hero-dot${i === 0 ? ' active' : ''}" data-i="${i}"></span>`
+  ).join('');
 
-    if (list.length === 0) {
-      results.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted)">No results found</div>';
-    } else {
-      results.innerHTML = list.map(anime => {
-        const img = anime.images?.jpg?.image_url || '';
-        const title = anime.title_english || anime.title;
-        const type = anime.type || 'TV';
-        const meta = anime.type || 'TV';
-        return `
-          <div class="search-item" onclick="goToAnime(${anime.mal_id});closeSearch()">
-            <img src="${img}" alt="${title}" loading="lazy">
-            <div class="search-item-info">
-              <div class="search-item-title">${title}</div>
-              <div class="search-item-meta">${meta}</div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-    results.classList.add('active');
-  } catch {
-    results.classList.remove('active');
-  }
-}
-
-const debouncedSearch = debounce(performSearch, 400);
-
-function openSearch() { $('#searchOverlay').classList.add('active'); $('#searchInput').focus(); document.body.style.overflow = 'hidden'; }
-function closeSearch() { $('#searchOverlay').classList.remove('active'); $('#searchResults').classList.remove('active'); $('#searchInput').value = ''; document.body.style.overflow = ''; }
-
-// ==================== HEADER SCROLL ====================
-window.addEventListener('scroll', () => {
-  $('#header').classList.toggle('scrolled', window.scrollY > 50);
-});
-
-// ==================== SIDEBAR ====================
-function openSidebar() { $('#sidebar').classList.add('active'); $('#sidebarOverlay').classList.add('active'); document.body.style.overflow = 'hidden'; }
-function closeSidebar() { $('#sidebar').classList.remove('active'); $('#sidebarOverlay').classList.remove('active'); document.body.style.overflow = ''; }
-
-// ==================== INIT ====================
-document.addEventListener('DOMContentLoaded', () => {
-  // Sidebar
-  $('#menuBtn').addEventListener('click', openSidebar);
-  $('#sidebarOverlay').addEventListener('click', closeSidebar);
-
-  // Search
-  $('#searchBtn').addEventListener('click', openSearch);
-  $('#searchClose').addEventListener('click', closeSearch);
-  $('#searchInput').addEventListener('input', (e) => debouncedSearch(e.target.value));
-  $('#searchOverlay').addEventListener('click', (e) => { if (e.target === $('#searchOverlay')) closeSearch(); });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeSearch();
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
+  dots.querySelectorAll('.hero-dot').forEach(dot => {
+    dot.addEventListener('click', () => goHero(+dot.dataset.i));
   });
 
-  // Hero
-  const hero = new HeroSlider();
+  startHeroAuto();
+}
 
-  // Widgets - load in parallel with Promise.allSettled
-  const widgets = [
-    ['recent', '/seasons/now?limit=18', 'seasons_now', null, () => getFallbackData(12)],
-    ['trending', '/top/anime?filter=airing&limit=18', 'trending_airing', null, () => getFallbackData(12)],
-    ['top', '/top/anime?limit=18', 'top_all', null, () => getFallbackData(12)],
-    ['airing', '/top/anime?filter=airing&limit=18', 'top_airing_2', null, () => getFallbackData(12)],
-    ['upcoming', '/top/anime?filter=upcoming&limit=18', 'top_upcoming', null, () => getFallbackData(12)],
-    ['completed', '/top/anime?status=complete&limit=18', 'top_completed', null, () => getFallbackData(12)]
+function goHero(idx) {
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('.hero-dot');
+  if (!slides.length) return;
+  slides[heroIndex]?.classList.remove('active');
+  dots[heroIndex]?.classList.remove('active');
+  heroIndex = ((idx % heroTotal) + heroTotal) % heroTotal;
+  slides[heroIndex]?.classList.add('active');
+  dots[heroIndex]?.classList.add('active');
+  const track = document.getElementById('hero-track');
+  track.style.transform = `translateX(-${heroIndex * 100}%)`;
+  resetHeroProgress();
+}
+
+function resetHeroProgress() {
+  clearInterval(heroProgressTimer);
+  heroProgress = 0;
+  const bar = document.getElementById('hero-progress');
+  if (bar) bar.style.width = '0%';
+  heroProgressTimer = setInterval(() => {
+    heroProgress += 100 / 50;
+    if (bar) bar.style.width = Math.min(heroProgress, 100) + '%';
+    if (heroProgress >= 100) { clearInterval(heroProgressTimer); }
+  }, 100);
+}
+
+function startHeroAuto() {
+  clearInterval(heroTimer);
+  resetHeroProgress();
+  heroTimer = setInterval(() => goHero(heroIndex + 1), 5000);
+}
+
+document.getElementById('hero-prev')?.addEventListener('click', () => { goHero(heroIndex - 1); startHeroAuto(); });
+document.getElementById('hero-next')?.addEventListener('click', () => { goHero(heroIndex + 1); startHeroAuto(); });
+
+// Touch swipe hero
+let heroTouchX = 0;
+document.getElementById('hero')?.addEventListener('touchstart', e => { heroTouchX = e.touches[0].clientX; }, { passive: true });
+document.getElementById('hero')?.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - heroTouchX;
+  if (Math.abs(dx) > 50) { goHero(heroIndex + (dx < 0 ? 1 : -1)); startHeroAuto(); }
+}, { passive: true });
+
+/* ===== SEARCH ===== */
+const searchOverlay = document.getElementById('search-overlay');
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+
+document.getElementById('search-btn')?.addEventListener('click', () => {
+  searchOverlay.classList.add('active');
+  searchInput.focus();
+});
+document.getElementById('search-close')?.addEventListener('click', closeSearch);
+searchOverlay?.addEventListener('click', e => { if (e.target === searchOverlay) closeSearch(); });
+function closeSearch() { searchOverlay.classList.remove('active'); searchResults.innerHTML = ''; searchInput.value = ''; }
+
+let searchTimer;
+searchInput?.addEventListener('input', () => {
+  clearTimeout(searchTimer);
+  const q = searchInput.value.trim();
+  if (!q) { searchResults.innerHTML = ''; return; }
+  searchTimer = setTimeout(() => doSearch(q), 400);
+});
+
+async function doSearch(q) {
+  searchResults.innerHTML = '<p style="padding:16px;color:var(--text-muted)">Searching...</p>';
+  const data = await apiFetch(`/anime?q=${encodeURIComponent(q)}&limit=8&sfw=true`);
+  const items = data?.data;
+  if (!items?.length) { searchResults.innerHTML = '<p style="padding:16px;color:var(--text-muted)">No results found.</p>'; return; }
+  searchResults.innerHTML = items.map(a => `
+    <div class="search-item" onclick="location.href='anime.html?id=${a.mal_id}';closeSearch()">
+      <img src="${a.images?.jpg?.image_url || ''}" alt="${a.title}" loading="lazy">
+      <div class="search-item-info">
+        <h4>${a.title}</h4>
+        <p>${a.type || ''} · ${a.episodes ? a.episodes + ' eps' : 'Ongoing'} · ${a.score ? '★' + a.score : 'N/A'}</p>
+      </div>
+    </div>`).join('');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSearch(); });
+
+/* ===== SIDEBAR ===== */
+const sidebar = document.getElementById('sidebar');
+const sidebarOverlay = document.getElementById('sidebar-overlay');
+document.getElementById('hamburger-btn')?.addEventListener('click', () => {
+  sidebar.classList.add('open'); sidebarOverlay.classList.add('active');
+});
+sidebarOverlay?.addEventListener('click', () => { sidebar.classList.remove('open'); sidebarOverlay.classList.remove('active'); });
+
+/* ===== HEADER SCROLL ===== */
+window.addEventListener('scroll', () => {
+  document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+}, { passive: true });
+
+/* ===== INIT ALL ===== */
+async function init() {
+  // Load hero + all sections in parallel with rate limiting
+  const heroData = await apiFetch('/top/anime?filter=bypopularity&limit=12');
+  if (heroData?.data?.length) renderHeroSlides(heroData.data);
+
+  const sections = [
+    { id: 'recent', url: '/top/anime?filter=airing&limit=20' },
+    { id: 'trending', url: '/top/anime?filter=bypopularity&limit=20' },
+    { id: 'toprated', url: '/top/anime?limit=20' },
+    { id: 'airing', url: '/top/anime?filter=airing&limit=20' },
+    { id: 'upcoming', url: '/top/anime?filter=upcoming&limit=20' },
+    { id: 'completed', url: '/top/anime?filter=complete&limit=20' },
   ];
 
-  Promise.allSettled(widgets.map(([id, ep, ck, eb, fb]) => loadWidget(id, ep, ck, eb, fb)));
-});
+  // Load with stagger to avoid rate limiting
+  for (const sec of sections) {
+    loadTrack(sec.id, sec.url);
+    await sleep(RATE_DELAY);
+  }
+}
+
+init();
+
+// Resize handler
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    Object.keys(sliders).forEach(id => sliders[id]?.updateBtns?.());
+  }, 200);
+}, { passive: true });
 </script>
 </body>
 </html>
