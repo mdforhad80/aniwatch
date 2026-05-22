@@ -3,89 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AniVerse - Watch Anime Online Free</title>
-<meta name="description" content="Watch anime online free in HD. Stream the latest anime episodes with sub and dub options.">
-<meta property="og:title" content="AniVerse - Watch Anime Online Free">
-<meta property="og:description" content="Watch anime online free in HD. Stream the latest anime episodes.">
-<meta property="og:type" content="website">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>Anime Details - AniVerse</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* ===== CSS VARIABLES ===== */
-:root {
-  --bg-primary: #080810;
-  --bg-secondary: #0d0d1a;
-  --bg-card: rgba(255,255,255,0.04);
-  --bg-card-hover: rgba(255,255,255,0.08);
-  --accent: #7c3aed;
-  --accent-bright: #a855f7;
-  --accent-glow: rgba(124,58,237,0.4);
-  --accent-2: #06b6d4;
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-muted: #475569;
-  --border: rgba(255,255,255,0.08);
-  --border-accent: rgba(124,58,237,0.3);
-  --radius: 12px;
-  --radius-lg: 20px;
-  --shadow-card: 0 8px 32px rgba(0,0,0,0.4);
-  --shadow-glow: 0 0 30px rgba(124,58,237,0.3);
-  --header-h: 68px;
-  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
-}
-
-/* ===== RESET ===== */
+:root{--bg-primary:#080810;--bg-secondary:#0d0d1a;--bg-card:rgba(255,255,255,0.04);--bg-card-hover:rgba(255,255,255,0.08);--accent:#7c3aed;--accent-bright:#a855f7;--accent-glow:rgba(124,58,237,0.4);--accent-2:#06b6d4;--text-primary:#f1f5f9;--text-secondary:#94a3b8;--text-muted:#475569;--border:rgba(255,255,255,0.08);--border-accent:rgba(124,58,237,0.3);--radius:12px;--radius-lg:20px;--shadow-card:0 8px 32px rgba(0,0,0,0.4);--shadow-glow:0 0 30px rgba(124,58,237,0.3);--header-h:68px;--transition:0.3s cubic-bezier(0.4,0,0.2,1)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;overflow-x:hidden}
-body{font-family:'Outfit',sans-serif;background:var(--bg-primary);color:var(--text-primary);overflow-x:hidden;min-height:100vh}
+body{font-family:'Outfit',sans-serif;background:var(--bg-primary);color:var(--text-primary);overflow-x:hidden}
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 button{cursor:pointer;border:none;background:none;font-family:inherit}
-ul{list-style:none}
-
-/* ===== SCROLLBAR ===== */
-::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:var(--bg-secondary)}
-::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
-
-/* ===== SKELETON ===== */
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:var(--bg-secondary)}::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
 .skeleton{background:linear-gradient(90deg,rgba(255,255,255,0.05) 25%,rgba(255,255,255,0.1) 50%,rgba(255,255,255,0.05) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:var(--radius)}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-/* ===== HEADER ===== */
-#header{position:fixed;top:0;left:0;right:0;height:var(--header-h);z-index:1000;display:flex;align-items:center;padding:0 clamp(16px,4vw,48px);gap:16px;transition:background var(--transition),backdrop-filter var(--transition)}
-#header.scrolled{background:rgba(8,8,16,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.header-left{display:flex;align-items:center;gap:12px}
+/* HEADER */
+#header{position:fixed;top:0;left:0;right:0;height:var(--header-h);z-index:1000;background:rgba(8,8,16,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 clamp(16px,4vw,48px);gap:16px}
+.logo{font-family:'Cinzel',serif;font-size:clamp(18px,2.5vw,24px);font-weight:700;background:linear-gradient(135deg,#a855f7,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;align-items:center;gap:4px;margin-left:auto;margin-right:auto}
+.nav-links a{padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--text-secondary);transition:all var(--transition)}
+.nav-links a:hover{color:var(--text-primary);background:var(--bg-card)}
 .hamburger{width:40px;height:40px;display:flex;flex-direction:column;justify-content:center;gap:5px;padding:8px;border-radius:8px;transition:background var(--transition)}
 .hamburger:hover{background:var(--bg-card)}
-.hamburger span{display:block;height:2px;background:var(--text-primary);border-radius:1px;transition:all var(--transition)}
-.logo{font-family:'Cinzel',serif;font-size:clamp(20px,3vw,28px);font-weight:700;background:linear-gradient(135deg,#a855f7,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:1px}
-.header-center{flex:1;display:flex;justify-content:center}
-.nav-links{display:flex;align-items:center;gap:4px}
-.nav-links a{padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--text-secondary);transition:all var(--transition)}
-.nav-links a:hover,.nav-links a.active{color:var(--text-primary);background:var(--bg-card)}
-.header-right{display:flex;align-items:center;gap:8px}
-.icon-btn{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:8px;color:var(--text-secondary);transition:all var(--transition);font-size:18px}
+.hamburger span{display:block;height:2px;background:var(--text-primary);border-radius:1px}
+.icon-btn{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:8px;color:var(--text-secondary);transition:all var(--transition);font-size:18px;cursor:pointer;border:none;background:none}
 .icon-btn:hover{background:var(--bg-card);color:var(--text-primary)}
 
-/* ===== SEARCH OVERLAY ===== */
-#search-overlay{position:fixed;inset:0;z-index:2000;background:rgba(8,8,16,0.96);backdrop-filter:blur(20px);display:none;flex-direction:column;align-items:center;padding-top:80px}
-#search-overlay.active{display:flex}
-.search-box{width:min(680px,90vw);position:relative}
-.search-box input{width:100%;padding:18px 56px 18px 56px;background:rgba(255,255,255,0.06);border:1.5px solid var(--border-accent);border-radius:14px;font-size:18px;color:var(--text-primary);font-family:'Outfit',sans-serif;outline:none;transition:border-color var(--transition)}
-.search-box input:focus{border-color:var(--accent-bright)}
-.search-box input::placeholder{color:var(--text-muted)}
-.search-icon-inner{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:20px}
-.search-close{position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:20px;cursor:pointer;transition:color var(--transition)}
-.search-close:hover{color:var(--text-primary)}
-#search-results{width:min(680px,90vw);margin-top:12px;background:rgba(13,13,26,0.98);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;max-height:60vh;overflow-y:auto}
-.search-item{display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;transition:background var(--transition);border-bottom:1px solid var(--border)}
-.search-item:hover{background:var(--bg-card)}
-.search-item img{width:44px;height:62px;object-fit:cover;border-radius:6px;flex-shrink:0}
-.search-item-info h4{font-size:14px;font-weight:600;margin-bottom:4px}
-.search-item-info p{font-size:12px;color:var(--text-secondary)}
-
-/* ===== SIDEBAR ===== */
+/* SIDEBAR */
 #sidebar{position:fixed;top:0;left:0;height:100vh;width:260px;background:rgba(8,8,16,0.98);backdrop-filter:blur(20px);z-index:1500;transform:translateX(-100%);transition:transform var(--transition);border-right:1px solid var(--border);padding-top:var(--header-h)}
 #sidebar.open{transform:translateX(0)}
 #sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1400;display:none}
@@ -93,598 +37,448 @@ ul{list-style:none}
 .sidebar-nav{padding:24px 16px}
 .sidebar-nav a{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:10px;color:var(--text-secondary);font-weight:500;margin-bottom:4px;transition:all var(--transition)}
 .sidebar-nav a:hover{background:var(--bg-card);color:var(--text-primary)}
-.sidebar-nav a span{font-size:18px}
 
-/* ===== HERO SLIDER ===== */
-#hero{position:relative;width:100%;height:100vh;min-height:560px;max-height:900px;overflow:hidden;margin-top:0}
-.hero-track{display:flex;height:100%;transition:transform 0.8s cubic-bezier(0.77,0,0.175,1)}
-.hero-slide{position:relative;min-width:100%;height:100%;overflow:hidden;flex-shrink:0}
-.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center top;transition:transform 8s ease}
-.hero-slide.active .hero-bg{transform:scale(1.05)}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,8,16,0.95) 0%,rgba(8,8,16,0.6) 50%,transparent 100%),linear-gradient(0deg,rgba(8,8,16,0.9) 0%,transparent 50%)}
-.hero-content{position:absolute;bottom:0;left:0;right:0;padding:clamp(24px,5vw,80px);padding-top:var(--header-h);display:flex;flex-direction:column;justify-content:flex-end;height:100%}
-.hero-meta{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
-.hero-badge{padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase}
+/* SEARCH OVERLAY */
+#search-overlay{position:fixed;inset:0;z-index:2000;background:rgba(8,8,16,0.96);backdrop-filter:blur(20px);display:none;flex-direction:column;align-items:center;padding-top:80px}
+#search-overlay.active{display:flex}
+.search-box{width:min(680px,90vw);position:relative}
+.search-box input{width:100%;padding:18px 56px;background:rgba(255,255,255,0.06);border:1.5px solid var(--border-accent);border-radius:14px;font-size:18px;color:var(--text-primary);font-family:'Outfit',sans-serif;outline:none}
+.search-box input::placeholder{color:var(--text-muted)}
+.search-icon-inner{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--text-muted)}
+.search-close-btn{position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--text-muted);cursor:pointer;font-size:20px;background:none;border:none}
+#search-results-overlay{width:min(680px,90vw);margin-top:12px;background:rgba(13,13,26,0.98);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;max-height:60vh;overflow-y:auto}
+.search-item{display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;transition:background var(--transition);border-bottom:1px solid var(--border)}
+.search-item:hover{background:var(--bg-card)}
+.search-item img{width:44px;height:62px;object-fit:cover;border-radius:6px;flex-shrink:0}
+.search-item-info h4{font-size:14px;font-weight:600;margin-bottom:4px}
+.search-item-info p{font-size:12px;color:var(--text-secondary)}
+
+/* HERO BANNER */
+#anime-banner{position:relative;width:100%;height:clamp(360px,50vw,620px);margin-top:var(--header-h);overflow:hidden}
+.banner-bg{position:absolute;inset:0;background-size:cover;background-position:center 20%;filter:blur(2px) brightness(0.4);transform:scale(1.05)}
+.banner-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,8,16,0.95) 0%,rgba(8,8,16,0.5) 60%,transparent 100%),linear-gradient(0deg,var(--bg-primary) 0%,transparent 40%)}
+.banner-content{position:relative;z-index:2;height:100%;display:flex;align-items:flex-end;padding:clamp(20px,4vw,60px);padding-bottom:clamp(24px,4vw,48px);gap:clamp(20px,3vw,36px)}
+.poster-wrap{flex-shrink:0}
+.anime-poster{width:clamp(120px,15vw,200px);aspect-ratio:2/3;object-fit:cover;border-radius:var(--radius);box-shadow:0 8px 40px rgba(0,0,0,0.6);border:2px solid var(--border-accent)}
+.banner-info{flex:1;min-width:0}
+.anime-title-main{font-size:clamp(22px,4vw,52px);font-weight:800;line-height:1.1;margin-bottom:8px}
+.anime-title-en{font-size:clamp(13px,2vw,18px);color:var(--text-secondary);margin-bottom:16px}
+.info-badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.info-badge{padding:5px 14px;border-radius:100px;font-size:12px;font-weight:600}
 .badge-score{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff}
+.badge-status-airing{background:rgba(34,197,94,0.2);color:#4ade80;border:1px solid rgba(34,197,94,0.3)}
+.badge-status-finished{background:rgba(100,116,139,0.2);color:#94a3b8;border:1px solid rgba(100,116,139,0.3)}
 .badge-type{background:var(--accent);color:#fff}
-.badge-ep{background:rgba(255,255,255,0.1);color:var(--text-secondary);border:1px solid var(--border)}
-.hero-title{font-size:clamp(28px,5vw,72px);font-weight:800;line-height:1.1;margin-bottom:12px;max-width:700px;opacity:0;transform:translateY(30px);transition:all 0.6s ease 0.2s}
-.hero-slide.active .hero-title{opacity:1;transform:translateY(0)}
-.hero-genres{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;opacity:0;transition:opacity 0.6s ease 0.35s}
-.hero-slide.active .hero-genres{opacity:1}
-.genre-pill{padding:4px 12px;background:rgba(255,255,255,0.08);border:1px solid var(--border);border-radius:100px;font-size:12px;color:var(--text-secondary)}
-.hero-synopsis{font-size:clamp(13px,1.5vw,15px);color:var(--text-secondary);max-width:560px;line-height:1.7;margin-bottom:28px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;opacity:0;transform:translateY(20px);transition:all 0.6s ease 0.45s}
-.hero-slide.active .hero-synopsis{opacity:1;transform:translateY(0)}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;opacity:0;transition:opacity 0.6s ease 0.55s}
-.hero-slide.active .hero-actions{opacity:1}
-.btn-watch{display:flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,var(--accent),var(--accent-bright));color:#fff;border-radius:10px;font-weight:700;font-size:15px;transition:all var(--transition);box-shadow:0 4px 20px var(--accent-glow)}
-.btn-watch:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--accent-glow)}
-.btn-details{display:flex;align-items:center;gap:8px;padding:14px 28px;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);color:#fff;border-radius:10px;font-weight:600;font-size:15px;border:1px solid rgba(255,255,255,0.15);transition:all var(--transition)}
-.btn-details:hover{background:rgba(255,255,255,0.18)}
-.hero-arrows{position:absolute;right:clamp(16px,3vw,40px);bottom:50%;transform:translateY(50%);display:flex;flex-direction:column;gap:8px;z-index:10}
-.hero-arrow{width:46px;height:46px;background:rgba(255,255,255,0.08);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--text-primary);font-size:18px;cursor:pointer;transition:all var(--transition)}
-.hero-arrow:hover{background:var(--accent);border-color:var(--accent)}
-.hero-dots{position:absolute;bottom:32px;right:clamp(16px,3vw,40px);display:flex;gap:6px;z-index:10}
-.hero-dot{width:6px;height:6px;background:rgba(255,255,255,0.3);border-radius:3px;cursor:pointer;transition:all var(--transition)}
-.hero-dot.active{width:24px;background:var(--accent-bright)}
-.hero-progress{position:absolute;bottom:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width 0.1s linear}
+.badge-eps{background:rgba(6,182,212,0.2);color:var(--accent-2);border:1px solid rgba(6,182,212,0.3)}
+.banner-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{display:flex;align-items:center;gap:8px;padding:13px 26px;background:linear-gradient(135deg,var(--accent),var(--accent-bright));color:#fff;border-radius:10px;font-weight:700;font-size:15px;transition:all var(--transition);box-shadow:0 4px 20px var(--accent-glow)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--accent-glow)}
+.btn-secondary{display:flex;align-items:center;gap:8px;padding:13px 26px;background:rgba(255,255,255,0.08);color:#fff;border-radius:10px;font-weight:600;font-size:15px;border:1px solid rgba(255,255,255,0.15);transition:all var(--transition)}
+.btn-secondary:hover{background:rgba(255,255,255,0.15)}
 
-/* ===== MAIN CONTENT ===== */
-main{padding-top:0}
-.section{padding:clamp(32px,5vw,64px) clamp(16px,4vw,48px)}
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
-.section-title{font-size:clamp(18px,2.5vw,24px);font-weight:700;display:flex;align-items:center;gap:10px}
-.section-title::before{content:'';width:4px;height:24px;background:linear-gradient(180deg,var(--accent),var(--accent-2));border-radius:2px;display:block}
-.section-link{font-size:13px;color:var(--accent-bright);font-weight:600;transition:opacity var(--transition)}
-.section-link:hover{opacity:0.7}
+/* MAIN LAYOUT */
+main{max-width:1400px;margin:0 auto;padding:clamp(24px,4vw,48px) clamp(16px,3vw,40px)}
+.main-grid{display:grid;grid-template-columns:1fr clamp(240px,28vw,340px);gap:clamp(20px,3vw,40px)}
+@media(max-width:900px){.main-grid{grid-template-columns:1fr}}
 
-/* ===== SLIDER WIDGET ===== */
-.slider-container{position:relative}
-.slider-track-wrap{overflow:hidden;position:relative}
-.slider-track{display:flex;gap:12px;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);will-change:transform}
-.slider-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:42px;height:42px;background:rgba(8,8,16,0.9);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--text-primary);font-size:16px;cursor:pointer;transition:all var(--transition)}
-.slider-btn:hover{background:var(--accent);border-color:var(--accent);box-shadow:var(--shadow-glow)}
-.slider-btn.prev{left:-21px}
-.slider-btn.next{right:-21px}
-.slider-btn:disabled{opacity:0.3;cursor:not-allowed}
+/* TABS */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:24px;overflow-x:auto;padding-bottom:0}
+.tab-btn{padding:12px 20px;font-size:14px;font-weight:600;color:var(--text-muted);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all var(--transition);background:none;border-top:none;border-left:none;border-right:none;font-family:'Outfit',sans-serif}
+.tab-btn.active{color:var(--accent-bright);border-bottom-color:var(--accent-bright)}
+.tab-btn:hover{color:var(--text-primary)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
 
-/* ===== ANIME CARD ===== */
-.anime-card{flex-shrink:0;width:clamp(140px,14vw,180px);cursor:pointer;position:relative;border-radius:var(--radius);overflow:hidden;background:var(--bg-card);border:1px solid var(--border);transition:all var(--transition);transform:translateZ(0)}
-.anime-card:hover{transform:translateY(-6px) scale(1.02);border-color:var(--border-accent);box-shadow:var(--shadow-card),var(--shadow-glow)}
-.card-poster{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;transition:transform var(--transition)}
-.anime-card:hover .card-poster{transform:scale(1.05)}
-.card-poster-wrap{position:relative;overflow:hidden}
-.card-badges{position:absolute;top:8px;left:8px;display:flex;flex-direction:column;gap:4px}
-.card-badge{padding:2px 7px;border-radius:5px;font-size:10px;font-weight:700;letter-spacing:0.3px}
-.card-badge.score{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff}
-.card-badge.hd{background:rgba(6,182,212,0.9);color:#fff}
-.card-badge.ep{background:rgba(0,0,0,0.8);color:var(--text-secondary);border:1px solid rgba(255,255,255,0.1)}
-.card-type-badge{position:absolute;top:8px;right:8px;padding:2px 7px;border-radius:5px;font-size:10px;font-weight:700;background:var(--accent);color:#fff}
-.card-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,8,16,0.95) 0%,transparent 50%);opacity:0;transition:opacity var(--transition);display:flex;align-items:flex-end;padding:12px}
-.anime-card:hover .card-overlay{opacity:1}
-.card-play{width:36px;height:36px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:14px;flex-shrink:0}
-.card-info{padding:10px}
-.card-title{font-size:12px;font-weight:600;color:var(--text-primary);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.card-sub-info{font-size:11px;color:var(--text-muted);margin-top:4px}
-.card-skeleton{flex-shrink:0;width:clamp(140px,14vw,180px)}
-.card-skeleton .poster-skel{aspect-ratio:3/4;border-radius:var(--radius) var(--radius) 0 0}
-.card-skeleton .title-skel{height:12px;margin:10px 10px 6px;border-radius:4px}
-.card-skeleton .sub-skel{height:10px;margin:0 10px 10px;width:60%;border-radius:4px}
+/* SYNOPSIS */
+.synopsis-text{font-size:15px;line-height:1.8;color:var(--text-secondary);margin-bottom:24px}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-bottom:32px}
+.info-item label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:4px;display:block}
+.info-item span{font-size:14px;font-weight:600;color:var(--text-primary)}
+.genres-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.genre-tag{padding:6px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:100px;font-size:13px;color:var(--text-secondary);cursor:pointer;transition:all var(--transition)}
+.genre-tag:hover{border-color:var(--accent-bright);color:var(--accent-bright)}
 
-/* ===== FOOTER ===== */
-footer{border-top:1px solid var(--border);padding:32px clamp(16px,4vw,48px);text-align:center}
-.footer-logo{font-family:'Cinzel',serif;font-size:22px;font-weight:700;background:linear-gradient(135deg,#a855f7,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
-.footer-socials{display:flex;justify-content:center;gap:12px;margin-bottom:16px}
-.social-btn{width:38px;height:38px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);font-size:16px;transition:all var(--transition)}
-.social-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
-.footer-copy{font-size:12px;color:var(--text-muted)}
+/* EPISODES */
+.ep-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:8px;max-height:400px;overflow-y:auto;padding-right:8px}
+.ep-btn{padding:10px 8px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;font-size:13px;font-weight:600;color:var(--text-secondary);cursor:pointer;transition:all var(--transition);text-align:center}
+.ep-btn:hover,.ep-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
 
-/* ===== MOBILE NAV ===== */
+/* CHARACTERS */
+.chars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:16px}
+.char-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all var(--transition)}
+.char-card:hover{border-color:var(--border-accent);transform:translateY(-4px)}
+.char-img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.char-info{padding:10px}
+.char-name{font-size:13px;font-weight:600;margin-bottom:2px}
+.char-role{font-size:11px;color:var(--text-muted)}
+
+/* RELATIONS */
+.rel-list{display:flex;flex-direction:column;gap:12px}
+.rel-item{display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all var(--transition)}
+.rel-item:hover{border-color:var(--border-accent)}
+.rel-img{width:50px;height:72px;object-fit:cover;border-radius:6px;flex-shrink:0}
+.rel-info{flex:1;min-width:0}
+.rel-relation{font-size:11px;color:var(--accent-bright);font-weight:700;text-transform:uppercase;margin-bottom:4px}
+.rel-title{font-size:13px;font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.rel-meta{font-size:11px;color:var(--text-muted);margin-top:4px}
+
+/* RECOMMENDATIONS */
+.rec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
+.rec-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all var(--transition)}
+.rec-card:hover{border-color:var(--border-accent);transform:translateY(-4px)}
+.rec-img{width:100%;aspect-ratio:2/3;object-fit:cover}
+.rec-title{padding:8px;font-size:12px;font-weight:600;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* TRAILER */
+.trailer-wrap{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--radius-lg);overflow:hidden;background:var(--bg-card);margin-bottom:24px}
+.trailer-wrap iframe{width:100%;height:100%;border:none}
+
+/* SIDEBAR */
+.sidebar-info{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:20px}
+.sidebar-info h3{font-size:15px;font-weight:700;margin-bottom:16px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1px;font-size:11px}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
+.stat-row:last-child{border-bottom:none}
+.stat-label{font-size:13px;color:var(--text-muted)}
+.stat-value{font-size:13px;font-weight:600;color:var(--text-primary)}
+.score-big{text-align:center;padding:20px 0}
+.score-number{font-size:56px;font-weight:800;background:linear-gradient(135deg,#f59e0b,#ef4444);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.score-label{font-size:12px;color:var(--text-muted);margin-top:4px}
+.score-stars{font-size:18px;color:#f59e0b;margin-top:4px}
+
+/* STUDIOS */
+.studio-list{display:flex;flex-wrap:wrap;gap:8px}
+.studio-tag{padding:6px 14px;background:rgba(124,58,237,0.1);border:1px solid var(--border-accent);border-radius:8px;font-size:12px;font-weight:600;color:var(--accent-bright)}
+
 @media(max-width:768px){
-  .nav-links{display:none}
-  .hero-arrows{display:none}
-  #hero{height:100svh;min-height:480px}
-  .hero-content{padding:16px;padding-top:var(--header-h)}
-  .slider-btn.prev{left:-10px}
-  .slider-btn.next{right:-10px}
+  .banner-content{flex-direction:column;align-items:flex-start;gap:16px}
+  .anime-poster{width:100px}
+  .banner-actions{flex-wrap:wrap}
 }
-@media(max-width:480px){
-  .anime-card{width:clamp(120px,42vw,155px)}
-  .card-skeleton{width:clamp(120px,42vw,155px)}
-}
-
-/* ===== ANIMATIONS ===== */
-@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{animation:fadeIn 0.5s ease forwards}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
 </style>
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
+<!-- HEADER -->
 <header id="header">
-  <div class="header-left">
-    <button class="hamburger" id="hamburger-btn" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-    <a href="index.html" class="logo">AniVerse</a>
-  </div>
-  <div class="header-center">
-    <nav class="nav-links">
-      <a href="index.html" class="active">Home</a>
-      <a href="search.html">Browse</a>
-      <a href="schedule.html">Schedule</a>
-      <a href="creator.html">About</a>
-    </nav>
-  </div>
-  <div class="header-right">
-    <button class="icon-btn" id="search-btn" aria-label="Search">🔍</button>
-  </div>
+  <button class="hamburger" id="hamburger-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+  <a href="index.html" class="logo">AniVerse</a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="search.html">Browse</a>
+    <a href="schedule.html">Schedule</a>
+    <a href="creator.html">About</a>
+  </nav>
+  <button class="icon-btn" id="search-btn">🔍</button>
 </header>
 
-<!-- ===== SIDEBAR ===== -->
+<!-- SIDEBAR -->
 <div id="sidebar-overlay"></div>
 <nav id="sidebar">
   <div class="sidebar-nav">
     <a href="index.html"><span>🏠</span> Home</a>
     <a href="search.html"><span>🔍</span> Browse</a>
     <a href="schedule.html"><span>📅</span> Schedule</a>
-    <a href="search.html?type=movie"><span>🎬</span> Movies</a>
-    <a href="search.html?status=airing"><span>📺</span> Airing</a>
     <a href="creator.html"><span>👤</span> About</a>
   </div>
 </nav>
 
-<!-- ===== SEARCH OVERLAY ===== -->
+<!-- SEARCH OVERLAY -->
 <div id="search-overlay">
   <div class="search-box">
     <span class="search-icon-inner">🔍</span>
-    <input type="text" id="search-input" placeholder="Search anime..." autocomplete="off">
-    <span class="search-close" id="search-close">✕</span>
+    <input type="text" id="search-input" placeholder="Search anime...">
+    <button class="search-close-btn" id="search-close">✕</button>
   </div>
-  <div id="search-results"></div>
+  <div id="search-results-overlay"></div>
 </div>
 
-<!-- ===== HERO SLIDER ===== -->
-<section id="hero">
-  <div class="hero-track" id="hero-track"></div>
-  <div class="hero-arrows">
-    <button class="hero-arrow" id="hero-prev">▲</button>
-    <button class="hero-arrow" id="hero-next">▼</button>
+<!-- BANNER -->
+<div id="anime-banner">
+  <div class="banner-bg" id="banner-bg"></div>
+  <div class="banner-overlay"></div>
+  <div class="banner-content">
+    <div class="poster-wrap">
+      <img class="anime-poster" id="anime-poster" src="" alt="">
+    </div>
+    <div class="banner-info">
+      <h1 class="anime-title-main" id="anime-title">Loading...</h1>
+      <p class="anime-title-en" id="anime-title-en"></p>
+      <div class="info-badges" id="info-badges"></div>
+      <div class="banner-actions" id="banner-actions"></div>
+    </div>
   </div>
-  <div class="hero-dots" id="hero-dots"></div>
-  <div class="hero-progress" id="hero-progress"></div>
-</section>
+</div>
 
-<!-- ===== MAIN ===== -->
+<!-- MAIN -->
 <main>
-  <!-- Recently Updated -->
-  <section class="section" id="sec-recent">
-    <div class="section-header">
-      <h2 class="section-title">Recently Updated</h2>
-      <a href="search.html?sort=recent" class="section-link">View All →</a>
-    </div>
-    <div class="slider-container">
-      <button class="slider-btn prev" data-target="recent">‹</button>
-      <div class="slider-track-wrap">
-        <div class="slider-track" id="track-recent"></div>
+  <div class="main-grid">
+    <!-- LEFT COLUMN -->
+    <div>
+      <!-- TABS -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="overview">Overview</button>
+        <button class="tab-btn" data-tab="episodes">Episodes</button>
+        <button class="tab-btn" data-tab="characters">Characters</button>
+        <button class="tab-btn" data-tab="relations">Relations</button>
+        <button class="tab-btn" data-tab="recommendations">More Like This</button>
       </div>
-      <button class="slider-btn next" data-target="recent">›</button>
-    </div>
-  </section>
 
-  <!-- Trending Now -->
-  <section class="section" id="sec-trending">
-    <div class="section-header">
-      <h2 class="section-title">Trending Now</h2>
-      <a href="search.html?sort=bypopularity" class="section-link">View All →</a>
-    </div>
-    <div class="slider-container">
-      <button class="slider-btn prev" data-target="trending">‹</button>
-      <div class="slider-track-wrap">
-        <div class="slider-track" id="track-trending"></div>
+      <!-- OVERVIEW -->
+      <div class="tab-panel active" id="tab-overview">
+        <p class="synopsis-text" id="synopsis-text">Loading synopsis...</p>
+        <div class="info-grid" id="info-grid"></div>
+        <h3 style="font-size:13px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Genres</h3>
+        <div class="genres-wrap" id="genres-wrap"></div>
+        <div id="studios-wrap" style="margin-top:20px"></div>
+        <div id="trailer-section"></div>
       </div>
-      <button class="slider-btn next" data-target="trending">›</button>
-    </div>
-  </section>
 
-  <!-- Top Rated -->
-  <section class="section" id="sec-toprated">
-    <div class="section-header">
-      <h2 class="section-title">Top Rated</h2>
-      <a href="search.html?sort=score" class="section-link">View All →</a>
-    </div>
-    <div class="slider-container">
-      <button class="slider-btn prev" data-target="toprated">‹</button>
-      <div class="slider-track-wrap">
-        <div class="slider-track" id="track-toprated"></div>
+      <!-- EPISODES -->
+      <div class="tab-panel" id="tab-episodes">
+        <h3 style="margin-bottom:16px;font-size:18px;font-weight:700" id="ep-count-title">Episodes</h3>
+        <div class="ep-grid" id="ep-grid"></div>
       </div>
-      <button class="slider-btn next" data-target="toprated">›</button>
-    </div>
-  </section>
 
-  <!-- Top Airing -->
-  <section class="section" id="sec-airing">
-    <div class="section-header">
-      <h2 class="section-title">Top Airing</h2>
-      <a href="search.html?status=airing" class="section-link">View All →</a>
-    </div>
-    <div class="slider-container">
-      <button class="slider-btn prev" data-target="airing">‹</button>
-      <div class="slider-track-wrap">
-        <div class="slider-track" id="track-airing"></div>
+      <!-- CHARACTERS -->
+      <div class="tab-panel" id="tab-characters">
+        <div class="chars-grid" id="chars-grid"><p style="color:var(--text-muted)">Loading characters...</p></div>
       </div>
-      <button class="slider-btn next" data-target="airing">›</button>
-    </div>
-  </section>
 
-  <!-- Upcoming -->
-  <section class="section" id="sec-upcoming">
-    <div class="section-header">
-      <h2 class="section-title">Upcoming</h2>
-      <a href="search.html?status=upcoming" class="section-link">View All →</a>
-    </div>
-    <div class="slider-container">
-      <button class="slider-btn prev" data-target="upcoming">‹</button>
-      <div class="slider-track-wrap">
-        <div class="slider-track" id="track-upcoming"></div>
+      <!-- RELATIONS -->
+      <div class="tab-panel" id="tab-relations">
+        <div class="rel-list" id="rel-list"><p style="color:var(--text-muted)">Loading relations...</p></div>
       </div>
-      <button class="slider-btn next" data-target="upcoming">›</button>
-    </div>
-  </section>
 
-  <!-- Completed -->
-  <section class="section" id="sec-completed">
-    <div class="section-header">
-      <h2 class="section-title">Completed</h2>
-      <a href="search.html?status=complete" class="section-link">View All →</a>
-    </div>
-    <div class="slider-container">
-      <button class="slider-btn prev" data-target="completed">‹</button>
-      <div class="slider-track-wrap">
-        <div class="slider-track" id="track-completed"></div>
+      <!-- RECOMMENDATIONS -->
+      <div class="tab-panel" id="tab-recommendations">
+        <div class="rec-grid" id="rec-grid"><p style="color:var(--text-muted)">Loading recommendations...</p></div>
       </div>
-      <button class="slider-btn next" data-target="completed">›</button>
     </div>
-  </section>
+
+    <!-- RIGHT SIDEBAR -->
+    <div>
+      <div class="sidebar-info">
+        <div class="score-big">
+          <div class="score-number" id="score-num">—</div>
+          <div class="score-label">MAL Score</div>
+          <div class="score-stars" id="score-stars"></div>
+        </div>
+        <div class="stat-row"><span class="stat-label">Ranked</span><span class="stat-value" id="stat-rank">—</span></div>
+        <div class="stat-row"><span class="stat-label">Popularity</span><span class="stat-value" id="stat-pop">—</span></div>
+        <div class="stat-row"><span class="stat-label">Members</span><span class="stat-value" id="stat-mem">—</span></div>
+        <div class="stat-row"><span class="stat-label">Status</span><span class="stat-value" id="stat-status">—</span></div>
+        <div class="stat-row"><span class="stat-label">Season</span><span class="stat-value" id="stat-season">—</span></div>
+        <div class="stat-row"><span class="stat-label">Source</span><span class="stat-value" id="stat-source">—</span></div>
+        <div class="stat-row"><span class="stat-label">Duration</span><span class="stat-value" id="stat-dur">—</span></div>
+        <div class="stat-row"><span class="stat-label">Rating</span><span class="stat-value" id="stat-rating">—</span></div>
+      </div>
+    </div>
+  </div>
 </main>
 
-<!-- ===== FOOTER ===== -->
-<footer>
-  <div class="footer-logo">AniVerse</div>
-  <div class="footer-socials">
-    <a href="creator.html" class="social-btn" title="GitHub">⚡</a>
-    <a href="#" class="social-btn" title="Discord">💬</a>
-    <a href="#" class="social-btn" title="Twitter">🐦</a>
-  </div>
-  <p class="footer-copy">© 2024 AniVerse. Built with ❤️ for anime fans. Data from Jikan/MyAnimeList.</p>
+<footer style="border-top:1px solid rgba(255,255,255,0.08);padding:24px;text-align:center">
+  <a href="index.html" style="font-family:'Cinzel',serif;font-size:20px;font-weight:700;background:linear-gradient(135deg,#a855f7,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">AniVerse</a>
+  <p style="font-size:12px;color:var(--text-muted);margin-top:8px">© 2024 AniVerse · Data from Jikan/MyAnimeList</p>
 </footer>
 
 <script>
-/* ===== CONFIG ===== */
 const API = 'https://api.jikan.moe/v4';
-const CACHE_TTL = 10 * 60 * 1000; // 10 min
-const RATE_DELAY = 400; // ms between requests
-
-/* ===== CACHE ===== */
+const CACHE_TTL = 10 * 60 * 1000;
 const cache = {
-  get(key) {
-    try {
-      const item = localStorage.getItem('av_' + key);
-      if (!item) return null;
-      const { data, ts } = JSON.parse(item);
-      if (Date.now() - ts > CACHE_TTL) { localStorage.removeItem('av_' + key); return null; }
-      return data;
-    } catch { return null; }
-  },
-  set(key, data) {
-    try { localStorage.setItem('av_' + key, JSON.stringify({ data, ts: Date.now() })); } catch {}
-  }
+  get(k){try{const i=localStorage.getItem('av_'+k);if(!i)return null;const{data,ts}=JSON.parse(i);if(Date.now()-ts>CACHE_TTL){localStorage.removeItem('av_'+k);return null;}return data;}catch{return null;}},
+  set(k,d){try{localStorage.setItem('av_'+k,JSON.stringify({data:d,ts:Date.now()}))}catch{}}
 };
+async function apiFetch(ep,retries=3){const cached=cache.get(ep);if(cached)return cached;for(let i=0;i<retries;i++){try{const ctrl=new AbortController();const t=setTimeout(()=>ctrl.abort(),10000);const r=await fetch(API+ep,{signal:ctrl.signal});clearTimeout(t);if(!r.ok)throw new Error('HTTP '+r.status);const j=await r.json();if(j&&j.data){cache.set(ep,j);return j;}}catch(e){if(i<retries-1)await new Promise(r=>setTimeout(r,1000*(i+1)));}}return null;}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
 
-/* ===== FETCH WITH RETRY ===== */
-async function apiFetch(endpoint, retries = 3) {
-  const cached = cache.get(endpoint);
-  if (cached) return cached;
-  for (let i = 0; i < retries; i++) {
-    try {
-      const ctrl = new AbortController();
-      const timeout = setTimeout(() => ctrl.abort(), 10000);
-      const res = await fetch(API + endpoint, { signal: ctrl.signal });
-      clearTimeout(timeout);
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const json = await res.json();
-      if (json && json.data) { cache.set(endpoint, json); return json; }
-    } catch (e) {
-      if (i < retries - 1) await sleep(1000 * (i + 1));
-    }
-  }
-  return null;
-}
+const params = new URLSearchParams(location.search);
+const malId = params.get('id') || '1';
 
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+async function loadAnime() {
+  const [main, chars, relations, recs] = await Promise.allSettled([
+    apiFetch(`/anime/${malId}/full`),
+    apiFetch(`/anime/${malId}/characters`),
+    apiFetch(`/anime/${malId}/relations`),
+    apiFetch(`/anime/${malId}/recommendations`)
+  ]);
 
-/* ===== SLIDER STATE ===== */
-const sliders = {};
+  const anime = main.value?.data;
+  if (!anime) { document.getElementById('anime-title').textContent = 'Failed to load'; return; }
 
-function initSlider(id, track) {
-  if (sliders[id]) return;
-  const wrap = track.parentElement;
-  let pos = 0;
-  let isDragging = false, startX = 0, scrollLeft = 0;
-
-  function clampPos() {
-    const maxPos = Math.max(0, track.scrollWidth - wrap.clientWidth);
-    pos = Math.max(0, Math.min(pos, maxPos));
-  }
-
-  function applyPos() {
-    track.style.transform = `translateX(${-pos}px)`;
-    updateBtns();
-  }
-
-  function updateBtns() {
-    const maxPos = Math.max(0, track.scrollWidth - wrap.clientWidth);
-    const prevBtn = document.querySelector(`.slider-btn.prev[data-target="${id}"]`);
-    const nextBtn = document.querySelector(`.slider-btn.next[data-target="${id}"]`);
-    if (prevBtn) prevBtn.disabled = pos <= 0;
-    if (nextBtn) nextBtn.disabled = pos >= maxPos - 1;
-  }
-
-  function slide(dir) {
-    const cardW = (track.firstElementChild?.offsetWidth || 160) + 12;
-    const visible = Math.floor(wrap.clientWidth / cardW);
-    pos += dir * cardW * Math.max(1, visible - 1);
-    clampPos(); applyPos();
-  }
-
-  // Arrow buttons
-  document.querySelector(`.slider-btn.prev[data-target="${id}"]`)?.addEventListener('click', () => slide(-1));
-  document.querySelector(`.slider-btn.next[data-target="${id}"]`)?.addEventListener('click', () => slide(1));
-
-  // Drag scroll
-  track.addEventListener('mousedown', e => { isDragging = true; startX = e.pageX; scrollLeft = pos; track.style.transition = 'none'; });
-  window.addEventListener('mousemove', e => {
-    if (!isDragging) return;
-    pos = scrollLeft - (e.pageX - startX);
-    clampPos(); track.style.transform = `translateX(${-pos}px)`;
-  });
-  window.addEventListener('mouseup', () => { if (!isDragging) return; isDragging = false; track.style.transition = ''; applyPos(); });
-
-  // Touch
-  let touchStart = 0;
-  track.addEventListener('touchstart', e => { touchStart = e.touches[0].clientX; scrollLeft = pos; track.style.transition = 'none'; }, { passive: true });
-  track.addEventListener('touchmove', e => { pos = scrollLeft - (e.touches[0].clientX - touchStart); clampPos(); track.style.transform = `translateX(${-pos}px)`; }, { passive: true });
-  track.addEventListener('touchend', () => { track.style.transition = ''; applyPos(); }, { passive: true });
-
-  // Wheel
-  wrap.addEventListener('wheel', e => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); pos += e.deltaX; clampPos(); applyPos(); } }, { passive: false });
-
-  sliders[id] = { slide, updateBtns };
-  updateBtns();
-}
-
-/* ===== RENDER CARD ===== */
-function renderCard(anime) {
-  if (!anime) return '';
-  const id = anime.mal_id;
-  const title = anime.title || anime.title_english || 'Unknown';
+  // Banner
   const img = anime.images?.jpg?.large_image_url || anime.images?.jpg?.image_url || '';
-  const score = anime.score ? anime.score.toFixed(1) : null;
-  const eps = anime.episodes;
-  const type = anime.type || '';
-  return `<div class="anime-card" onclick="location.href='anime.html?id=${id}'">
-    <div class="card-poster-wrap">
-      <img class="card-poster" src="${img}" alt="${title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22220%22%3E%3Crect fill=%22%230d0d1a%22 width=%22160%22 height=%22220%22/%3E%3C/svg%3E'">
-      <div class="card-badges">
-        ${score ? `<span class="card-badge score">★ ${score}</span>` : ''}
-        <span class="card-badge hd">HD</span>
-        ${eps ? `<span class="card-badge ep">EP ${eps}</span>` : ''}
-      </div>
-      ${type ? `<span class="card-type-badge">${type}</span>` : ''}
-      <div class="card-overlay"><div class="card-play">▶</div></div>
-    </div>
-    <div class="card-info">
-      <div class="card-title">${title}</div>
-      <div class="card-sub-info">${type}${eps ? ' · ' + eps + ' eps' : ''}</div>
-    </div>
-  </div>`;
-}
+  document.getElementById('banner-bg').style.backgroundImage = `url('${img}')`;
+  document.getElementById('anime-poster').src = img;
+  document.getElementById('anime-poster').alt = anime.title;
+  document.getElementById('anime-title').textContent = anime.title || '';
+  document.getElementById('anime-title-en').textContent = anime.title_english && anime.title_english !== anime.title ? anime.title_english : '';
+  document.title = `${anime.title} - AniVerse`;
 
-function renderSkeletons(track, count = 12) {
-  track.innerHTML = Array(count).fill(0).map(() =>
-    `<div class="card-skeleton"><div class="skeleton poster-skel"></div><div class="skeleton title-skel"></div><div class="skeleton sub-skel"></div></div>`
-  ).join('');
-}
+  // Badges
+  const badges = document.getElementById('info-badges');
+  badges.innerHTML = [
+    anime.score ? `<span class="info-badge badge-score">★ ${anime.score.toFixed(1)}</span>` : '',
+    anime.type ? `<span class="info-badge badge-type">${anime.type}</span>` : '',
+    anime.episodes ? `<span class="info-badge badge-eps">${anime.episodes} Episodes</span>` : '',
+    anime.status === 'Currently Airing' ? `<span class="info-badge badge-status-airing">Airing</span>` : `<span class="info-badge badge-status-finished">${anime.status || ''}</span>`
+  ].join('');
 
-async function loadTrack(id, endpoint) {
-  const track = document.getElementById('track-' + id);
-  if (!track) return;
-  renderSkeletons(track);
-  const data = await apiFetch(endpoint);
-  const items = data?.data;
-  if (!items || items.length === 0) {
-    track.innerHTML = `<p style="color:var(--text-muted);padding:20px">Could not load content.</p>`;
-    return;
+  // Actions
+  document.getElementById('banner-actions').innerHTML = `
+    <a href="watch.html?id=${malId}&ep=1" class="btn-primary">▶ Watch Now</a>
+    <a href="#" class="btn-secondary">+ Add to List</a>
+  `;
+
+  // Synopsis
+  document.getElementById('synopsis-text').textContent = anime.synopsis?.replace(/\[.*?\]/g,'') || 'No synopsis available.';
+
+  // Info grid
+  const infoGrid = document.getElementById('info-grid');
+  infoGrid.innerHTML = [
+    ['Type', anime.type],
+    ['Episodes', anime.episodes || 'Unknown'],
+    ['Status', anime.status],
+    ['Aired', anime.aired?.string || 'Unknown'],
+    ['Duration', anime.duration],
+    ['Rating', anime.rating],
+    ['Source', anime.source],
+    ['Season', anime.season ? `${anime.season} ${anime.year}` : anime.year || '—'],
+  ].filter(([,v])=>v).map(([l,v])=>`<div class="info-item"><label>${l}</label><span>${v}</span></div>`).join('');
+
+  // Genres
+  document.getElementById('genres-wrap').innerHTML = (anime.genres||[]).map(g=>`<a href="search.html?genre=${g.mal_id}" class="genre-tag">${g.name}</a>`).join('');
+
+  // Studios
+  if (anime.studios?.length) {
+    document.getElementById('studios-wrap').innerHTML = `<h3 style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Studios</h3><div class="studio-list">${anime.studios.map(s=>`<span class="studio-tag">${s.name}</span>`).join('')}</div>`;
   }
-  track.innerHTML = items.slice(0, 20).map(renderCard).join('');
-  initSlider(id, track);
+
+  // Trailer
+  if (anime.trailer?.youtube_id) {
+    document.getElementById('trailer-section').innerHTML = `
+      <h3 style="font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin:24px 0 12px">Trailer</h3>
+      <div class="trailer-wrap">
+        <iframe src="https://www.youtube.com/embed/${anime.trailer.youtube_id}?rel=0" allowfullscreen loading="lazy"></iframe>
+      </div>`;
+  }
+
+  // Stats
+  document.getElementById('score-num').textContent = anime.score?.toFixed(1) || '—';
+  document.getElementById('score-stars').textContent = anime.score ? '★'.repeat(Math.round(anime.score/2)) + '☆'.repeat(5-Math.round(anime.score/2)) : '';
+  document.getElementById('stat-rank').textContent = anime.rank ? '#' + anime.rank : '—';
+  document.getElementById('stat-pop').textContent = anime.popularity ? '#' + anime.popularity : '—';
+  document.getElementById('stat-mem').textContent = anime.members ? anime.members.toLocaleString() : '—';
+  document.getElementById('stat-status').textContent = anime.status || '—';
+  document.getElementById('stat-season').textContent = anime.season ? `${anime.season} ${anime.year}` : anime.year || '—';
+  document.getElementById('stat-source').textContent = anime.source || '—';
+  document.getElementById('stat-dur').textContent = anime.duration || '—';
+  document.getElementById('stat-rating').textContent = anime.rating || '—';
+
+  // Episodes
+  const eps = anime.episodes || 0;
+  document.getElementById('ep-count-title').textContent = `Episodes (${eps || 'Unknown'})`;
+  if (eps > 0) {
+    const epGrid = document.getElementById('ep-grid');
+    epGrid.innerHTML = Array.from({length: Math.min(eps, 200)}, (_,i) => i+1).map(n =>
+      `<button class="ep-btn" onclick="location.href='watch.html?id=${malId}&ep=${n}'">${n}</button>`
+    ).join('');
+  } else {
+    document.getElementById('ep-grid').innerHTML = `<p style="color:var(--text-muted)">Episode list unavailable.</p>`;
+  }
+
+  // Characters
+  const charData = chars.value?.data;
+  const charsGrid = document.getElementById('chars-grid');
+  if (charData?.length) {
+    charsGrid.innerHTML = charData.slice(0, 24).map(c => {
+      const char = c.character;
+      return `<div class="char-card">
+        <img class="char-img" src="${char.images?.jpg?.image_url||''}" alt="${char.name}" loading="lazy">
+        <div class="char-info">
+          <div class="char-name">${char.name}</div>
+          <div class="char-role">${c.role}</div>
+        </div>
+      </div>`;
+    }).join('');
+  } else { charsGrid.innerHTML = '<p style="color:var(--text-muted)">No character data.</p>'; }
+
+  // Relations
+  const relData = relations.value?.data;
+  const relList = document.getElementById('rel-list');
+  if (relData?.length) {
+    const items = relData.flatMap(r => r.entry.map(e => ({...e, relation: r.relation})));
+    relList.innerHTML = items.slice(0, 12).map(item => `
+      <div class="rel-item" onclick="location.href='anime.html?id=${item.mal_id}'">
+        <img class="rel-img" src="https://cdn.myanimelist.net/images/anime/${item.mal_id}/default.jpg" alt="${item.name}" loading="lazy" onerror="this.style.display='none'">
+        <div class="rel-info">
+          <div class="rel-relation">${item.relation}</div>
+          <div class="rel-title">${item.name}</div>
+          <div class="rel-meta">${item.type}</div>
+        </div>
+      </div>`).join('');
+  } else { relList.innerHTML = '<p style="color:var(--text-muted)">No related entries.</p>'; }
+
+  // Recommendations
+  const recData = recs.value?.data;
+  const recGrid = document.getElementById('rec-grid');
+  if (recData?.length) {
+    recGrid.innerHTML = recData.slice(0, 18).map(r => {
+      const a = r.entry;
+      return `<div class="rec-card" onclick="location.href='anime.html?id=${a.mal_id}'">
+        <img class="rec-img" src="${a.images?.jpg?.image_url||''}" alt="${a.title}" loading="lazy">
+        <div class="rec-title">${a.title}</div>
+      </div>`;
+    }).join('');
+  } else { recGrid.innerHTML = '<p style="color:var(--text-muted)">No recommendations.</p>'; }
 }
 
-/* ===== HERO SLIDER ===== */
-let heroIndex = 0, heroTotal = 0, heroTimer = null, heroProgress = 0, heroProgressTimer = null;
-
-function renderHeroSlides(items) {
-  const track = document.getElementById('hero-track');
-  const dots = document.getElementById('hero-dots');
-  heroTotal = Math.min(items.length, 12);
-
-  track.innerHTML = items.slice(0, heroTotal).map((a, i) => {
-    const id = a.mal_id;
-    const title = a.title || '';
-    const synopsis = (a.synopsis || '').replace(/\[.*?\]/g, '').slice(0, 220) + (a.synopsis?.length > 220 ? '...' : '');
-    const score = a.score ? a.score.toFixed(1) : null;
-    const type = a.type || 'TV';
-    const eps = a.episodes;
-    const genres = (a.genres || []).slice(0, 3).map(g => g.name);
-    const banner = a.images?.jpg?.large_image_url || a.images?.jpg?.image_url || '';
-    return `<div class="hero-slide${i === 0 ? ' active' : ''}" data-index="${i}">
-      <div class="hero-bg" style="background-image:url('${banner}')"></div>
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="hero-meta">
-          ${score ? `<span class="hero-badge badge-score">★ ${score}</span>` : ''}
-          <span class="hero-badge badge-type">${type}</span>
-          ${eps ? `<span class="hero-badge badge-ep">${eps} Episodes</span>` : ''}
-        </div>
-        <h1 class="hero-title">${title}</h1>
-        <div class="hero-genres">${genres.map(g => `<span class="genre-pill">${g}</span>`).join('')}</div>
-        <p class="hero-synopsis">${synopsis}</p>
-        <div class="hero-actions">
-          <a href="watch.html?id=${id}&ep=1" class="btn-watch">▶ Watch Now</a>
-          <a href="anime.html?id=${id}" class="btn-details">ℹ Details</a>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-
-  dots.innerHTML = Array(heroTotal).fill(0).map((_, i) =>
-    `<span class="hero-dot${i === 0 ? ' active' : ''}" data-i="${i}"></span>`
-  ).join('');
-
-  dots.querySelectorAll('.hero-dot').forEach(dot => {
-    dot.addEventListener('click', () => goHero(+dot.dataset.i));
+// Tabs
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab)?.classList.add('active');
   });
-
-  startHeroAuto();
-}
-
-function goHero(idx) {
-  const slides = document.querySelectorAll('.hero-slide');
-  const dots = document.querySelectorAll('.hero-dot');
-  if (!slides.length) return;
-  slides[heroIndex]?.classList.remove('active');
-  dots[heroIndex]?.classList.remove('active');
-  heroIndex = ((idx % heroTotal) + heroTotal) % heroTotal;
-  slides[heroIndex]?.classList.add('active');
-  dots[heroIndex]?.classList.add('active');
-  const track = document.getElementById('hero-track');
-  track.style.transform = `translateX(-${heroIndex * 100}%)`;
-  resetHeroProgress();
-}
-
-function resetHeroProgress() {
-  clearInterval(heroProgressTimer);
-  heroProgress = 0;
-  const bar = document.getElementById('hero-progress');
-  if (bar) bar.style.width = '0%';
-  heroProgressTimer = setInterval(() => {
-    heroProgress += 100 / 50;
-    if (bar) bar.style.width = Math.min(heroProgress, 100) + '%';
-    if (heroProgress >= 100) { clearInterval(heroProgressTimer); }
-  }, 100);
-}
-
-function startHeroAuto() {
-  clearInterval(heroTimer);
-  resetHeroProgress();
-  heroTimer = setInterval(() => goHero(heroIndex + 1), 5000);
-}
-
-document.getElementById('hero-prev')?.addEventListener('click', () => { goHero(heroIndex - 1); startHeroAuto(); });
-document.getElementById('hero-next')?.addEventListener('click', () => { goHero(heroIndex + 1); startHeroAuto(); });
-
-// Touch swipe hero
-let heroTouchX = 0;
-document.getElementById('hero')?.addEventListener('touchstart', e => { heroTouchX = e.touches[0].clientX; }, { passive: true });
-document.getElementById('hero')?.addEventListener('touchend', e => {
-  const dx = e.changedTouches[0].clientX - heroTouchX;
-  if (Math.abs(dx) > 50) { goHero(heroIndex + (dx < 0 ? 1 : -1)); startHeroAuto(); }
-}, { passive: true });
-
-/* ===== SEARCH ===== */
-const searchOverlay = document.getElementById('search-overlay');
-const searchInput = document.getElementById('search-input');
-const searchResults = document.getElementById('search-results');
-
-document.getElementById('search-btn')?.addEventListener('click', () => {
-  searchOverlay.classList.add('active');
-  searchInput.focus();
-});
-document.getElementById('search-close')?.addEventListener('click', closeSearch);
-searchOverlay?.addEventListener('click', e => { if (e.target === searchOverlay) closeSearch(); });
-function closeSearch() { searchOverlay.classList.remove('active'); searchResults.innerHTML = ''; searchInput.value = ''; }
-
-let searchTimer;
-searchInput?.addEventListener('input', () => {
-  clearTimeout(searchTimer);
-  const q = searchInput.value.trim();
-  if (!q) { searchResults.innerHTML = ''; return; }
-  searchTimer = setTimeout(() => doSearch(q), 400);
 });
 
-async function doSearch(q) {
-  searchResults.innerHTML = '<p style="padding:16px;color:var(--text-muted)">Searching...</p>';
-  const data = await apiFetch(`/anime?q=${encodeURIComponent(q)}&limit=8&sfw=true`);
-  const items = data?.data;
-  if (!items?.length) { searchResults.innerHTML = '<p style="padding:16px;color:var(--text-muted)">No results found.</p>'; return; }
-  searchResults.innerHTML = items.map(a => `
-    <div class="search-item" onclick="location.href='anime.html?id=${a.mal_id}';closeSearch()">
-      <img src="${a.images?.jpg?.image_url || ''}" alt="${a.title}" loading="lazy">
-      <div class="search-item-info">
-        <h4>${a.title}</h4>
-        <p>${a.type || ''} · ${a.episodes ? a.episodes + ' eps' : 'Ongoing'} · ${a.score ? '★' + a.score : 'N/A'}</p>
-      </div>
-    </div>`).join('');
-}
-
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSearch(); });
-
-/* ===== SIDEBAR ===== */
-const sidebar = document.getElementById('sidebar');
-const sidebarOverlay = document.getElementById('sidebar-overlay');
+// Sidebar
 document.getElementById('hamburger-btn')?.addEventListener('click', () => {
-  sidebar.classList.add('open'); sidebarOverlay.classList.add('active');
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sidebar-overlay').classList.add('active');
 });
-sidebarOverlay?.addEventListener('click', () => { sidebar.classList.remove('open'); sidebarOverlay.classList.remove('active'); });
+document.getElementById('sidebar-overlay')?.addEventListener('click', () => {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('active');
+});
 
-/* ===== HEADER SCROLL ===== */
-window.addEventListener('scroll', () => {
-  document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
-}, { passive: true });
+// Search
+document.getElementById('search-btn')?.addEventListener('click', () => {
+  document.getElementById('search-overlay').classList.add('active');
+  document.getElementById('search-input').focus();
+});
+document.getElementById('search-close')?.addEventListener('click', () => {
+  document.getElementById('search-overlay').classList.remove('active');
+});
+let st;
+document.getElementById('search-input')?.addEventListener('input', () => {
+  clearTimeout(st);
+  const q = document.getElementById('search-input').value.trim();
+  if (!q) { document.getElementById('search-results-overlay').innerHTML = ''; return; }
+  st = setTimeout(async () => {
+    const data = await apiFetch(`/anime?q=${encodeURIComponent(q)}&limit=8&sfw=true`);
+    const items = data?.data;
+    if (!items?.length) return;
+    document.getElementById('search-results-overlay').innerHTML = items.map(a => `
+      <div class="search-item" onclick="location.href='anime.html?id=${a.mal_id}'">
+        <img src="${a.images?.jpg?.image_url||''}" alt="${a.title}" loading="lazy">
+        <div class="search-item-info"><h4>${a.title}</h4><p>${a.type||''} · ${a.score?'★'+a.score:'N/A'}</p></div>
+      </div>`).join('');
+  }, 400);
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('search-overlay').classList.remove('active'); });
 
-/* ===== INIT ALL ===== */
-async function init() {
-  // Load hero + all sections in parallel with rate limiting
-  const heroData = await apiFetch('/top/anime?filter=bypopularity&limit=12');
-  if (heroData?.data?.length) renderHeroSlides(heroData.data);
-
-  const sections = [
-    { id: 'recent', url: '/top/anime?filter=airing&limit=20' },
-    { id: 'trending', url: '/top/anime?filter=bypopularity&limit=20' },
-    { id: 'toprated', url: '/top/anime?limit=20' },
-    { id: 'airing', url: '/top/anime?filter=airing&limit=20' },
-    { id: 'upcoming', url: '/top/anime?filter=upcoming&limit=20' },
-    { id: 'completed', url: '/top/anime?filter=complete&limit=20' },
-  ];
-
-  // Load with stagger to avoid rate limiting
-  for (const sec of sections) {
-    loadTrack(sec.id, sec.url);
-    await sleep(RATE_DELAY);
-  }
-}
-
-init();
-
-// Resize handler
-let resizeTimer;
-window.addEventListener('resize', () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => {
-    Object.keys(sliders).forEach(id => sliders[id]?.updateBtns?.());
-  }, 200);
-}, { passive: true });
+loadAnime();
 </script>
 </body>
 </html>
