@@ -150,9 +150,64 @@ main{max-width:1400px;margin:0 auto;padding:clamp(24px,4vw,48px) clamp(16px,3vw,
 .studio-tag{padding:6px 14px;background:rgba(124,58,237,0.1);border:1px solid var(--border-accent);border-radius:8px;font-size:12px;font-weight:600;color:var(--accent-bright)}
 
 @media(max-width:768px){
-  .banner-content{flex-direction:column;align-items:flex-start;gap:16px}
-  .anime-poster{width:100px}
-  .banner-actions{flex-wrap:wrap}
+
+  .nav-links{
+    display:none;
+  }
+
+  #header{
+    padding:0 12px;
+  }
+
+  .banner-content{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:16px;
+  }
+
+  .banner-info{
+    width:100%;
+    min-width:0;
+  }
+
+  .anime-poster{
+    width:100px;
+  }
+
+  .banner-actions{
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .main-grid{
+    grid-template-columns:1fr;
+  }
+
+  .chars-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .rec-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .search-box,
+  #search-results-overlay{
+    width:calc(100vw - 24px);
+  }
+}
+
+@media(max-width:480px){
+
+  #sidebar{
+    width:85%;
+  }
+
+  .ep-grid{
+    grid-template-columns:repeat(4,1fr);
+  }
+
 }
 </style>
 </head>
