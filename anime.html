@@ -50,21 +50,22 @@ ul,ol{list-style:none}
 .sidebar-nav a svg{width:22px;height:22px;flex-shrink:0}
 
 /* Anime Banner */
-.anime-banner{position:relative;width:100%;height:clamp(300px,45vh,500px);margin-top:var(--header-h);overflow:hidden}
+.anime-banner{position:relative;width:100%;height:clamp(300px,45vh,500px);margin-top:var(--header-h);overflow:hidden;background:var(--bg-card)}
 .anime-banner-bg{position:absolute;inset:0;background-size:cover;background-position:center 30%;filter:blur(2px) brightness(0.4);transform:scale(1.1)}
 .anime-banner-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,rgba(10,10,10,0.8) 50%,rgba(10,10,10,0.4) 100%)}
 .anime-banner-content{position:absolute;bottom:0;left:0;right:0;padding:clamp(24px,5vw,48px);display:flex;gap:clamp(20px,4vw,40px);align-items:flex-end;max-width:1400px;margin:0 auto}
 .anime-poster{width:clamp(140px,22vw,220px);aspect-ratio:2/3;border-radius:var(--radius);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.6);flex-shrink:0;background:var(--bg-card)}
 .anime-poster img{width:100%;height:100%;object-fit:cover}
+.anime-poster img{width:100%;height:100%;object-fit:cover}
 .anime-info{flex:1;min-width:0;padding-bottom:8px}
 .anime-title{font-size:clamp(1.6rem,3.5vw,2.8rem);font-weight:800;line-height:1.2;margin-bottom:12px;text-shadow:0 2px 20px rgba(0,0,0,0.5)}
-.anime-meta{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;font-size:0.9rem}
+.anime-meta{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;font-size:0.9rem;justify-content:center}
 .anime-score{display:flex;align-items:center;gap:6px;color:#fbbf24;font-weight:700;font-size:1.1rem;background:rgba(0,0,0,0.4);padding:6px 14px;border-radius:20px}
 .anime-status{padding:4px 14px;border-radius:20px;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
 .status-airing{background:#22c55e;color:#fff}
 .status-finished{background:#3b82f6;color:#fff}
 .status-upcoming{background:#f59e0b;color:#fff}
-.anime-genres{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.anime-genres{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;justify-content:center}
 .anime-genre{padding:6px 16px;background:rgba(168,85,247,0.15);border:1px solid rgba(168,85,247,0.3);border-radius:20px;font-size:0.85rem;color:var(--primary);font-weight:500}
 .anime-actions{display:flex;gap:12px;flex-wrap:wrap}
 .btn-primary{padding:12px 28px;background:var(--primary);color:#fff;font-weight:700;border-radius:var(--radius);display:inline-flex;align-items:center;gap:8px;transition:var(--transition);font-size:0.95rem;box-shadow:0 4px 20px var(--primary-glow)}
@@ -155,14 +156,20 @@ ul,ol{list-style:none}
 .footer-social{width:40px;height:40px;border-radius:50%;background:var(--bg-card);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:var(--transition);border:1px solid var(--border)}
 .footer-social:hover{background:var(--primary);color:#fff;border-color:var(--primary);transform:translateY(-3px)}
 .footer-copyright{color:var(--text-muted);font-size:0.8rem}
-
 @media(max-width:768px){
-  .anime-banner-content{flex-direction:column;align-items:center;text-align:center}
-  .anime-poster{width:160px}
+  .anime-banner{height:auto;min-height:clamp(500px,80vh,650px)}
+  .anime-banner-bg{background-position:center top;background-size:cover}
+  .anime-banner-content{position:relative;flex-direction:column;align-items:center;text-align:center;padding:clamp(20px,5vw,32px);padding-top:120px}
+  .anime-poster{width:clamp(160px,55vw,240px);margin:0 auto}
+  .anime-poster img{width:100%;height:100%;object-fit:cover}
+  .anime-info{width:100%;padding-bottom:0}
+  .anime-meta{justify-content:center}
+  .anime-genres{justify-content:center}
   .anime-actions{justify-content:center}
   .episode-list{grid-template-columns:1fr}
   .char-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
   .rel-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+}
 }
 </style>
 <base target="_blank">
@@ -423,7 +430,7 @@ function renderTrailer(anime) {
   const trailer = anime.trailer?.embed_url;
   if (!trailer) return;
   $('#trailerSection').style.display = 'block';
-  $('#trailerContainer').innerHTML = `<iframe src="${trailer}" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>`;
+  $('#trailerContainer').innerHTML = `<iframe src="${trailer}" allowfullscreen allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" loading="lazy"></iframe>`;
 }
 
 function renderEpisodes(data, animeId) {
