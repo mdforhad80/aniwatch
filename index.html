@@ -66,896 +66,169 @@
             -moz-osx-font-smoothing: grayscale;
             padding-top: var(--header-h);
         }
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text3);
-        }
-        img {
-            max-width: 100%;
-            display: block;
-        }
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-        button {
-            cursor: pointer;
-            font-family: inherit;
-            border: none;
-            background: none;
-            color: inherit;
-        }
-        input {
-            font-family: inherit;
-            border: none;
-            outline: none;
-            background: none;
-            color: inherit;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        @keyframes shimmer {
-            0% {
-                background-position: -200% 0;
-            }
-            100% {
-                background-position: 200% 0;
-            }
-        }
-        @keyframes pulse {
-            0%,
-            100% {
-                opacity: .5;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        @keyframes glowPulse {
-            0%,
-            100% {
-                box-shadow: 0 0 20px rgba(139, 92, 246, .3);
-            }
-            50% {
-                box-shadow: 0 0 40px rgba(139, 92, 246, .6), 0 0 60px rgba(139, 92, 246, .2);
-            }
-        }
-        .skeleton {
-            background: linear-gradient(90deg, var(--bg3) 25%, var(--bg4) 50%, var(--bg3) 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            border-radius: var(--radius-sm);
-        }
-        .skeleton-poster {
-            aspect-ratio: 2/3;
-            border-radius: var(--radius);
-        }
-        .skeleton-text {
-            height: 14px;
-            margin-bottom: 8px;
-            border-radius: 4px;
-        }
-        .skeleton-text-sm {
-            height: 10px;
-            width: 60%;
-            border-radius: 4px;
-        }
-        .skeleton-badge {
-            height: 22px;
-            width: 50px;
-            border-radius: 20px;
-        }
-        .fade-in {
-            animation: fadeIn .5s ease forwards;
-        }
-        .fade-in-up {
-            animation: fadeInUp .5s ease forwards;
-        }
-        .fade-in-scale {
-            animation: fadeInScale .4s ease forwards;
-        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+        img { max-width: 100%; display: block; }
+        a { color: inherit; text-decoration: none; }
+        button { cursor: pointer; font-family: inherit; border: none; background: none; color: inherit; }
+        input { font-family: inherit; border: none; outline: none; background: none; color: inherit; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInScale { from { opacity: 0; transform: scale(.95); } to { opacity: 1; transform: scale(1); } }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        @keyframes pulse { 0%, 100% { opacity: .5; } 50% { opacity: 1; } }
+        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, .3); } 50% { box-shadow: 0 0 40px rgba(139, 92, 246, .6), 0 0 60px rgba(139, 92, 246, .2); } }
+        .skeleton { background: linear-gradient(90deg, var(--bg3) 25%, var(--bg4) 50%, var(--bg3) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: var(--radius-sm); }
+        .skeleton-poster { aspect-ratio: 2/3; border-radius: var(--radius); }
+        .skeleton-text { height: 14px; margin-bottom: 8px; border-radius: 4px; }
+        .skeleton-text-sm { height: 10px; width: 60%; border-radius: 4px; }
+        .skeleton-badge { height: 22px; width: 50px; border-radius: 20px; }
+        .fade-in { animation: fadeIn .5s ease forwards; }
+        .fade-in-up { animation: fadeInUp .5s ease forwards; }
+        .fade-in-scale { animation: fadeInScale .4s ease forwards; }
         .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            height: var(--header-h);
-            background: rgba(10, 10, 15, .85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            gap: 16px;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: var(--header-h);
+            background: rgba(10, 10, 15, .85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 20px; gap: 16px;
             transition: var(--transition);
         }
-        .header.scrolled {
-            background: rgba(10, 10, 15, .95);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, .4);
-        }
-        .hamburger {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            padding: 8px;
-            border-radius: var(--radius-sm);
-            transition: var(--transition-fast);
-            z-index: 1001;
-        }
-        .hamburger:hover {
-            background: var(--bg3);
-        }
-        .hamburger span {
-            display: block;
-            width: 22px;
-            height: 2px;
-            background: var(--text);
-            border-radius: 2px;
-            transition: var(--transition);
-        }
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, var(--purple-glow), var(--pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-        .header-spacer {
-            flex: 1;
-        }
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .icon-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition-fast);
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-        .icon-btn:hover {
-            background: var(--bg3);
-            color: var(--purple-glow);
-        }
+        .header.scrolled { background: rgba(10, 10, 15, .95); box-shadow: 0 2px 20px rgba(0, 0, 0, .4); }
+        .hamburger { display: flex; flex-direction: column; gap: 5px; padding: 8px; border-radius: var(--radius-sm); transition: var(--transition-fast); z-index: 1001; }
+        .hamburger:hover { background: var(--bg3); }
+        .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: var(--transition); }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; background: linear-gradient(135deg, var(--purple-glow), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; white-space: nowrap; flex-shrink: 0; }
+        .header-spacer { flex: 1; }
+        .header-actions { display: flex; align-items: center; gap: 8px; }
+        .icon-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: var(--transition-fast); font-size: 1.2rem; flex-shrink: 0; }
+        .icon-btn:hover { background: var(--bg3); color: var(--purple-glow); }
         .search-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 2000;
-            background: rgba(0, 0, 0, .85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            padding-top: 15vh;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition-slow);
+            position: fixed; inset: 0; z-index: 2000; background: rgba(0, 0, 0, .85); backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); display: flex; align-items: flex-start; justify-content: center;
+            padding-top: 15vh; opacity: 0; pointer-events: none; transition: var(--transition-slow);
         }
-        .search-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        .search-container {
-            width: 90%;
-            max-width: 600px;
-            animation: fadeInScale .3s ease;
-        }
-        .search-input-wrap {
-            display: flex;
-            align-items: center;
-            background: var(--bg2);
-            border: 2px solid var(--border);
-            border-radius: 50px;
-            padding: 12px 20px;
-            gap: 12px;
-            transition: var(--transition);
-        }
-        .search-input-wrap:focus-within {
-            border-color: var(--purple);
-            box-shadow: 0 0 30px rgba(139, 92, 246, .2);
-        }
-        .search-input-wrap input {
-            flex: 1;
-            font-size: 1.1rem;
-            padding: 4px 0;
-            background: transparent;
-        }
-        .search-results {
-            margin-top: 12px;
-            background: var(--bg2);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border);
-            max-height: 60vh;
-            overflow-y: auto;
-            display: none;
-        }
-        .search-results.active {
-            display: block;
-        }
-        .search-result-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            cursor: pointer;
-            transition: var(--transition-fast);
-            border-bottom: 1px solid var(--border);
-        }
-        .search-result-item:hover {
-            background: var(--bg3);
-        }
-        .search-result-item img {
-            width: 45px;
-            height: 65px;
-            border-radius: 6px;
-            object-fit: cover;
-            flex-shrink: 0;
-        }
-        .search-result-info {
-            flex: 1;
-            min-width: 0;
-        }
-        .search-result-info .title {
-            font-weight: 600;
-            font-size: .9rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .search-result-info .meta {
-            font-size: .75rem;
-            color: var(--text2);
-        }
-        .search-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--bg3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            transition: var(--transition-fast);
-        }
-        .search-close:hover {
-            background: var(--danger);
-            color: #fff;
-        }
+        .search-overlay.active { opacity: 1; pointer-events: all; }
+        .search-container { width: 90%; max-width: 600px; animation: fadeInScale .3s ease; }
+        .search-input-wrap { display: flex; align-items: center; background: var(--bg2); border: 2px solid var(--border); border-radius: 50px; padding: 12px 20px; gap: 12px; transition: var(--transition); }
+        .search-input-wrap:focus-within { border-color: var(--purple); box-shadow: 0 0 30px rgba(139, 92, 246, .2); }
+        .search-input-wrap input { flex: 1; font-size: 1.1rem; padding: 4px 0; background: transparent; }
+        .search-results { margin-top: 12px; background: var(--bg2); border-radius: var(--radius-lg); border: 1px solid var(--border); max-height: 60vh; overflow-y: auto; display: none; }
+        .search-results.active { display: block; }
+        .search-result-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; transition: var(--transition-fast); border-bottom: 1px solid var(--border); }
+        .search-result-item:hover { background: var(--bg3); }
+        .search-result-item img { width: 45px; height: 65px; border-radius: 6px; object-fit: cover; flex-shrink: 0; }
+        .search-result-info { flex: 1; min-width: 0; }
+        .search-result-info .title { font-weight: 600; font-size: .9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .search-result-info .meta { font-size: .75rem; color: var(--text2); }
+        .search-close { position: absolute; top: 20px; right: 20px; width: 44px; height: 44px; border-radius: 50%; background: var(--bg3); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: var(--transition-fast); }
+        .search-close:hover { background: var(--danger); color: #fff; }
         .mobile-sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 280px;
-            z-index: 1500;
-            background: var(--bg2);
-            border-right: 1px solid var(--border);
-            transform: translateX(-100%);
-            transition: var(--transition);
-            overflow-y: auto;
-            padding: 80px 20px 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .mobile-sidebar.active {
-            transform: translateX(0);
-            box-shadow: var(--shadow-lg);
-        }
-        .sidebar-backdrop {
-            position: fixed;
-            inset: 0;
-            z-index: 1499;
-            background: rgba(0, 0, 0, .6);
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition);
-        }
-        .sidebar-backdrop.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        .sidebar-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            border-radius: var(--radius);
-            transition: var(--transition-fast);
-            font-weight: 500;
-            font-size: .95rem;
-        }
-        .sidebar-link:hover,
-        .sidebar-link.active {
-            background: var(--bg3);
-            color: var(--purple-glow);
-        }
-        .sidebar-link .icon {
-            font-size: 1.2rem;
-            width: 24px;
-            text-align: center;
-        }
-        .hero-section {
-            position: relative;
-            width: 100%;
-            height: 75vh;
-            min-height: 450px;
-            max-height: 700px;
-            overflow: hidden;
-            margin-bottom: 40px;
-        }
-        .hero-slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity .8s ease;
-            display: flex;
-            align-items: flex-end;
-            padding: 60px 40px;
-        }
-        .hero-slide.active {
-            opacity: 1;
-            z-index: 2;
-        }
-        .hero-slide.prev {
-            opacity: 0;
-            z-index: 1;
-        }
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-        }
-        .hero-bg img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center top;
-        }
-        .hero-bg::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(0deg, var(--bg) 0%, transparent 50%, rgba(10, 10, 15, .7) 100%);
-            z-index: 1;
-        }
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at center, transparent 40%, rgba(10, 10, 15, .85) 100%);
-            z-index: 2;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 3;
-            max-width: 600px;
-            animation: fadeInUp .6s ease forwards;
-        }
-        .hero-content .hero-title {
-            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-            font-weight: 800;
-            line-height: 1.15;
-            margin-bottom: 8px;
-            text-shadow: 0 2px 20px rgba(0, 0, 0, .7);
-        }
-        .hero-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .hero-score {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: rgba(139, 92, 246, .25);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: .85rem;
-            color: var(--purple-glow);
-        }
-        .hero-genre {
-            font-size: .78rem;
-            padding: 5px 10px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, .08);
-            color: var(--text2);
-            border: 1px solid rgba(255, 255, 255, .1);
-        }
-        .hero-synopsis {
-            font-size: .9rem;
-            color: var(--text2);
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            margin-bottom: 16px;
-            text-shadow: 0 1px 4px rgba(0, 0, 0, .6);
-        }
-        .hero-btns {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: .9rem;
-            transition: var(--transition);
-            white-space: nowrap;
-        }
-        .btn-primary {
-            background: var(--purple);
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(139, 92, 246, .4);
-        }
-        .btn-primary:hover {
-            background: var(--purple-dark);
-            box-shadow: 0 6px 30px rgba(139, 92, 246, .5);
-            transform: translateY(-2px);
-        }
-        .btn-secondary {
-            background: rgba(255, 255, 255, .08);
-            border: 1px solid rgba(255, 255, 255, .2);
-            color: #fff;
-        }
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, .15);
-            border-color: rgba(255, 255, 255, .35);
-        }
-        .btn-sm {
-            padding: 8px 16px;
-            font-size: .8rem;
-            border-radius: 30px;
-        }
-        .hero-nav {
-            position: absolute;
-            bottom: 30px;
-            right: 40px;
-            z-index: 10;
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-        .hero-arrow {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, .1);
-            border: 1px solid rgba(255, 255, 255, .2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            transition: var(--transition-fast);
-            color: #fff;
-        }
-        .hero-arrow:hover {
-            background: rgba(255, 255, 255, .2);
-            border-color: rgba(255, 255, 255, .4);
-        }
-        .hero-dots {
-            display: flex;
-            gap: 6px;
-        }
-        .hero-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, .3);
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        .hero-dot.active {
-            background: var(--purple-glow);
-            box-shadow: 0 0 12px rgba(139, 92, 246, .6);
-            width: 28px;
-            border-radius: 10px;
-        }
-        .main-content {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 20px 40px;
-        }
-        .widget-section {
-            margin-bottom: 36px;
-        }
-        .widget-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .widget-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .widget-title .indicator {
-            width: 4px;
-            height: 22px;
-            background: var(--purple);
-            border-radius: 4px;
-        }
-        .widget-view-all {
-            font-size: .8rem;
-            color: var(--purple-glow);
-            font-weight: 600;
-            transition: var(--transition-fast);
-            padding: 6px 12px;
-            border-radius: 20px;
-        }
-        .widget-view-all:hover {
-            background: rgba(139, 92, 246, .1);
-        }
-        .carousel-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: var(--radius);
-        }
-        .carousel-track {
-            display: flex;
-            gap: 14px;
-            transition: transform .4s cubic-bezier(.25, .8, .25, 1);
-            cursor: grab;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-        .carousel-track:active {
-            cursor: grabbing;
-        }
-        .carousel-track.dragging {
-            transition: none;
-        }
-        .anime-card {
-            flex: 0 0 auto;
-            width: 160px;
-            border-radius: var(--radius);
-            overflow: hidden;
-            background: var(--card);
-            transition: var(--transition);
-            position: relative;
-            cursor: pointer;
-        }
-        .anime-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-glow);
-            background: var(--card-hover);
-            z-index: 5;
-        }
-        .anime-card .poster-wrap {
-            position: relative;
-            aspect-ratio: 2/3;
-            overflow: hidden;
-            border-radius: var(--radius) var(--radius) 0 0;
-            background: var(--bg3);
-        }
-        .anime-card .poster-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform .4s ease;
-        }
-        .anime-card:hover .poster-wrap img {
-            transform: scale(1.08);
-        }
-        .anime-card .poster-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(0deg, rgba(0, 0, 0, .7) 0%, transparent 40%);
-            z-index: 2;
-            pointer-events: none;
-        }
-        .anime-card .card-badges {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            z-index: 3;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .badge {
-            font-size: .68rem;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 12px;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            letter-spacing: .3px;
-        }
-        .badge-score {
-            background: rgba(139, 92, 246, .85);
-            color: #fff;
-        }
-        .badge-ep {
-            background: rgba(0, 0, 0, .7);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, .2);
-        }
-        .badge-hd {
-            background: rgba(16, 185, 129, .85);
-            color: #fff;
-            font-size: .6rem;
-            padding: 2px 6px;
-        }
-        .badge-type {
-            background: rgba(236, 72, 153, .8);
-            color: #fff;
-            font-size: .6rem;
-            padding: 2px 6px;
-        }
-        .anime-card .card-info {
-            padding: 10px 12px;
-        }
-        .anime-card .card-title {
-            font-size: .82rem;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-bottom: 2px;
-        }
-        .anime-card .card-meta {
-            font-size: .7rem;
-            color: var(--text2);
-        }
-        .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: rgba(20, 20, 30, .9);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            color: #fff;
-            transition: var(--transition-fast);
-            opacity: 0;
-            pointer-events: none;
-        }
-        .carousel-container:hover .carousel-arrow {
-            opacity: 1;
-            pointer-events: all;
-        }
-        .carousel-arrow:hover {
-            background: var(--purple);
-            border-color: var(--purple);
-            box-shadow: 0 0 20px rgba(139, 92, 246, .5);
-        }
-        .carousel-arrow.prev {
-            left: -8px;
-        }
-        .carousel-arrow.next {
-            right: -8px;
-        }
-        .widget-error {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text2);
-            background: var(--bg2);
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-        }
-        .widget-error .retry-btn {
-            margin-top: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 20px;
-            border-radius: 50px;
-            background: var(--purple);
-            color: #fff;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-        .widget-error .retry-btn:hover {
-            background: var(--purple-dark);
-        }
-        .skeleton-carousel {
-            display: flex;
-            gap: 14px;
-            overflow: hidden;
-        }
-        .skeleton-card {
-            flex: 0 0 auto;
-            width: 160px;
-        }
-        .footer {
-            text-align: center;
-            padding: 30px 20px;
-            border-top: 1px solid var(--border);
-            color: var(--text3);
-            font-size: .8rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-        .footer .social-icons {
-            display: flex;
-            gap: 12px;
-            font-size: 1.2rem;
-        }
-        .footer .social-icons a {
-            transition: var(--transition-fast);
-            color: var(--text2);
-        }
-        .footer .social-icons a:hover {
-            color: var(--purple-glow);
-        }
+            position: fixed; top: 0; left: 0; bottom: 0; width: 280px; z-index: 1500; background: var(--bg2);
+            border-right: 1px solid var(--border); transform: translateX(-100%); transition: var(--transition);
+            overflow-y: auto; padding: 80px 20px 30px; display: flex; flex-direction: column; gap: 8px;
+        }
+        .mobile-sidebar.active { transform: translateX(0); box-shadow: var(--shadow-lg); }
+        .sidebar-backdrop { position: fixed; inset: 0; z-index: 1499; background: rgba(0, 0, 0, .6); opacity: 0; pointer-events: none; transition: var(--transition); }
+        .sidebar-backdrop.active { opacity: 1; pointer-events: all; }
+        .sidebar-link { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: var(--radius); transition: var(--transition-fast); font-weight: 500; font-size: .95rem; }
+        .sidebar-link:hover, .sidebar-link.active { background: var(--bg3); color: var(--purple-glow); }
+        .sidebar-link .icon { font-size: 1.2rem; width: 24px; text-align: center; }
+        .hero-section { position: relative; width: 100%; height: 75vh; min-height: 450px; max-height: 700px; overflow: hidden; margin-bottom: 40px; }
+        .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity .8s ease; display: flex; align-items: flex-end; padding: 60px 40px; }
+        .hero-slide.active { opacity: 1; z-index: 2; }
+        .hero-slide.prev { opacity: 0; z-index: 1; }
+        .hero-bg { position: absolute; inset: 0; z-index: 0; }
+        .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+        .hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, var(--bg) 0%, transparent 50%, rgba(10, 10, 15, .7) 100%); z-index: 1; }
+        .hero-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 40%, rgba(10, 10, 15, .85) 100%); z-index: 2; }
+        .hero-content { position: relative; z-index: 3; max-width: 600px; animation: fadeInUp .6s ease forwards; }
+        .hero-content .hero-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; line-height: 1.15; margin-bottom: 8px; text-shadow: 0 2px 20px rgba(0, 0, 0, .7); }
+        .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+        .hero-score { display: inline-flex; align-items: center; gap: 4px; background: rgba(139, 92, 246, .25); padding: 5px 10px; border-radius: 20px; font-weight: 700; font-size: .85rem; color: var(--purple-glow); }
+        .hero-genre { font-size: .78rem; padding: 5px 10px; border-radius: 20px; background: rgba(255, 255, 255, .08); color: var(--text2); border: 1px solid rgba(255, 255, 255, .1); }
+        .hero-synopsis { font-size: .9rem; color: var(--text2); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 16px; text-shadow: 0 1px 4px rgba(0, 0, 0, .6); }
+        .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 50px; font-weight: 600; font-size: .9rem; transition: var(--transition); white-space: nowrap; }
+        .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 4px 20px rgba(139, 92, 246, .4); }
+        .btn-primary:hover { background: var(--purple-dark); box-shadow: 0 6px 30px rgba(139, 92, 246, .5); transform: translateY(-2px); }
+        .btn-secondary { background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .2); color: #fff; }
+        .btn-secondary:hover { background: rgba(255, 255, 255, .15); border-color: rgba(255, 255, 255, .35); }
+        .btn-sm { padding: 8px 16px; font-size: .8rem; border-radius: 30px; }
+        .hero-nav { position: absolute; bottom: 30px; right: 40px; z-index: 10; display: flex; gap: 8px; align-items: center; }
+        .hero-arrow { width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .2); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: var(--transition-fast); color: #fff; }
+        .hero-arrow:hover { background: rgba(255, 255, 255, .2); border-color: rgba(255, 255, 255, .4); }
+        .hero-dots { display: flex; gap: 6px; }
+        .hero-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, .3); transition: var(--transition); cursor: pointer; }
+        .hero-dot.active { background: var(--purple-glow); box-shadow: 0 0 12px rgba(139, 92, 246, .6); width: 28px; border-radius: 10px; }
+        .main-content { max-width: var(--max-width); margin: 0 auto; padding: 0 20px 40px; }
+        .widget-section { margin-bottom: 36px; }
+        .widget-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
+        .widget-title { font-size: 1.3rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+        .widget-title .indicator { width: 4px; height: 22px; background: var(--purple); border-radius: 4px; }
+        .widget-view-all { font-size: .8rem; color: var(--purple-glow); font-weight: 600; transition: var(--transition-fast); padding: 6px 12px; border-radius: 20px; }
+        .widget-view-all:hover { background: rgba(139, 92, 246, .1); }
+        .carousel-container { position: relative; overflow: hidden; border-radius: var(--radius); }
+        .carousel-track { display: flex; gap: 14px; transition: transform .4s cubic-bezier(.25, .8, .25, 1); cursor: grab; user-select: none; -webkit-user-select: none; }
+        .carousel-track:active { cursor: grabbing; }
+        .carousel-track.dragging { transition: none; }
+        .anime-card { flex: 0 0 auto; width: 160px; border-radius: var(--radius); overflow: hidden; background: var(--card); transition: var(--transition); position: relative; cursor: pointer; }
+        .anime-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-glow); background: var(--card-hover); z-index: 5; }
+        .anime-card .poster-wrap { position: relative; aspect-ratio: 2/3; overflow: hidden; border-radius: var(--radius) var(--radius) 0 0; background: var(--bg3); }
+        .anime-card .poster-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+        .anime-card:hover .poster-wrap img { transform: scale(1.08); }
+        .anime-card .poster-overlay { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0, 0, 0, .7) 0%, transparent 40%); z-index: 2; pointer-events: none; }
+        .anime-card .card-badges { position: absolute; top: 8px; left: 8px; z-index: 3; display: flex; flex-direction: column; gap: 4px; }
+        .badge { font-size: .68rem; font-weight: 700; padding: 3px 8px; border-radius: 12px; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); letter-spacing: .3px; }
+        .badge-score { background: rgba(139, 92, 246, .85); color: #fff; }
+        .badge-ep { background: rgba(0, 0, 0, .7); color: #fff; border: 1px solid rgba(255, 255, 255, .2); }
+        .badge-hd { background: rgba(16, 185, 129, .85); color: #fff; font-size: .6rem; padding: 2px 6px; }
+        .badge-type { background: rgba(236, 72, 153, .8); color: #fff; font-size: .6rem; padding: 2px 6px; }
+        .anime-card .card-info { padding: 10px 12px; }
+        .anime-card .card-title { font-size: .82rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+        .anime-card .card-meta { font-size: .7rem; color: var(--text2); }
+        .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; width: 38px; height: 38px; border-radius: 50%; background: rgba(20, 20, 30, .9); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1rem; color: #fff; transition: var(--transition-fast); opacity: 0; pointer-events: none; }
+        .carousel-container:hover .carousel-arrow { opacity: 1; pointer-events: all; }
+        .carousel-arrow:hover { background: var(--purple); border-color: var(--purple); box-shadow: 0 0 20px rgba(139, 92, 246, .5); }
+        .carousel-arrow.prev { left: -8px; }
+        .carousel-arrow.next { right: -8px; }
+        .widget-error { text-align: center; padding: 40px 20px; color: var(--text2); background: var(--bg2); border-radius: var(--radius); border: 1px solid var(--border); }
+        .widget-error .retry-btn { margin-top: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 50px; background: var(--purple); color: #fff; font-weight: 600; transition: var(--transition); }
+        .widget-error .retry-btn:hover { background: var(--purple-dark); }
+        .skeleton-carousel { display: flex; gap: 14px; overflow: hidden; }
+        .skeleton-card { flex: 0 0 auto; width: 160px; }
+        .footer { text-align: center; padding: 30px 20px; border-top: 1px solid var(--border); color: var(--text3); font-size: .8rem; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .footer .social-icons { display: flex; gap: 12px; font-size: 1.2rem; }
+        .footer .social-icons a { transition: var(--transition-fast); color: var(--text2); }
+        .footer .social-icons a:hover { color: var(--purple-glow); }
         @media (max-width:768px) {
-            .hero-section {
-                height: 55vh;
-                min-height: 380px;
-                max-height: 500px;
-            }
-            .hero-slide {
-                padding: 30px 16px;
-            }
-            .hero-content .hero-title {
-                font-size: 1.4rem;
-            }
-            .hero-synopsis {
-                font-size: .78rem;
-                -webkit-line-clamp: 2;
-            }
-            .hero-nav {
-                bottom: 16px;
-                right: 16px;
-            }
-            .hero-arrow {
-                width: 32px;
-                height: 32px;
-                font-size: .9rem;
-            }
-            .anime-card {
-                width: 135px;
-            }
-            .carousel-arrow {
-                display: none;
-            }
-            .btn {
-                padding: 10px 18px;
-                font-size: .8rem;
-            }
-            .widget-title {
-                font-size: 1.1rem;
-            }
+            .hero-section { height: 55vh; min-height: 380px; max-height: 500px; }
+            .hero-slide { padding: 30px 16px; }
+            .hero-content .hero-title { font-size: 1.4rem; }
+            .hero-synopsis { font-size: .78rem; -webkit-line-clamp: 2; }
+            .hero-nav { bottom: 16px; right: 16px; }
+            .hero-arrow { width: 32px; height: 32px; font-size: .9rem; }
+            .anime-card { width: 135px; }
+            .carousel-arrow { display: none; }
+            .btn { padding: 10px 18px; font-size: .8rem; }
+            .widget-title { font-size: 1.1rem; }
         }
         @media (max-width:480px) {
-            .hero-section {
-                height: 45vh;
-                min-height: 320px;
-                max-height: 420px;
-            }
-            .hero-slide {
-                padding: 20px 12px;
-            }
-            .hero-content .hero-title {
-                font-size: 1.2rem;
-            }
-            .hero-synopsis {
-                font-size: .7rem;
-                -webkit-line-clamp: 2;
-            }
-            .hero-btns {
-                gap: 8px;
-            }
-            .btn {
-                padding: 8px 14px;
-                font-size: .75rem;
-            }
-            .anime-card {
-                width: 120px;
-            }
-            .anime-card .card-title {
-                font-size: .72rem;
-            }
-            .carousel-track {
-                gap: 10px;
-            }
-            .logo {
-                font-size: 1.2rem;
-            }
+            .hero-section { height: 45vh; min-height: 320px; max-height: 420px; }
+            .hero-slide { padding: 20px 12px; }
+            .hero-content .hero-title { font-size: 1.2rem; }
+            .hero-synopsis { font-size: .7rem; -webkit-line-clamp: 2; }
+            .hero-btns { gap: 8px; }
+            .btn { padding: 8px 14px; font-size: .75rem; }
+            .anime-card { width: 120px; }
+            .anime-card .card-title { font-size: .72rem; }
+            .carousel-track { gap: 10px; }
+            .logo { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -996,7 +269,6 @@
 
     <!-- ==================== HERO SECTION ==================== -->
     <section class="hero-section" id="heroSection">
-        <!-- Skeleton loading -->
         <div class="hero-slide active" id="heroSkeleton" style="display:flex;align-items:flex-end;padding:60px 40px;z-index:2;">
             <div style="position:absolute;inset:0;background:var(--bg2);z-index:0;"></div>
             <div style="position:relative;z-index:3;max-width:600px;">
@@ -1014,7 +286,6 @@
 
     <!-- ==================== MAIN CONTENT ==================== -->
     <main class="main-content" id="mainContent">
-        <!-- Widgets will be dynamically inserted here -->
         <div id="widgetsContainer"></div>
     </main>
 
@@ -1034,11 +305,11 @@
             // ==================== CONFIGURATION ====================
             const JIKAN_BASE = 'https://api.jikan.moe/v4';
             const CACHE_PREFIX = 'anime_stream_cache_';
-            const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
-            const FETCH_TIMEOUT = 12000; // 12 seconds
+            const CACHE_TTL = 10 * 60 * 1000; // 10 minutes cache
+            const FETCH_TIMEOUT = 15000; // 15 seconds
             const MAX_RETRIES = 3;
-            const RETRY_DELAY = 1500;
-            const RATE_LIMIT_DELAY = 350; // ~3 requests per second for Jikan
+            const RETRY_DELAY = 2000;
+            const RATE_LIMIT_DELAY = 400;
 
             // ==================== DOM REFS ====================
             const header = document.getElementById('header');
@@ -1053,13 +324,9 @@
             const heroSection = document.getElementById('heroSection');
             const heroSkeleton = document.getElementById('heroSkeleton');
             const widgetsContainer = document.getElementById('widgetsContainer');
-            const mainContent = document.getElementById('mainContent');
 
             // ==================== RATE LIMITER ====================
             let lastRequestTime = 0;
-            const requestQueue = [];
-            let processingQueue = false;
-
             async function rateLimitedFetch(url) {
                 const now = Date.now();
                 const timeSinceLast = now - lastRequestTime;
@@ -1093,7 +360,7 @@
                         timestamp: Date.now()
                     }));
                 } catch (e) {
-                    // Storage full, clear old caches
+                    // Storage full, clear oldest 30% of caches
                     try {
                         const keys = Object.keys(localStorage).filter(k => k.startsWith(CACHE_PREFIX));
                         keys.sort((a, b) => {
@@ -1104,14 +371,16 @@
                         for (let i = 0; i < Math.ceil(keys.length * 0.3); i++) {
                             localStorage.removeItem(keys[i]);
                         }
-                        localStorage.setItem(CACHE_PREFIX + key, JSON.stringify({ data, timestamp: Date
-                                .now() }));
+                        localStorage.setItem(CACHE_PREFIX + key, JSON.stringify({ data, timestamp: Date.now() }));
                     } catch (e2) { /* ignore */ }
                 }
             }
 
-            // ==================== ROBUST FETCH WITH RETRY ====================
-            async function robustFetch(url, cacheKey = null, retries = MAX_RETRIES) {
+            // ==================== ROBUST FETCH WITH RETRY AND FALLBACK ENDPOINTS ====================
+            async function robustFetch(endpoints, cacheKey = null, retries = MAX_RETRIES) {
+                // Ensure endpoints is an array
+                const urls = Array.isArray(endpoints) ? endpoints : [endpoints];
+
                 // Check cache first
                 if (cacheKey) {
                     const cached = getCache(cacheKey);
@@ -1119,43 +388,54 @@
                 }
 
                 let lastError;
-                for (let attempt = 0; attempt <= retries; attempt++) {
-                    try {
-                        const controller = new AbortController();
-                        const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
+                for (const endpoint of urls) {
+                    // Build full URL with proper query parameter handling
+                    let url = `${JIKAN_BASE}/${endpoint}`;
+                    // If endpoint already contains '?', append limit with '&', else add '?limit='
+                    // We'll add limit=16 to all widget endpoints, but some might already have it.
+                    // For simplicity, we'll add a default limit if not present.
+                    if (!url.includes('limit=')) {
+                        url += (url.includes('?') ? '&' : '?') + 'limit=16';
+                    }
 
-                        const response = await rateLimitedFetch(url);
+                    for (let attempt = 0; attempt <= retries; attempt++) {
+                        try {
+                            const controller = new AbortController();
+                            const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
 
-                        clearTimeout(timeoutId);
+                            const response = await rateLimitedFetch(url);
+                            clearTimeout(timeoutId);
 
-                        if (response.status === 429) {
-                            // Rate limited - wait longer
-                            const waitTime = (attempt + 1) * RETRY_DELAY * 2;
-                            await new Promise(r => setTimeout(r, waitTime));
-                            continue;
-                        }
+                            if (response.status === 429) {
+                                const waitTime = (attempt + 1) * RETRY_DELAY * 2;
+                                await new Promise(r => setTimeout(r, waitTime));
+                                continue;
+                            }
 
-                        if (!response.ok) {
-                            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                        }
+                            if (!response.ok) {
+                                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                            }
 
-                        const data = await response.json();
-
-                        // Cache successful response
-                        if (cacheKey && data) {
-                            setCache(cacheKey, data);
-                        }
-
-                        return data;
-                    } catch (error) {
-                        lastError = error;
-                        if (attempt < retries) {
-                            const delay = RETRY_DELAY * (attempt + 1);
-                            await new Promise(r => setTimeout(r, delay));
+                            const data = await response.json();
+                            const animeList = data?.data;
+                            if (animeList && Array.isArray(animeList) && animeList.length > 0) {
+                                // Cache successful response
+                                if (cacheKey) setCache(cacheKey, data);
+                                return data;
+                            } else {
+                                // Empty data, try next endpoint
+                                throw new Error('Empty data received');
+                            }
+                        } catch (error) {
+                            lastError = error;
+                            if (attempt < retries) {
+                                const delay = RETRY_DELAY * (attempt + 1);
+                                await new Promise(r => setTimeout(r, delay));
+                            }
                         }
                     }
                 }
-                throw lastError || new Error('Fetch failed after all retries');
+                throw lastError || new Error('All endpoints failed');
             }
 
             // ==================== SAFE DATA EXTRACTION ====================
@@ -1205,14 +485,12 @@
                     this.maxScroll = Math.max(0, this.track.scrollWidth - this.container.clientWidth);
                     this.initialized = true;
 
-                    // Events
                     if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.scrollBy(-this.scrollAmount));
                     if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.scrollBy(this.scrollAmount));
                     this.container.addEventListener('wheel', this._boundWheel, { passive: false });
                     this.track.addEventListener('mousedown', this._boundDragStart);
                     this.track.addEventListener('touchstart', this._boundDragStart, { passive: true });
                     document.addEventListener('keydown', this._boundKeyNav);
-
                     this._updateArrows();
                 }
 
@@ -1232,8 +510,7 @@
 
                 scrollBy(amount) {
                     const current = this.track.style.transform ?
-                        parseFloat(this.track.style.transform.replace('translateX(', '').replace('px)', '')) || 0 :
-                        0;
+                        parseFloat(this.track.style.transform.replace('translateX(', '').replace('px)', '')) || 0 : 0;
                     let target = current + amount;
                     target = Math.max(-this.maxScroll, Math.min(0, target));
                     this.track.style.transform = `translateX(${target}px)`;
@@ -1249,8 +526,7 @@
                     this.isDragging = true;
                     this.startX = e.type.includes('touch') ? e.touches[0].pageX : e.pageX;
                     const currentTransform = this.track.style.transform ?
-                        parseFloat(this.track.style.transform.replace('translateX(', '').replace('px)', '')) || 0 :
-                        0;
+                        parseFloat(this.track.style.transform.replace('translateX(', '').replace('px)', '')) || 0 : 0;
                     this.scrollLeft = currentTransform;
                     this.track.classList.add('dragging');
                     document.addEventListener('mousemove', this._boundDragMove);
@@ -1280,23 +556,15 @@
 
                 _handleKeyNav(e) {
                     if (!this.container.matches(':hover') && !this.container.querySelector(':focus')) return;
-                    if (e.key === 'ArrowLeft') { e.preventDefault();
-                        this.scrollBy(-this.scrollAmount); }
-                    if (e.key === 'ArrowRight') { e.preventDefault();
-                        this.scrollBy(this.scrollAmount); }
+                    if (e.key === 'ArrowLeft') { e.preventDefault(); this.scrollBy(-this.scrollAmount); }
+                    if (e.key === 'ArrowRight') { e.preventDefault(); this.scrollBy(this.scrollAmount); }
                 }
 
                 _updateArrows() {
                     const current = this.track.style.transform ?
-                        parseFloat(this.track.style.transform.replace('translateX(', '').replace('px)', '')) || 0 :
-                        0;
+                        parseFloat(this.track.style.transform.replace('translateX(', '').replace('px)', '')) || 0 : 0;
                     if (this.prevBtn) this.prevBtn.style.opacity = current >= 0 ? '0.4' : '';
                     if (this.nextBtn) this.nextBtn.style.opacity = current <= -this.maxScroll ? '0.4' : '';
-                }
-
-                reinit() {
-                    this.destroy();
-                    this.init();
                 }
             }
 
@@ -1311,9 +579,6 @@
                     safeGet(anime, 'images.jpg.image_url', '') ||
                     'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 240" fill="%231a1a25"><rect width="160" height="240"/><text x="80" y="120" text-anchor="middle" fill="%236b6b80" font-size="14">No Image</text></svg>';
 
-                const scoreDisplay = score ? `⭐ ${score.toFixed(1)}` : '';
-                const epDisplay = episodes ? `Ep ${episodes}` : type || '';
-
                 return `
                 <div class="anime-card fade-in-scale" data-mal-id="${malId}" onclick="window.location.href='anime.html?id=${malId}'" role="button" tabindex="0" aria-label="${title}">
                     <div class="poster-wrap">
@@ -1327,7 +592,7 @@
                     </div>
                     <div class="card-info">
                         <div class="card-title" title="${title}">${title}</div>
-                        <div class="card-meta">${epDisplay}</div>
+                        <div class="card-meta">${type || ''}</div>
                     </div>
                 </div>`;
             }
@@ -1342,7 +607,6 @@
                     </div>
                     <div class="carousel-container" id="carousel-${widgetId}">
                         <div class="carousel-track" id="track-${widgetId}">
-                            <!-- Skeleton loading -->
                             ${Array(8).fill(0).map(() => `
                                 <div class="anime-card" style="pointer-events:none;">
                                     <div class="poster-wrap skeleton skeleton-poster"></div>
@@ -1359,23 +623,30 @@
                 </section>`;
             }
 
-            // ==================== POPULATE WIDGET ====================
+            // ==================== POPULATE WIDGET WITH SAFE SLIDER RE-INIT ====================
             function populateWidget(widgetId, animeList) {
                 const track = document.getElementById(`track-${widgetId}`);
-                if (!track) return;
+                const container = document.getElementById(`carousel-${widgetId}`);
+                if (!track || !container) return;
+
+                // Destroy existing slider if any
+                if (container._slider) {
+                    container._slider.destroy();
+                    container._slider = null;
+                }
+
                 const safeList = Array.isArray(animeList) ? animeList : [];
                 if (safeList.length === 0) {
-                    track.innerHTML =
-                        '<div class="widget-error" style="grid-column:1/-1;width:100%;">No anime found. Please try again later.</div>';
+                    track.innerHTML = '<div class="widget-error" style="grid-column:1/-1;width:100%;">No anime found. Try again later.</div>';
                     return;
                 }
+
                 track.innerHTML = safeList.map(anime => createAnimeCard(anime)).join('');
-                // Initialize slider
-                const container = document.getElementById(`carousel-${widgetId}`);
-                if (container && track.children.length > 0) {
+
+                // Initialize slider after DOM update
+                if (track.children.length > 0) {
                     const slider = new UniversalSlider(container, { itemsPerScroll: 3 });
                     slider.init();
-                    // Store for potential reinit
                     container._slider = slider;
                 }
             }
@@ -1390,25 +661,56 @@
                 </div>`;
             }
 
-            // ==================== FETCH WIDGET DATA ====================
-            async function fetchWidgetData(endpoint, cacheKey, limit = 15) {
-                const url = `${JIKAN_BASE}/${endpoint}?limit=${limit}`;
-                const data = await robustFetch(url, cacheKey);
+            // ==================== FETCH WIDGET DATA WITH FALLBACK ENDPOINTS ====================
+            async function fetchWidgetData(endpoints, cacheKey) {
+                const data = await robustFetch(endpoints, cacheKey);
                 return safeGet(data, 'data', []);
             }
 
-            // ==================== BUILD ALL WIDGETS ====================
+            // ==================== WIDGET CONFIGURATIONS WITH PRIMARY & FALLBACK ENDPOINTS ====================
             const widgetConfigs = [
-                { title: 'Trending Now', id: 'trending', icon: '🔥', endpoint: 'top/anime?filter=airing',
-                    cacheKey: 'trending' },
-                { title: 'Top Rated', id: 'toprated', icon: '⭐', endpoint: 'top/anime?filter=bypopularity',
-                    cacheKey: 'toprated' },
-                { title: 'Top Airing', id: 'topairing', icon: '📡', endpoint: 'top/anime?filter=airing&limit=20',
-                    cacheKey: 'topairing' },
-                { title: 'Upcoming', id: 'upcoming', icon: '🆕', endpoint: 'seasons/upcoming', cacheKey: 'upcoming' },
-                { title: 'Recently Updated', id: 'recent', icon: '🔄', endpoint: 'seasons/now', cacheKey: 'recent' },
-                { title: 'Completed', id: 'completed', icon: '✅', endpoint: 'top/anime?filter=complete',
-                cacheKey: 'completed' },
+                {
+                    title: 'Trending Now',
+                    id: 'trending',
+                    icon: '🔥',
+                    endpoints: ['top/anime?filter=airing', 'seasons/now'],
+                    cacheKey: 'trending'
+                },
+                {
+                    title: 'Top Rated',
+                    id: 'toprated',
+                    icon: '⭐',
+                    endpoints: ['anime?order_by=score&sort=desc', 'top/anime?filter=favorite'],
+                    cacheKey: 'toprated'
+                },
+                {
+                    title: 'Top Airing',
+                    id: 'topairing',
+                    icon: '📡',
+                    endpoints: ['top/anime?filter=airing', 'seasons/now'],
+                    cacheKey: 'topairing'
+                },
+                {
+                    title: 'Upcoming',
+                    id: 'upcoming',
+                    icon: '🆕',
+                    endpoints: ['seasons/upcoming', 'anime?status=upcoming&order_by=members&sort=desc'],
+                    cacheKey: 'upcoming'
+                },
+                {
+                    title: 'Recently Updated',
+                    id: 'recent',
+                    icon: '🔄',
+                    endpoints: ['seasons/now', 'top/anime?filter=airing'],
+                    cacheKey: 'recent'
+                },
+                {
+                    title: 'Completed',
+                    id: 'completed',
+                    icon: '✅',
+                    endpoints: ['anime?status=complete&order_by=score&sort=desc', 'top/anime?filter=bypopularity&type=tv'],
+                    cacheKey: 'completed'
+                },
             ];
 
             function buildAllWidgets() {
@@ -1420,7 +722,7 @@
             async function loadAllWidgets() {
                 const promises = widgetConfigs.map(async (config) => {
                     try {
-                        const data = await fetchWidgetData(config.endpoint, config.cacheKey, 16);
+                        const data = await fetchWidgetData(config.endpoints, config.cacheKey);
                         return { config, data, success: true };
                     } catch (error) {
                         console.warn(`Widget "${config.title}" failed:`, error.message);
@@ -1460,8 +762,6 @@
                 const genres = safeGet(anime, 'genres', []).slice(0, 3).map(g => g.name).join(' • ');
                 const imageUrl = safeGet(anime, 'images.jpg.large_image_url', '') ||
                     safeGet(anime, 'images.jpg.image_url', '') || '';
-                const trailerUrl = safeGet(anime, 'trailer.embed_url', '') ||
-                    safeGet(anime, 'trailer.url', '');
 
                 return `
                 <div class="hero-slide ${index === 0 ? 'active' : ''}" data-index="${index}" data-mal-id="${malId}">
@@ -1506,73 +806,51 @@
                 const totalSlides = slides.length;
                 let targetIndex = ((index % totalSlides) + totalSlides) % totalSlides;
 
-                // Remove active from all
                 slides.forEach(s => s.classList.remove('active', 'prev'));
                 dots.forEach(d => d.classList.remove('active'));
 
-                // Set active
                 slides[targetIndex].classList.add('active');
                 if (dots[targetIndex]) dots[targetIndex].classList.add('active');
                 heroCurrentIndex = targetIndex;
             }
 
-            function nextHeroSlide() {
-                goToHeroSlide(heroCurrentIndex + 1);
-            }
-
-            function prevHeroSlide() {
-                goToHeroSlide(heroCurrentIndex - 1);
-            }
-
+            function nextHeroSlide() { goToHeroSlide(heroCurrentIndex + 1); }
+            function prevHeroSlide() { goToHeroSlide(heroCurrentIndex - 1); }
             function startHeroAutoSlide() {
                 stopHeroAutoSlide();
                 heroAutoSlideInterval = setInterval(nextHeroSlide, 5000);
             }
-
             function stopHeroAutoSlide() {
-                if (heroAutoSlideInterval) {
-                    clearInterval(heroAutoSlideInterval);
-                    heroAutoSlideInterval = null;
-                }
+                if (heroAutoSlideInterval) { clearInterval(heroAutoSlideInterval); heroAutoSlideInterval = null; }
             }
 
             async function loadHeroSlider() {
                 try {
-                    const data = await robustFetch(`${JIKAN_BASE}/top/anime?filter=bypopularity&limit=15`,
-                        'hero_anime');
+                    // Try primary endpoint, then fallback
+                    const data = await robustFetch(
+                        ['top/anime?filter=bypopularity&limit=15', 'top/anime?limit=15', 'seasons/now?limit=15'],
+                        'hero_anime'
+                    );
                     heroAnimeList = safeGet(data, 'data', []);
 
-                    if (heroAnimeList.length < 5) {
-                        // Fallback fetch
-                        const fallbackData = await robustFetch(`${JIKAN_BASE}/top/anime?limit=15`, 'hero_fallback');
-                        heroAnimeList = safeGet(fallbackData, 'data', []);
-                    }
-
                     if (heroAnimeList.length === 0) {
-                        heroSkeleton.innerHTML =
-                            '<div style="position:relative;z-index:3;max-width:600px;color:var(--text2);"><p>Unable to load hero content. Please refresh.</p></div>';
+                        heroSkeleton.innerHTML = '<div style="position:relative;z-index:3;max-width:600px;color:var(--text2);"><p>Unable to load hero content. Please refresh.</p></div>';
                         return;
                     }
 
-                    // Remove skeleton
                     if (heroSkeleton) heroSkeleton.remove();
 
-                    // Build slides
                     const slidesHTML = heroAnimeList.map((anime, i) => buildHeroSlide(anime, i)).join('');
                     const navHTML = buildHeroNav(heroAnimeList.length);
-
                     heroSection.innerHTML = slidesHTML + navHTML;
                     heroCurrentIndex = 0;
 
-                    // Event listeners
                     const prevArrow = heroSection.querySelector('.hero-arrow.prev');
                     const nextArrow = heroSection.querySelector('.hero-arrow.next');
                     const dots = heroSection.querySelectorAll('.hero-dot');
 
-                    if (prevArrow) prevArrow.addEventListener('click', () => { prevHeroSlide();
-                        resetAutoSlide(); });
-                    if (nextArrow) nextArrow.addEventListener('click', () => { nextHeroSlide();
-                        resetAutoSlide(); });
+                    if (prevArrow) prevArrow.addEventListener('click', () => { prevHeroSlide(); resetAutoSlide(); });
+                    if (nextArrow) nextArrow.addEventListener('click', () => { nextHeroSlide(); resetAutoSlide(); });
                     dots.forEach(dot => {
                         dot.addEventListener('click', () => {
                             goToHeroSlide(parseInt(dot.dataset.index));
@@ -1580,10 +858,7 @@
                         });
                     });
 
-                    // Touch swipe
-                    heroSection.addEventListener('touchstart', (e) => {
-                        heroTouchStartX = e.touches[0].clientX;
-                    }, { passive: true });
+                    heroSection.addEventListener('touchstart', (e) => { heroTouchStartX = e.touches[0].clientX; }, { passive: true });
                     heroSection.addEventListener('touchend', (e) => {
                         heroTouchEndX = e.changedTouches[0].clientX;
                         const diff = heroTouchStartX - heroTouchEndX;
@@ -1594,55 +869,40 @@
                         }
                     });
 
-                    // Keyboard
                     document.addEventListener('keydown', (e) => {
-                        if (e.key === 'ArrowLeft') { prevHeroSlide();
-                            resetAutoSlide(); }
-                        if (e.key === 'ArrowRight') { nextHeroSlide();
-                            resetAutoSlide(); }
+                        if (e.key === 'ArrowLeft') { prevHeroSlide(); resetAutoSlide(); }
+                        if (e.key === 'ArrowRight') { nextHeroSlide(); resetAutoSlide(); }
                     });
 
-                    // Pause on hover
                     heroSection.addEventListener('mouseenter', stopHeroAutoSlide);
                     heroSection.addEventListener('mouseleave', startHeroAutoSlide);
                     heroSection.addEventListener('touchstart', stopHeroAutoSlide, { passive: true });
-                    heroSection.addEventListener('touchend', () => {
-                        setTimeout(startHeroAutoSlide, 3000);
-                    });
+                    heroSection.addEventListener('touchend', () => { setTimeout(startHeroAutoSlide, 3000); });
 
                     startHeroAutoSlide();
                 } catch (error) {
                     console.error('Hero slider failed:', error);
                     if (heroSkeleton) {
-                        heroSkeleton.innerHTML =
-                            '<div style="position:relative;z-index:3;max-width:600px;color:var(--text2);"><p>⚠️ Unable to load hero. <button onclick="location.reload()" style="color:var(--purple-glow);text-decoration:underline;background:none;border:none;cursor:pointer;">Refresh page</button></p></div>';
+                        heroSkeleton.innerHTML = '<div style="position:relative;z-index:3;max-width:600px;color:var(--text2);"><p>⚠️ Unable to load hero. <button onclick="location.reload()" style="color:var(--purple-glow);text-decoration:underline;background:none;border:none;cursor:pointer;">Refresh page</button></p></div>';
                     }
                 }
             }
 
-            function resetAutoSlide() {
-                stopHeroAutoSlide();
-                startHeroAutoSlide();
-            }
+            function resetAutoSlide() { stopHeroAutoSlide(); startHeroAutoSlide(); }
 
             // ==================== SEARCH FUNCTIONALITY ====================
             let searchDebounceTimer = null;
-
             async function performSearch(query) {
                 if (!query || query.trim().length < 2) {
                     searchResults.innerHTML = '';
                     searchResults.classList.remove('active');
                     return;
                 }
-
                 try {
-                    const data = await robustFetch(`${JIKAN_BASE}/anime?q=${encodeURIComponent(query)}&limit=8&sfw=true`,
-                        null, 1);
+                    const data = await robustFetch(`anime?q=${encodeURIComponent(query)}&limit=8&sfw=true`, null, 1);
                     const results = safeGet(data, 'data', []);
-
                     if (results.length === 0) {
-                        searchResults.innerHTML =
-                            '<div style="padding:20px;text-align:center;color:var(--text2);">No results found</div>';
+                        searchResults.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text2);">No results found</div>';
                     } else {
                         searchResults.innerHTML = results.map(anime => {
                             const title = safeGet(anime, 'title', 'Unknown');
@@ -1662,28 +922,20 @@
                     }
                     searchResults.classList.add('active');
                 } catch (error) {
-                    searchResults.innerHTML =
-                        '<div style="padding:20px;text-align:center;color:var(--text2);">Search unavailable</div>';
+                    searchResults.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text2);">Search unavailable</div>';
                     searchResults.classList.add('active');
                 }
             }
 
             searchInput.addEventListener('input', () => {
                 clearTimeout(searchDebounceTimer);
-                searchDebounceTimer = setTimeout(() => {
-                    performSearch(searchInput.value.trim());
-                }, 350);
+                searchDebounceTimer = setTimeout(() => performSearch(searchInput.value.trim()), 350);
             });
-
             searchInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    closeSearchOverlay();
-                }
+                if (e.key === 'Escape') closeSearchOverlay();
                 if (e.key === 'Enter') {
                     const query = searchInput.value.trim();
-                    if (query) {
-                        window.location.href = `search.html?q=${encodeURIComponent(query)}`;
-                    }
+                    if (query) window.location.href = `search.html?q=${encodeURIComponent(query)}`;
                 }
             });
 
@@ -1692,7 +944,6 @@
                 document.body.style.overflow = 'hidden';
                 setTimeout(() => searchInput.focus(), 200);
             }
-
             function closeSearchOverlay() {
                 searchOverlay.classList.remove('active');
                 document.body.style.overflow = '';
@@ -1703,9 +954,7 @@
 
             searchToggle.addEventListener('click', openSearchOverlay);
             searchClose.addEventListener('click', closeSearchOverlay);
-            searchOverlay.addEventListener('click', (e) => {
-                if (e.target === searchOverlay) closeSearchOverlay();
-            });
+            searchOverlay.addEventListener('click', (e) => { if (e.target === searchOverlay) closeSearchOverlay(); });
 
             // ==================== MOBILE SIDEBAR ====================
             function openSidebar() {
@@ -1714,37 +963,23 @@
                 document.body.style.overflow = 'hidden';
                 hamburger.classList.add('active');
             }
-
             function closeSidebar() {
                 mobileSidebar.classList.remove('active');
                 sidebarBackdrop.classList.remove('active');
                 document.body.style.overflow = '';
                 hamburger.classList.remove('active');
             }
-
             hamburger.addEventListener('click', () => {
-                if (mobileSidebar.classList.contains('active')) {
-                    closeSidebar();
-                } else {
-                    openSidebar();
-                }
+                mobileSidebar.classList.contains('active') ? closeSidebar() : openSidebar();
             });
             sidebarBackdrop.addEventListener('click', closeSidebar);
-
-            // Close sidebar on link click
             mobileSidebar.querySelectorAll('.sidebar-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    setTimeout(closeSidebar, 200);
-                });
+                link.addEventListener('click', () => setTimeout(closeSidebar, 200));
             });
 
             // ==================== HEADER SCROLL EFFECT ====================
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 20) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
+                header.classList.toggle('scrolled', window.scrollY > 20);
             });
 
             // ==================== KEYBOARD SHORTCUTS ====================
@@ -1754,16 +989,12 @@
                     openSearchOverlay();
                 }
                 if (e.key === 'Escape') {
-                    if (searchOverlay.classList.contains('active')) {
-                        closeSearchOverlay();
-                    }
-                    if (mobileSidebar.classList.contains('active')) {
-                        closeSidebar();
-                    }
+                    if (searchOverlay.classList.contains('active')) closeSearchOverlay();
+                    if (mobileSidebar.classList.contains('active')) closeSidebar();
                 }
             });
 
-            // ==================== RETRY WIDGET (exposed globally) ====================
+            // ==================== GLOBAL RETRY FUNCTION (uses fallback endpoints) ====================
             window._retryWidget = async function(widgetId) {
                 const config = widgetConfigs.find(w => w.id === widgetId);
                 if (!config) return;
@@ -1780,7 +1011,7 @@
                     `).join('');
                 }
                 try {
-                    const data = await fetchWidgetData(config.endpoint, config.cacheKey + '_retry', 16);
+                    const data = await fetchWidgetData(config.endpoints, config.cacheKey + '_retry');
                     if (data.length > 0) {
                         populateWidget(config.id, data);
                     } else {
@@ -1793,23 +1024,19 @@
 
             // ==================== INITIALIZATION ====================
             async function initApp() {
-                // Build widget skeletons immediately
                 buildAllWidgets();
 
-                // Load hero and widgets in parallel with allSettled
                 const results = await Promise.allSettled([
                     loadHeroSlider(),
                     loadAllWidgets(),
                 ]);
 
-                // Log any top-level failures
                 results.forEach((result, i) => {
                     if (result.status === 'rejected') {
                         console.error(`Init task ${i} failed:`, result.reason);
                     }
                 });
 
-                // Ensure hero auto-slide is running if it loaded
                 if (heroAnimeList.length > 0 && !heroAutoSlideInterval) {
                     startHeroAutoSlide();
                 }
@@ -1817,28 +1044,14 @@
                 console.log('✅ AnimeStream initialized successfully');
             }
 
-            // Start the app
             initApp().catch(error => {
                 console.error('Fatal initialization error:', error);
-                // Show fallback in hero
                 if (heroSkeleton) {
-                    heroSkeleton.innerHTML =
-                        '<div style="position:relative;z-index:3;max-width:600px;color:var(--text2);text-align:center;"><p>⚠️ Something went wrong.</p><button onclick="location.reload()" style="margin-top:10px;padding:10px 20px;border-radius:50px;background:var(--purple);color:#fff;border:none;cursor:pointer;font-weight:600;">🔄 Reload Page</button></div>';
+                    heroSkeleton.innerHTML = '<div style="position:relative;z-index:3;max-width:600px;color:var(--text2);text-align:center;"><p>⚠️ Something went wrong.</p><button onclick="location.reload()" style="margin-top:10px;padding:10px 20px;border-radius:50px;background:var(--purple);color:#fff;border:none;cursor:pointer;font-weight:600;">🔄 Reload Page</button></div>';
                 }
             });
 
-            // ==================== SERVICE WORKER REGISTRATION FOR PWA-LIKE BEHAVIOR ====================
-            // (Optional - can be enabled for offline caching)
-            // if ('serviceWorker' in navigator) {
-            //     // Basic service worker for caching API responses could be added here
-            // }
-
             console.log('🚀 AnimeStream - Production Ready');
-            console.log('📡 Using Jikan API v4');
-            console.log('💡 Press Ctrl+K to open search');
-            console.log('📱 Fully responsive');
-            console.log('🎬 Hero slider with', '15', 'slides configured');
-            console.log('📦', widgetConfigs.length, 'widget sections ready');
         })();
     </script>
 </body>
