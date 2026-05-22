@@ -668,9 +668,9 @@ ul,ol { list-style:none; }
     </div>
 
     <div class="episode-info" id="episodeInfo">
-      <h2 class="episode-title" id="episodeTitle">Loading...</h2>
-      <div class="episode-meta" id="episodeMeta"></div>
-      <p class="episode-desc" id="episodeDesc"></p>
+      <h2 class="episode-title" id="episodeTitle">Episode <span id="epNumDisplay">1</span></h2>
+      <div class="episode-meta" id="episodeMeta">Loading anime info...</div>
+      <p class="episode-desc" id="episodeDesc">Select sub or dub to start watching. Use Prev/Next buttons to switch episodes.</p>
     </div>
 
     <div class="comments-section">
@@ -687,7 +687,9 @@ ul,ol { list-style:none; }
         <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
         Episodes
       </div>
-      <div class="episode-list" id="episodeList"></div>
+      <div class="episode-list" id="episodeList">
+        <!-- Will be populated by JS -->
+      </div>
     </div>
 
     <div class="sidebar-section">
@@ -787,6 +789,7 @@ let currentEpisode = 1;
 let isSub = true;
 let totalEpisodes = 12;
 let isTheater = false;
+let animeId = null;
 
 // ========== SEARCH ==========
 let searchDebounceTimer = null;
@@ -862,7 +865,7 @@ function setupHeader() {
 
 // ========== PLAYER ==========
 function loadPlayer() {
-  const animeId = getUrlParam('id');
+  if (!animeId) animeId = getUrlParam('id');
   const ep = parseInt(getUrlParam('ep')) || 1;
   const subParam = getUrlParam('sub');
   currentEpisode = ep;
@@ -879,13 +882,17 @@ function loadPlayer() {
   const loading = document.getElementById('playerLoading');
 
   if (frame) {
-    if (loading) loading.classList.remove('hidden');
+    if (loading) loading.style.display = 'flex';
     frame.src = url;
-    // iframe onload/onerror are unreliable for cross-origin, use timeout
+    // Hide loading after iframe likely loaded
     setTimeout(() => {
-      if (loading) loading.classList.add('hidden');
-    }, 3000);
+      if (loading) loading.style.display = 'none';
+    }, 2500);
   }
+
+  // Update episode number display immediately
+  const epNumDisplay = document.getElementById('epNumDisplay');
+  if (epNumDisplay) epNumDisplay.textContent = currentEpisode;
 }
 
 function updatePlayerControls() {
@@ -935,7 +942,8 @@ function toggleFullscreen() {
 function renderEpisodeList() {
   const list = document.getElementById('episodeList');
   if (!list) return;
-  list.innerHTML = Array.from({ length: Math.min(totalEpisodes, 50) }, (_, i) => {
+  const count = totalEpisodes || 12;
+  list.innerHTML = Array.from({ length: Math.min(count, 50) }, (_, i) => {
     const num = i + 1;
     const active = num === currentEpisode ? 'active' : '';
     return `<div class="episode-item ${active}" onclick="switchEpisode(${num})"><div class="episode-num">${num}</div><div class="episode-name">Episode ${num}</div></div>`;
@@ -946,11 +954,13 @@ function updateEpisodeInfo() {
   const title = document.getElementById('episodeTitle');
   const meta = document.getElementById('episodeMeta');
   const desc = document.getElementById('episodeDesc');
+  const epNumDisplay = document.getElementById('epNumDisplay');
   const animeTitle = currentAnime?.title_english || currentAnime?.title || 'Anime';
 
-  if (title) title.textContent = `${animeTitle} - Episode ${currentEpisode}`;
-  if (meta) meta.textContent = `Episode ${currentEpisode} of ${totalEpisodes} · ${isSub ? 'Subbed' : 'Dubbed'}`;
-  if (desc) desc.textContent = `Watching ${animeTitle} Episode ${currentEpisode}. Enjoy high quality streaming with ${isSub ? 'subtitles' : 'English dubbing'}.`;
+  if (epNumDisplay) epNumDisplay.textContent = currentEpisode;
+  if (title && !title.querySelector('#epNumDisplay')) title.innerHTML = `${escapeHtml(animeTitle)} - Episode <span id="epNumDisplay">${currentEpisode}</span>`;
+  if (meta) meta.textContent = `Episode ${currentEpisode} of ${totalEpisodes || '?'} · ${isSub ? 'Subbed' : 'Dubbed'}`;
+  if (desc) desc.textContent = `Watching ${escapeHtml(animeTitle)} Episode ${currentEpisode}. Enjoy high quality streaming with ${isSub ? 'subtitles' : 'English dubbing'}.`;
 }
 
 // ========== RELATED ==========
@@ -1023,52 +1033,51 @@ function setupAutoNext() {
 
 // ========== LOAD ANIME DATA ==========
 async function loadWatchData() {
-  const animeId = getUrlParam('id');
+  animeId = getUrlParam('id');
   if (!animeId) { showError('No anime ID provided'); return; }
 
-  let animeData = null;
-  let recommendationsData = null;
+  // STEP 1: Render player and UI immediately with URL params
+  currentEpisode = Math.min(parseInt(getUrlParam('ep')) || 1, 999);
+  const subParam = getUrlParam('sub');
+  if (subParam !== null) isSub = subParam !== '0';
 
+  renderEpisodeList();
+  updateEpisodeInfo();
+  loadPlayer();
+  updatePlayerControls();
+
+  // Hide page loader immediately - player is ready
+  const pageLoader = document.getElementById('pageLoader');
+  if (pageLoader) pageLoader.classList.add('hidden');
+
+  // STEP 2: Load anime data in background for title and related
   try {
     const results = await Promise.allSettled([
       apiFetch(`/anime/${animeId}/full`),
       apiFetch(`/anime/${animeId}/recommendations`)
     ]);
-    animeData = results[0].status === 'fulfilled' ? results[0].value : null;
-    recommendationsData = results[1].status === 'fulfilled' ? results[1].value : null;
-  } catch (err) {
-    console.error('Load error:', err);
-  }
+    let animeData = results[0].status === 'fulfilled' ? results[0].value : null;
+    const recommendationsData = results[1].status === 'fulfilled' ? results[1].value : null;
 
-  // Try fallback to basic anime endpoint if full fails
-  if (!animeData || !animeData.data) {
-    try {
+    // Fallback to basic endpoint
+    if (!animeData?.data) {
       animeData = await apiFetch(`/anime/${animeId}`);
-    } catch (err) {
-      console.error('Fallback error:', err);
     }
+
+    currentAnime = animeData?.data || null;
+
+    if (currentAnime) {
+      totalEpisodes = currentAnime.episodes || 12;
+      // Re-render with real data
+      renderEpisodeList();
+      updateEpisodeInfo();
+      renderRelated(recommendationsData);
+      document.title = `${currentAnime.title_english || currentAnime.title || 'Anime'} Ep ${currentEpisode} - AnimeStream`;
+    }
+  } catch (err) {
+    console.error('Background load error:', err);
+    // Player still works even if API fails
   }
-
-  currentAnime = animeData?.data || null;
-
-  if (!currentAnime) {
-    showError('Failed to load anime data. Please check the anime ID and try again.');
-    return;
-  }
-
-  totalEpisodes = currentAnime.episodes || 12;
-  currentEpisode = Math.min(parseInt(getUrlParam('ep')) || 1, totalEpisodes);
-
-  renderEpisodeList();
-  updateEpisodeInfo();
-  renderRelated(recommendationsData);
-  loadPlayer();
-  updatePlayerControls();
-
-  document.title = `${currentAnime.title_english || currentAnime.title || 'Anime'} Ep ${currentEpisode} - AnimeStream`;
-
-  const loader = document.getElementById('pageLoader');
-  if (loader) loader.classList.add('hidden');
 }
 
 function showError(message) {
@@ -1083,9 +1092,11 @@ function showError(message) {
       </div>
     `;
   }
-  // Always hide loader on error
-  const loader = document.getElementById('pageLoader');
-  if (loader) { loader.classList.add('hidden'); }
+  // Always hide ALL loaders on error
+  const pageLoader = document.getElementById('pageLoader');
+  const playerLoading = document.getElementById('playerLoading');
+  if (pageLoader) pageLoader.classList.add('hidden');
+  if (playerLoading) playerLoading.style.display = 'none';
 }
 
 // ========== EVENT LISTENERS ==========
@@ -1103,19 +1114,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('fullscreenBtn')?.addEventListener('click', toggleFullscreen);
 
   loadWatchData();
-
-  // Failsafe: hide loader after 15s no matter what
-  setTimeout(() => {
-    const loader = document.getElementById('pageLoader');
-    if (loader && !loader.classList.contains('hidden')) {
-      loader.classList.add('hidden');
-      // If content is still empty, show error
-      const layout = document.getElementById('watchLayout');
-      if (layout && !layout.querySelector('.player-section')) {
-        showError('Loading timed out. The anime data could not be loaded.');
-      }
-    }
-  }, 15000);
 });
 </script>
 </body>
