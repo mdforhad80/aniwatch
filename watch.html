@@ -3,82 +3,537 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Watch anime online free - AnimeStream">
     <title>AnimeStream - Watch</title>
     <style>
         :root {
-            --bg: #0a0a0f; --bg2: #111118; --bg3: #1a1a25; --text: #e2e2e2; --text2: #a0a0b0;
-            --accent: #7c3aed; --accent2: #a855f7; --radius: 12px; --transition: 0.3s;
+            --bg: #0a0a0f;
+            --bg2: #111118;
+            --bg3: #1a1a25;
+            --text: #e2e2e2;
+            --text2: #a0a0b0;
+            --accent: #7c3aed;
+            --accent2: #a855f7;
+            --accent3: #c084fc;
+            --glow: rgba(124, 58, 237, 0.5);
+            --radius: 12px;
+            --radius2: 16px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { background:var(--bg); color:var(--text); font-family:'Segoe UI',system-ui,sans-serif; }
-        .header { position:sticky; top:0; z-index:1000; background:rgba(10,10,15,0.9); backdrop-filter:blur(20px); padding:0 16px; height:56px; display:flex; align-items:center; justify-content:space-between; }
-        .logo { font-weight:800; background:linear-gradient(135deg,var(--accent2),#c084fc); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-        .player-wrapper { width:100%; max-width:1200px; margin:20px auto; padding:0 12px; }
-        .iframe-container { position:relative; width:100%; padding-top:56.25%; background:#000; border-radius:var(--radius); overflow:hidden; }
-        .iframe-container iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:none; }
-        .controls { display:flex; gap:8px; flex-wrap:wrap; margin:12px 0; align-items:center; }
-        .btn { padding:8px 16px; border-radius:20px; background:var(--bg3); color:var(--text); font-size:14px; transition:var(--transition); }
-        .btn.active { background:var(--accent); }
-        .episode-select { display:flex; gap:6px; flex-wrap:wrap; max-height:200px; overflow-y:auto; margin:10px 0; }
-        .episode-select button { padding:6px 12px; border-radius:6px; background:var(--bg3); color:var(--text); }
-        .episode-select button.current { background:var(--accent); }
-        .anime-sidebar { margin-top:20px; }
-        .footer { text-align:center; padding:20px; color:var(--text2); }
-        @media(max-width:600px){ .btn { font-size:12px; padding:6px 10px; } }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            overflow-x: hidden;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            max-width: 100%;
+        }
+        button {
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 0 clamp(12px, 3vw, 40px);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: clamp(18px, 3vw, 24px);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent2), var(--accent3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            white-space: nowrap;
+        }
+        .search-trigger {
+            background: var(--bg3);
+            color: var(--text2);
+            border-radius: 24px;
+            padding: 8px 16px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid transparent;
+        }
+        .search-trigger:hover {
+            border-color: var(--accent);
+            color: var(--text);
+            box-shadow: 0 0 20px var(--glow);
+        }
+
+        /* Main layout */
+        .watch-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px clamp(12px, 3vw, 40px);
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .player-section {
+            flex: 1 1 800px;
+            min-width: 0;
+        }
+        .player-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: #000;
+            border-radius: var(--radius2);
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        }
+        .player-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .player-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 12px 0;
+            align-items: center;
+        }
+        .btn {
+            padding: 10px 20px;
+            border-radius: 24px;
+            background: var(--bg3);
+            color: var(--text);
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 0 16px var(--glow);
+        }
+        .btn:hover:not(.active) {
+            background: var(--bg2);
+            border-color: var(--accent2);
+        }
+        .episode-nav {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .episode-nav .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .episode-list-container {
+            background: var(--bg2);
+            border-radius: var(--radius2);
+            padding: 12px;
+            margin-top: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .episode-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 8px;
+        }
+        .episode-grid button {
+            padding: 8px 4px;
+            border-radius: 8px;
+            background: var(--bg3);
+            color: var(--text);
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+        .episode-grid button:hover {
+            border-color: var(--accent);
+        }
+        .episode-grid button.current {
+            background: var(--accent);
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 0 12px var(--glow);
+        }
+        .jump-ep {
+            display: flex;
+            gap: 8px;
+            margin: 10px 0;
+            align-items: center;
+        }
+        .jump-ep input {
+            width: 80px;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: var(--bg3);
+            color: var(--text);
+            text-align: center;
+            font-size: 14px;
+        }
+        .jump-ep button {
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 13px;
+        }
+
+        /* Sidebar */
+        .anime-sidebar {
+            flex: 0 0 320px;
+            background: var(--bg2);
+            border-radius: var(--radius2);
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            align-self: flex-start;
+            position: sticky;
+            top: 80px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .anime-sidebar .poster {
+            width: 100%;
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        .anime-sidebar .poster img {
+            width: 100%;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+        }
+        .anime-sidebar h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .anime-sidebar .meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: var(--text2);
+            margin-bottom: 10px;
+        }
+        .genres {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .genre-tag {
+            background: rgba(124, 58, 237, 0.2);
+            border: 1px solid var(--accent);
+            padding: 3px 10px;
+            border-radius: 14px;
+            font-size: 11px;
+        }
+        .synopsis {
+            font-size: 13px;
+            color: var(--text2);
+            line-height: 1.6;
+            margin-bottom: 16px;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+        .recommended {
+            margin-top: 20px;
+        }
+        .recommended h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: var(--accent3);
+        }
+        .rec-slider {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scroll-snap-type: x mandatory;
+        }
+        .rec-card {
+            flex: 0 0 120px;
+            scroll-snap-align: start;
+            background: var(--bg3);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .rec-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        }
+        .rec-card img {
+            width: 100%;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+        }
+        .rec-card .rec-title {
+            font-size: 11px;
+            padding: 6px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        @media(max-width:768px) {
+            .watch-container {
+                flex-direction: column;
+            }
+            .anime-sidebar {
+                flex: 0 0 auto;
+                position: static;
+                max-height: none;
+            }
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text2);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: 30px;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text2);
+        }
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: #ef4444;
+        }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <header class="header">
         <a href="index.html" class="logo">AnimeStream</a>
-        <a href="search.html" style="color:var(--text2);">Search</a>
+        <button class="search-trigger" onclick="window.location.href='search.html'">🔍 <span>Search</span></button>
     </header>
-    <div class="player-wrapper" id="app"><div style="text-align:center;padding:40px;">Loading player...</div></div>
-    <footer class="footer">© 2026 AnimeStream</footer>
+
+    <div class="watch-container" id="watchApp">
+        <div class="loading">Loading player...</div>
+    </div>
+
+    <footer class="footer">© 2026 AnimeStream · Stream with Sub/Dub</footer>
+
     <script>
-        (function(){
-            const params=new URLSearchParams(window.location.search);
-            const malId=params.get('id');
-            const ep=parseInt(params.get('ep'))||1;
-            if(!malId){ document.getElementById('app').innerHTML='Missing anime ID.'; return; }
-            let sub=true;
-            function getStreamUrl(subMode){ return `https://megaplay.buzz/stream/mal/${malId}/${ep}/${subMode?'sub':'dub'}`; }
-            function render(){
-                document.getElementById('app').innerHTML=`
-                    <div class="iframe-container"><iframe src="${getStreamUrl(sub)}" allowfullscreen allow="autoplay; fullscreen"></iframe></div>
-                    <div class="controls">
-                        <button class="btn ${sub?'active':''}" id="subBtn">Sub</button>
-                        <button class="btn ${!sub?'active':''}" id="dubBtn">Dub</button>
-                        <button class="btn" id="prevBtn" ${ep<=1?'disabled':''}>◀ Prev</button>
-                        <button class="btn" id="nextBtn">Next ▶</button>
-                        <button class="btn" id="fullscreenBtn">⛶ Fullscreen</button>
+        (function() {
+            const API = 'https://api.jikan.moe/v4';
+            const params = new URLSearchParams(window.location.search);
+            const malId = params.get('id');
+            const initialEp = parseInt(params.get('ep')) || 1;
+
+            if (!malId) {
+                document.getElementById('watchApp').innerHTML = '<div class="error">Missing anime ID. <a href="index.html" style="color:var(--accent2);">Go home</a></div>';
+                return;
+            }
+
+            let currentEp = initialEp;
+            let subMode = true; // true = sub, false = dub
+            let animeData = null;
+            let totalEpisodes = 0;
+
+            function getStreamUrl(ep, sub) {
+                return `https://megaplay.buzz/stream/mal/${malId}/${ep}/${sub ? 'sub' : 'dub'}`;
+            }
+
+            // Fetch anime details and recommendations
+            async function fetchAnimeDetails() {
+                const [animeRes, recRes] = await Promise.all([
+                    fetch(`${API}/anime/${malId}/full`).then(r => r.json()),
+                    fetch(`${API}/anime/${malId}/recommendations`).then(r => r.json()).catch(() => ({ data: [] }))
+                ]);
+                animeData = animeRes.data;
+                totalEpisodes = animeData.episodes || 0;
+                // If no episode count, assume 24? Better to treat as unknown and generate dynamically.
+                if (!totalEpisodes || totalEpisodes === 0) totalEpisodes = 24; // fallback
+                return { anime: animeData, recommendations: recRes.data || [] };
+            }
+
+            function renderEpisodeList(current) {
+                const maxDisplay = Math.min(totalEpisodes, 200); // safe upper bound for rendering
+                let html = '';
+                for (let i = 1; i <= maxDisplay; i++) {
+                    html +=
+                        `<button class="${i === current ? 'current' : ''}" onclick="changeEpisode(${i})">Ep ${i}</button>`;
+                }
+                if (totalEpisodes > maxDisplay) {
+                    html +=
+                        `<div style="grid-column:1/-1;text-align:center;font-size:12px;color:var(--text2);">... and ${totalEpisodes - maxDisplay} more episodes. Use jump to access.</div>`;
+                }
+                return html;
+            }
+
+            function renderApp(anime, recommendations) {
+                const title = anime.title_english || anime.title || 'Unknown';
+                const poster = anime.images?.jpg?.large_image_url || anime.images?.jpg?.image_url || '';
+                const score = anime.score ? anime.score.toFixed(1) : 'N/A';
+                const genres = (anime.genres || []).map(g => `<span class="genre-tag">${g.name}</span>`).join('');
+                const synopsis = anime.synopsis || 'No synopsis available.';
+
+                const appHTML = `
+                <div class="player-section">
+                    <div class="player-wrapper">
+                        <iframe src="${getStreamUrl(currentEp, subMode)}" allowfullscreen allow="autoplay; fullscreen" id="videoFrame"></iframe>
                     </div>
-                    <div class="episode-select" id="epList">Loading episodes...</div>
+                    <div class="player-controls">
+                        <button class="btn ${subMode ? 'active' : ''}" id="subBtn">🎙️ Sub</button>
+                        <button class="btn ${!subMode ? 'active' : ''}" id="dubBtn">🗣️ Dub</button>
+                        <button class="btn" id="fullscreenBtn">⛶ Fullscreen</button>
+                        <div style="flex:1;"></div>
+                        <div class="episode-nav">
+                            <button class="btn" id="prevBtn" ${currentEp <= 1 ? 'disabled' : ''}>◀ Prev</button>
+                            <span style="padding:0 8px;font-weight:600;align-self:center;">Ep ${currentEp}</span>
+                            <button class="btn" id="nextBtn" ${currentEp >= totalEpisodes ? 'disabled' : ''}>Next ▶</button>
+                        </div>
+                    </div>
+                    <div class="jump-ep">
+                        <span>Jump to:</span>
+                        <input type="number" id="jumpInput" min="1" max="${totalEpisodes}" value="${currentEp}" placeholder="Ep">
+                        <button id="jumpBtn">Go</button>
+                    </div>
+                    <div class="episode-list-container">
+                        <div class="episode-grid" id="episodeGrid">
+                            ${renderEpisodeList(currentEp)}
+                        </div>
+                    </div>
+                </div>
+                <div class="anime-sidebar">
+                    <div class="poster"><img src="${poster}" alt="${title}" onerror="this.style.opacity='0.4'"></div>
+                    <h2>${title}</h2>
+                    <div class="meta">
+                        <span>⭐ ${score}</span>
+                        <span>📺 ${anime.type || 'TV'}</span>
+                        <span>📅 ${anime.year || ''}</span>
+                    </div>
+                    <div class="genres">${genres}</div>
+                    <div class="synopsis">${synopsis}</div>
+                    <div class="recommended">
+                        <h3>Recommended for You</h3>
+                        <div class="rec-slider" id="recSlider">
+                            ${(recommendations || []).slice(0, 12).map(rec => `
+                                <a class="rec-card" href="watch.html?id=${rec.entry.mal_id}&ep=1" title="${rec.entry.title}">
+                                    <img src="${rec.entry.images?.jpg?.image_url || ''}" alt="" loading="lazy">
+                                    <div class="rec-title">${rec.entry.title}</div>
+                                </a>
+                            `).join('')}
+                            ${recommendations.length === 0 ? '<div style="color:var(--text2);font-size:12px;">No recommendations available.</div>' : ''}
+                        </div>
+                    </div>
+                </div>
                 `;
-                document.getElementById('subBtn').addEventListener('click',()=>{ sub=true; render(); });
-                document.getElementById('dubBtn').addEventListener('click',()=>{ sub=false; render(); });
-                document.getElementById('prevBtn').addEventListener('click',()=>{ if(ep>1) window.location.href=`watch.html?id=${malId}&ep=${ep-1}`; });
-                document.getElementById('nextBtn').addEventListener('click',()=>{ window.location.href=`watch.html?id=${malId}&ep=${ep+1}`; });
-                document.getElementById('fullscreenBtn').addEventListener('click',()=>{ document.querySelector('iframe').requestFullscreen(); });
-                loadEpisodes();
+                document.getElementById('watchApp').innerHTML = appHTML;
+                attachEvents();
             }
-            async function loadEpisodes(){
-                try{
-                    const resp=await fetch(`https://api.jikan.moe/v4/anime/${malId}/full`);
-                    const data=await resp.json();
-                    const total=data.data.episodes||24;
-                    const epList=document.getElementById('epList');
-                    let html='';
-                    for(let i=1;i<=Math.min(total,24);i++){
-                        html+=`<button class="${i===ep?'current':''}" onclick="window.location.href='watch.html?id=${malId}&ep=${i}'">Ep ${i}</button>`;
+
+            function attachEvents() {
+                document.getElementById('subBtn').addEventListener('click', () => {
+                    subMode = true;
+                    updatePlayerSource();
+                    document.getElementById('subBtn').classList.add('active');
+                    document.getElementById('dubBtn').classList.remove('active');
+                });
+                document.getElementById('dubBtn').addEventListener('click', () => {
+                    subMode = false;
+                    updatePlayerSource();
+                    document.getElementById('dubBtn').classList.add('active');
+                    document.getElementById('subBtn').classList.remove('active');
+                });
+                document.getElementById('fullscreenBtn').addEventListener('click', () => {
+                    const iframe = document.getElementById('videoFrame');
+                    if (iframe) iframe.requestFullscreen();
+                });
+                document.getElementById('prevBtn').addEventListener('click', () => {
+                    if (currentEp > 1) changeEpisode(currentEp - 1);
+                });
+                document.getElementById('nextBtn').addEventListener('click', () => {
+                    if (currentEp < totalEpisodes) changeEpisode(currentEp + 1);
+                });
+                document.getElementById('jumpBtn').addEventListener('click', () => {
+                    const val = parseInt(document.getElementById('jumpInput').value);
+                    if (val >= 1 && val <= totalEpisodes) changeEpisode(val);
+                });
+                // Keyboard shortcuts
+                document.addEventListener('keydown', function(e) {
+                    if (e.target.tagName === 'INPUT') return;
+                    if (e.key === 'ArrowRight' && currentEp < totalEpisodes) changeEpisode(currentEp + 1);
+                    if (e.key === 'ArrowLeft' && currentEp > 1) changeEpisode(currentEp - 1);
+                    if (e.key === 'f' && !e.ctrlKey && !e.metaKey) {
+                        const iframe = document.getElementById('videoFrame');
+                        if (iframe) iframe.requestFullscreen();
                     }
-                    epList.innerHTML=html;
-                }catch(e){ document.getElementById('epList').innerHTML='Could not load episodes.'; }
+                });
             }
-            render();
-            document.addEventListener('keydown',function(e){
-                if(e.key==='ArrowRight') window.location.href=`watch.html?id=${malId}&ep=${ep+1}`;
-                if(e.key==='ArrowLeft'&&ep>1) window.location.href=`watch.html?id=${malId}&ep=${ep-1}`;
-            });
+
+            function updatePlayerSource() {
+                const iframe = document.getElementById('videoFrame');
+                if (iframe) iframe.src = getStreamUrl(currentEp, subMode);
+            }
+
+            window.changeEpisode = function(ep) {
+                if (ep === currentEp) return;
+                currentEp = ep;
+                updatePlayerSource();
+                // Rebuild episode list to update current class
+                const grid = document.getElementById('episodeGrid');
+                if (grid) grid.innerHTML = renderEpisodeList(currentEp);
+                document.querySelector('.episode-nav span').textContent = `Ep ${currentEp}`;
+                document.getElementById('prevBtn').disabled = currentEp <= 1;
+                document.getElementById('nextBtn').disabled = currentEp >= totalEpisodes;
+                // Update jump input
+                const jumpInput = document.getElementById('jumpInput');
+                if (jumpInput) jumpInput.value = currentEp;
+                // Update URL without reload
+                const newUrl = `watch.html?id=${malId}&ep=${currentEp}`;
+                window.history.replaceState({}, '', newUrl);
+            };
+
+            async function init() {
+                try {
+                    const { anime, recommendations } = await fetchAnimeDetails();
+                    renderApp(anime, recommendations);
+                } catch (err) {
+                    document.getElementById('watchApp').innerHTML =
+                        '<div class="error">Failed to load anime data. <button onclick="location.reload()" style="padding:8px 16px;border-radius:20px;background:var(--accent);color:#fff;">Retry</button></div>';
+                }
+            }
+
+            init();
         })();
     </script>
 </body>
