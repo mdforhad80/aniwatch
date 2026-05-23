@@ -1340,7 +1340,7 @@ ul, ol { list-style: none; }
   }
 
   // Chunked episode rendering for performance with 1000+ episodes
-  const EP_CHUNK_SIZE = 100;
+  const EP_CHUNK_SIZE = 10000;
   let renderedEpCount = 0;
 
   async function loadEpisodes(malId, totalEps) {
