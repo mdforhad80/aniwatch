@@ -149,10 +149,246 @@ main{max-width:1400px;margin:0 auto;padding:clamp(24px,4vw,48px) clamp(16px,3vw,
 .studio-list{display:flex;flex-wrap:wrap;gap:8px}
 .studio-tag{padding:6px 14px;background:rgba(124,58,237,0.1);border:1px solid var(--border-accent);border-radius:8px;font-size:12px;font-weight:600;color:var(--accent-bright)}
 
-@media(max-width:768px){
-  .banner-content{flex-direction:column;align-items:flex-start;gap:16px}
-  .anime-poster{width:100px}
-  .banner-actions{flex-wrap:wrap}
+/* ============================================
+   MOBILE RESPONSIVENESS — COMPREHENSIVE PATCH
+   Targets: 320px / 360px / 390px / 414px / tablet
+   Desktop layout is UNCHANGED above 900px
+   ============================================ */
+
+/* ----- Base safety guards ----- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: hidden; max-width: 100%; }
+img, video, iframe { max-width: 100%; }
+
+/* ----- Tablet (max 900px) ----- */
+@media (max-width: 900px) {
+  .main-grid { grid-template-columns: 1fr; gap: 24px; }
+
+  /* Move stats sidebar below main content on tablet */
+  .main-grid > div:last-child { order: -1; }
+
+  /* Score card compact on tablet */
+  .score-big { padding: 12px 0; }
+  .score-number { font-size: 42px; }
+
+  /* Sidebar info horizontal row on tablet */
+  .sidebar-info { padding: 16px; }
+  .stat-row { padding: 7px 0; }
+}
+
+/* ----- Mobile (max 768px) ----- */
+@media (max-width: 768px) {
+
+  /* --- HEADER --- */
+  #header {
+    padding: 0 12px;
+    gap: 8px;
+    height: 56px;
+    --header-h: 56px;
+  }
+  .nav-links { display: none; }
+  .logo { font-size: 18px; }
+  .hamburger { width: 36px; height: 36px; }
+  .icon-btn { width: 36px; height: 36px; font-size: 16px; }
+
+  /* --- SIDEBAR --- */
+  #sidebar { width: min(260px, 85vw); padding-top: 56px; }
+  .sidebar-nav { padding: 16px 12px; }
+  .sidebar-nav a { padding: 10px 12px; font-size: 14px; }
+
+  /* --- SEARCH OVERLAY --- */
+  #search-overlay { padding-top: 60px; padding-left: 12px; padding-right: 12px; }
+  .search-box { width: 100%; }
+  .search-box input { font-size: 15px; padding: 14px 48px; }
+  #search-results-overlay { width: 100%; }
+  .search-item img { width: 36px; height: 52px; }
+  .search-item-info h4 { font-size: 13px; }
+
+  /* --- HERO BANNER --- */
+  #anime-banner {
+    height: auto;
+    min-height: unset;
+    margin-top: 56px;
+    padding-bottom: 24px;
+  }
+  .banner-bg { filter: blur(1px) brightness(0.35); }
+  .banner-overlay {
+    background:
+      linear-gradient(0deg, rgba(8,8,16,1) 0%, rgba(8,8,16,0.7) 50%, rgba(8,8,16,0.3) 100%);
+  }
+  .banner-content {
+    flex-direction: row;
+    align-items: flex-end;
+    padding: 16px;
+    gap: 14px;
+    height: auto;
+    padding-top: 80px;
+    flex-wrap: nowrap;
+  }
+  .poster-wrap { flex-shrink: 0; }
+  .anime-poster {
+    width: clamp(80px, 22vw, 110px);
+    border-radius: 8px;
+  }
+  .banner-info { flex: 1; min-width: 0; overflow: hidden; }
+  .anime-title-main {
+    font-size: clamp(16px, 5vw, 24px);
+    line-height: 1.2;
+    word-break: break-word;
+    margin-bottom: 4px;
+  }
+  .anime-title-en {
+    font-size: 12px;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .info-badges {
+    gap: 5px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .info-badge {
+    padding: 3px 10px;
+    font-size: 10px;
+  }
+  .banner-actions {
+    flex-direction: row;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .btn-primary, .btn-secondary {
+    padding: 9px 14px;
+    font-size: 13px;
+    flex: 1;
+    min-width: 0;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  /* --- MAIN --- */
+  main {
+    padding: 16px 12px;
+  }
+  .main-grid { gap: 16px; }
+
+  /* Stats sidebar — inline compact on mobile */
+  .sidebar-info { padding: 14px 12px; border-radius: var(--radius); margin-bottom: 16px; }
+  .score-big { padding: 8px 0; }
+  .score-number { font-size: 36px; }
+  .score-label { font-size: 11px; }
+  .score-stars { font-size: 14px; }
+  .stat-row { padding: 6px 0; }
+  .stat-label, .stat-value { font-size: 12px; }
+
+  /* Stats grid: two-column on mobile */
+  .sidebar-info .stat-rows-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  /* --- TABS --- */
+  .tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0;
+    padding-bottom: 0;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    padding: 10px 14px;
+    font-size: 13px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* --- SYNOPSIS / INFO --- */
+  .synopsis-text { font-size: 13px; line-height: 1.7; margin-bottom: 16px; }
+  .info-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .info-item label { font-size: 10px; }
+  .info-item span { font-size: 12px; }
+  .genres-wrap { gap: 6px; margin-bottom: 16px; }
+  .genre-tag { padding: 4px 10px; font-size: 12px; }
+
+  /* --- EPISODE GRID --- */
+  .ep-grid {
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 6px;
+    max-height: 320px;
+    padding-right: 4px;
+  }
+  .ep-btn {
+    padding: 8px 4px;
+    font-size: 12px;
+    min-height: 38px;
+  }
+
+  /* --- CHARACTERS --- */
+  .chars-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 10px;
+  }
+  .char-info { padding: 8px; }
+  .char-name { font-size: 12px; }
+  .char-role { font-size: 10px; }
+
+  /* --- RELATIONS --- */
+  .rel-item { padding: 10px; gap: 10px; }
+  .rel-img { width: 42px; height: 60px; }
+  .rel-title { font-size: 12px; }
+  .rel-relation { font-size: 10px; }
+  .rel-meta { font-size: 10px; }
+
+  /* --- RECOMMENDATIONS --- */
+  .rec-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 8px;
+  }
+  .rec-title { padding: 6px; font-size: 11px; }
+
+  /* --- TRAILER --- */
+  .trailer-wrap { border-radius: var(--radius); }
+
+  /* --- STUDIO TAGS --- */
+  .studio-list { gap: 6px; }
+  .studio-tag { padding: 4px 10px; font-size: 11px; }
+}
+
+/* ----- Small mobile (max 480px) ----- */
+@media (max-width: 480px) {
+  #header { padding: 0 10px; gap: 6px; }
+  .logo { font-size: 16px; }
+
+  .banner-content { padding: 12px; padding-top: 70px; gap: 10px; }
+  .anime-poster { width: clamp(72px, 20vw, 90px); }
+  .anime-title-main { font-size: clamp(14px, 4.5vw, 20px); }
+  .anime-title-en { display: none; }
+  .btn-primary, .btn-secondary { padding: 8px 12px; font-size: 12px; }
+
+  .info-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .chars-grid { grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)); }
+  .rec-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
+
+  main { padding: 12px 10px; }
+  .score-number { font-size: 32px; }
+}
+
+/* ----- Extra small (max 360px) ----- */
+@media (max-width: 360px) {
+  .anime-poster { width: 68px; }
+  .anime-title-main { font-size: 14px; }
+  .info-badges { gap: 4px; }
+  .info-badge { padding: 2px 7px; font-size: 9px; }
+  .btn-primary, .btn-secondary { font-size: 11px; padding: 7px 10px; }
+  .tab-btn { padding: 8px 10px; font-size: 12px; }
 }
 </style>
 </head>
