@@ -124,9 +124,6 @@ ul{list-style:none}
 .hero-arrows{position:absolute;right:clamp(16px,3vw,40px);bottom:50%;transform:translateY(50%);display:flex;flex-direction:column;gap:8px;z-index:10}
 .hero-arrow{width:46px;height:46px;background:rgba(255,255,255,0.08);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--text-primary);font-size:18px;cursor:pointer;transition:all var(--transition)}
 .hero-arrow:hover{background:var(--accent);border-color:var(--accent)}
-.hero-dots{position:absolute;bottom:32px;right:clamp(16px,3vw,40px);display:flex;gap:6px;z-index:10}
-.hero-dot{width:6px;height:6px;background:rgba(255,255,255,0.3);border-radius:3px;cursor:pointer;transition:all var(--transition)}
-.hero-dot.active{width:24px;background:var(--accent-bright)}
 .hero-progress{position:absolute;bottom:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width 0.1s linear}
 
 /* ===== MAIN CONTENT ===== */
@@ -252,7 +249,7 @@ footer{border-top:1px solid var(--border);padding:32px clamp(16px,4vw,48px);text
     <button class="hero-arrow" id="hero-prev">▲</button>
     <button class="hero-arrow" id="hero-next">▼</button>
   </div>
-  <div class="hero-dots" id="hero-dots"></div>
+  <!-- hero dots removed -->
   <div class="hero-progress" id="hero-progress"></div>
 </section>
 
@@ -516,7 +513,6 @@ let heroIndex = 0, heroTotal = 0, heroTimer = null, heroProgress = 0, heroProgre
 
 function renderHeroSlides(items) {
   const track = document.getElementById('hero-track');
-  const dots = document.getElementById('hero-dots');
   heroTotal = Math.min(items.length, 12);
 
   track.innerHTML = items.slice(0, heroTotal).map((a, i) => {
@@ -548,26 +544,15 @@ function renderHeroSlides(items) {
     </div>`;
   }).join('');
 
-  dots.innerHTML = Array(heroTotal).fill(0).map((_, i) =>
-    `<span class="hero-dot${i === 0 ? ' active' : ''}" data-i="${i}"></span>`
-  ).join('');
-
-  dots.querySelectorAll('.hero-dot').forEach(dot => {
-    dot.addEventListener('click', () => goHero(+dot.dataset.i));
-  });
-
   startHeroAuto();
 }
 
 function goHero(idx) {
   const slides = document.querySelectorAll('.hero-slide');
-  const dots = document.querySelectorAll('.hero-dot');
   if (!slides.length) return;
   slides[heroIndex]?.classList.remove('active');
-  dots[heroIndex]?.classList.remove('active');
   heroIndex = ((idx % heroTotal) + heroTotal) % heroTotal;
   slides[heroIndex]?.classList.add('active');
-  dots[heroIndex]?.classList.add('active');
   const track = document.getElementById('hero-track');
   track.style.transform = `translateX(-${heroIndex * 100}%)`;
   resetHeroProgress();
@@ -660,12 +645,12 @@ async function init() {
   if (heroData?.data?.length) renderHeroSlides(heroData.data);
 
   const sections = [
-    { id: 'recent', url: '/top/anime?filter=airing&limit=20' },
-    { id: 'trending', url: '/top/anime?filter=bypopularity&limit=20' },
-    { id: 'toprated', url: '/top/anime?limit=20' },
-    { id: 'airing', url: '/top/anime?filter=airing&limit=20' },
-    { id: 'upcoming', url: '/top/anime?filter=upcoming&limit=20' },
-    { id: 'completed', url: '/top/anime?filter=complete&limit=20' },
+    { id: 'recent',    url: '/top/anime?filter=airing&limit=20&page=1' },
+    { id: 'trending',  url: '/top/anime?filter=bypopularity&limit=20&page=1' },
+    { id: 'toprated',  url: '/top/anime?filter=byviewed&limit=20&page=1' },
+    { id: 'airing',    url: '/top/anime?filter=airing&limit=20&page=2' },
+    { id: 'upcoming',  url: '/top/anime?filter=upcoming&limit=20&page=1' },
+    { id: 'completed', url: '/anime?status=complete&order_by=score&sort=desc&limit=20&sfw=true' },
   ];
 
   // Load with stagger to avoid rate limiting
