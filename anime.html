@@ -179,74 +179,315 @@ ul, ol { list-style: none; }
 .sidebar-nav a svg { width: 20px; height: 20px; stroke: currentColor; flex-shrink: 0; }
 
 /* ==================== SEARCH OVERLAY ==================== */
+/* ==================== SEARCH OVERLAY ==================== */
 .search-overlay {
   position: fixed; inset: 0;
-  background: rgba(5,5,5,0.95);
-  backdrop-filter: blur(20px);
+  background: rgba(5,5,5,0.97);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   z-index: 1200;
   opacity: 0; pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1);
   display: flex; flex-direction: column;
   padding: clamp(16px, 4vw, 48px);
 }
 .search-overlay.active { opacity: 1; pointer-events: all; }
 .search-top {
-  display: flex; align-items: center; gap: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 24px;
+  max-width: 800px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
-.search-input-wrap { flex: 1; position: relative; }
+.search-input-wrap {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 .search-input-wrap svg {
-  position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
-  width: 20px; height: 20px; stroke: var(--text-muted); pointer-events: none;
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  stroke: var(--primary);
+  pointer-events: none;
+  z-index: 2;
 }
 .search-input {
   width: 100%;
-  padding: 14px 16px 14px 48px;
+  padding: 16px 20px 16px 52px;
   background: var(--surface-2);
-  border: 1px solid var(--border);
+  border: 2px solid rgba(139,92,246,0.2);
   border-radius: var(--radius-lg);
   color: var(--text);
-  font-size: 1rem;
+  font-size: 1.05rem;
+  font-weight: 500;
   outline: none;
   transition: var(--transition);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+.search-input::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
 }
 .search-input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px var(--primary-glow);
+  box-shadow: 0 0 0 4px var(--primary-glow), 0 4px 24px rgba(0,0,0,0.3);
+  background: var(--surface);
 }
 .search-close {
-  width: 44px; height: 44px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 12px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
   background: var(--surface-2);
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+  transition: var(--transition);
 }
-.search-close:hover { background: var(--surface-3); }
-.search-close svg { width: 22px; height: 22px; stroke: var(--text); }
-.search-suggestions {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 16px;
-  overflow-y: auto;
-  padding-bottom: 40px;
+.search-close:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  transform: rotate(90deg);
 }
-.search-empty { text-align: center; color: var(--text-muted); padding: 48px 16px; font-size: 1rem; }
+.search-close:hover svg { stroke: #fff; }
+.search-close svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--text-muted);
+  transition: var(--transition);
+}
 
-/* ==================== ANIME BANNER ==================== */
-.anime-banner {
-  position: relative;
+/* Search Suggestions Container */
+.search-suggestions {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 40px;
+  max-width: 800px;
   width: 100%;
-  height: clamp(300px, 45vh, 550px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Horizontal Search Result Card (Mobile-first, also looks great on desktop) */
+.search-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
   overflow: hidden;
 }
-.anime-banner-bg {
-  position: absolute; inset: 0;
-  background-size: cover;
-  background-position: center 20%;
-  filter: blur(2px) brightness(0.5);
+.search-card:hover,
+.search-card:active {
+  background: var(--surface-3);
+  border-color: var(--primary);
+  transform: translateX(6px);
+  box-shadow: 0 8px 32px rgba(139,92,246,0.12);
 }
-.anime-banner-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to bottom, rgba(5,5,5,0.3) 0%, var(--bg) 100%);
+.search-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+}
+.search-card:hover::before,
+.search-card:active::before {
+  opacity: 1;
+}
+
+.search-card-img {
+  width: 72px;
+  height: 100px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--surface-3);
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.search-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.search-card:hover .search-card-img img {
+  transform: scale(1.1);
+}
+
+.search-card-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.search-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.search-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.search-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  flex-shrink: 0;
+}
+.search-badge-hd {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(239,68,68,0.3);
+}
+.search-badge-score {
+  background: rgba(251,191,36,0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(251,191,36,0.25);
+}
+.search-badge-ep {
+  background: rgba(139,92,246,0.15);
+  color: var(--secondary);
+  border: 1px solid rgba(139,92,246,0.25);
+}
+.search-badge-type {
+  background: rgba(255,255,255,0.08);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.search-card-arrow {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(139,92,246,0.1);
+  color: var(--primary);
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+.search-card:hover .search-card-arrow {
+  background: var(--primary);
+  color: #fff;
+  transform: translateX(2px);
+}
+.search-card-arrow svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 2.5;
+}
+
+/* Search empty / loading state */
+.search-empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 48px 16px;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.search-empty::before {
+  content: '🔍';
+  font-size: 2.5rem;
+  opacity: 0.5;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Desktop grid override for search cards */
+@media (min-width: 769px) {
+  .search-suggestions {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 14px;
+  }
+  .search-card {
+    padding: 12px 16px;
+  }
+  .search-card-img {
+    width: 80px;
+    height: 110px;
+  }
+  .search-card-title {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile-specific tweaks */
+@media (max-width: 480px) {
+  .search-top {
+    gap: 8px;
+  }
+  .search-input {
+    padding: 14px 16px 14px 46px;
+    font-size: 1rem;
+  }
+  .search-input-wrap svg {
+    width: 20px;
+    height: 20px;
+    left: 14px;
+  }
+  .search-close {
+    width: 42px;
+    height: 42px;
+  }
+  .search-card {
+    padding: 8px 12px;
+    gap: 12px;
+  }
+  .search-card-img {
+    width: 60px;
+    height: 85px;
+    border-radius: 8px;
+  }
+  .search-card-title {
+    font-size: 0.85rem;
+  }
+  .search-badge {
+    padding: 2px 8px;
+    font-size: 0.65rem;
+  }
 }
 
 /* ==================== ANIME DETAILS GRID ==================== */
