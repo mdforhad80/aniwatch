@@ -532,7 +532,7 @@ ul, ol { list-style: none; }
 }
 .slider-track::-webkit-scrollbar { display: none; }
 .slider-track.dragging { scroll-behavior: auto; cursor: grabbing; }
-.slider-track.dragging .anime-card { /* pointer-events handled by JS */ }
+
 .slider-arrow {
   position: absolute;
   top: 50%; transform: translateY(-50%);
@@ -710,9 +710,9 @@ ul, ol { list-style: none; }
     </a>
   </div>
   <div class="header-right">
-        <button class="search-btn" id="searchBtn" aria-label="Search">
+        <a href="https://www.animeheaven.pro.bd/search.html" class="search-btn" aria-label="Search">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    </button>
+    </a>
   </div>
 </header>
 
@@ -1013,20 +1013,14 @@ ul, ol { list-style: none; }
     let isDown = false;
     let startX, scrollLeft;
     let dragStartX = 0;
-    let dragStartY = 0;
     let didDrag = false;
 
-    function isOnCard(e) {
-      return !!(e.target && e.target.closest('.anime-card'));
-    }
-
     function onMouseDown(e) {
-      // If clicking directly on a card, don't start drag — let the <a> handle it
-      if (isOnCard(e)) return;
+      // Only start drag if clicking on empty track space, NOT on a card
+      if (e.target.closest('.anime-card')) return;
       isDown = true;
       didDrag = false;
       dragStartX = e.pageX;
-      dragStartY = e.pageY;
       track.classList.add('dragging');
       startX = e.pageX - track.offsetLeft;
       scrollLeft = track.scrollLeft;
@@ -1035,16 +1029,15 @@ ul, ol { list-style: none; }
       isDown = false;
       track.classList.remove('dragging');
     }
-    function onMouseUp(e) {
+    function onMouseUp() {
       isDown = false;
       track.classList.remove('dragging');
     }
     function onMouseMove(e) {
       if (!isDown) return;
-      e.preventDefault();
       const x = e.pageX - track.offsetLeft;
       const walk = (x - startX) * 1.5;
-      if (Math.abs(walk) > 4) didDrag = true;
+      if (Math.abs(walk) > 3) didDrag = true;
       track.scrollLeft = scrollLeft - walk;
     }
     function onWheel(e) {
@@ -1060,44 +1053,27 @@ ul, ol { list-style: none; }
     track.addEventListener('mousemove', onMouseMove);
     track.addEventListener('wheel', onWheel, { passive: false });
 
-    // Touch support — only drag on empty space, tap cards navigate
+    // Touch: let cards handle their own taps via <a> tag
+    // Only drag when touching empty space
     let touchStartX = 0;
     let touchScrollLeft = 0;
-    let touchStartY = 0;
-    let touchDragged = false;
     let touchOnCard = false;
+    let touchDragged = false;
 
     track.addEventListener('touchstart', (e) => {
       const t = e.touches[0];
       touchStartX = t.clientX;
-      touchStartY = t.clientY;
       touchScrollLeft = track.scrollLeft;
-      touchDragged = false;
       touchOnCard = !!(e.target && e.target.closest('.anime-card'));
+      touchDragged = false;
     }, { passive: true });
 
     track.addEventListener('touchmove', (e) => {
+      if (touchOnCard) return; // Don't scroll track if touching a card
       const t = e.touches[0];
       const diffX = Math.abs(touchStartX - t.clientX);
-      const diffY = Math.abs(touchStartY - t.clientY);
-      if (diffX > 8 || diffY > 8) touchDragged = true;
-      // Only scroll if not touching a card, or if we've started dragging
-      if (!touchOnCard || touchDragged) {
-        track.scrollLeft = touchScrollLeft + (touchStartX - t.clientX);
-      }
-    }, { passive: true });
-
-    track.addEventListener('touchend', (e) => {
-      // If it was a tap on a card (no drag), navigate
-      if (touchOnCard && !touchDragged) {
-        const t = e.changedTouches[0];
-        const el = document.elementFromPoint(t.clientX, t.clientY);
-        const card = el ? el.closest('.anime-card') : null;
-        if (card) {
-          const href = card.getAttribute('href');
-          if (href && href !== '#') window.location.href = href;
-        }
-      }
+      if (diffX > 5) touchDragged = true;
+      track.scrollLeft = touchScrollLeft + (touchStartX - t.clientX);
     }, { passive: true });
 
     SliderRegistry.set(trackId, { track });
@@ -1458,7 +1434,7 @@ ul, ol { list-style: none; }
   async function initApp() {
     initHeaderScroll();
     MobileNav.init();
-    // SearchOverlay.init(); // Disabled — search icon now links to external search page
+    SearchOverlay.init();
 
     // Load hero and widgets with Promise.allSettled for stability
     const promises = [
